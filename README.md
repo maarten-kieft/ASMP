@@ -6,11 +6,11 @@ Milestones:
 1. Getting to know git better
 2. Creating a hello world python application
 3. Setting up a docker scipt file to contain the application
-4. Read values from the p1 port and display the result
+4. Read values from the p1 port and display the result in the console
 5. Store values in the database
 6. Create a web application to display the data from the database
 7. Create a fancy web application
 	Showing the current usage
 	Showing a graph of todays usage
 	Showing a comparison between yesterday, last month, last year
-	
+  
