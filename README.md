@@ -12,5 +12,6 @@ Milestones:
 7. Create a fancy web application
 	Showing the current usage
 	Showing a graph of todays usage
+    Showing a graph of day and night usage
 	Showing a comparison between yesterday, last month, last year
   
