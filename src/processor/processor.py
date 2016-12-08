@@ -13,15 +13,15 @@ class Processor:
         except:
             sys.exit ("Failed to open serial connection:"  % ser.name)
 
-        while self.running
+        while self.running:
             line = ser.readline()
             
             if len(data) > 0:
                 message.apend(line)
-            elif len(message) > 0
+            elif len(message) > 0:
                 self.parse(message)
                 message = []
-            else
+            else:
                 sleep(1)
         
         print("Clossing connection")
@@ -35,7 +35,7 @@ class Processor:
         connection.stopbits=serial.STOPBITS_ONE
         connection.xonxoff=0
         connection.rtscts=0
-        connection.timeout=02
+        connection.timeout=2
         connection.port="/dev/ttyUSB0"
 
         return connection
@@ -45,7 +45,7 @@ class Processor:
         self.running = False
         print("Stopping..")
 
-    def parse(self, message)
+    def parse(self, message):
         print("Parssing message")
         for i, line in enumerate(message):
             print(i, line)
@@ -54,8 +54,6 @@ processor = Processor()
 
 processor.start()
 #processor.stop()
-#connect to serial
-#get a message back and put it into a model object
 #determine the right parser
 #parse the message and return a measurement object
 #store the measurement object in the database
