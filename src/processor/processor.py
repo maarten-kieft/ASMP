@@ -6,53 +6,66 @@ class Processor:
     
     def start(self):
         connection = self.createConnection()
-        message = []
+         
+        print("connecting")
+        connection.open()
         
-        try:
-            connection.open()
-        except:
-            sys.exit ("Failed to open serial connection:"  % ser.name)
-
-        while self.running:
-            line = ser.readline()
-            
-            if len(data) > 0:
-                message.apend(line)
-            elif len(message) > 0:
-                self.parse(message)
-                message = []
-            else:
-                sleep(1)
-        
+        print("listening")
+        self.listen(connection)
+       
         print("Clossing connection")
         connection.close()
 
     def createConnection(self):
         connection = serial.Serial()
-        connection.baudrate = 9600
-        connection.bytesize=serial.SEVENBITS
-        connection.parity=serial.PARITY_EVEN
+        connection.baudrate = 115200
+        connection.bytesize=serial.EIGHTBITS
+        connection.parity=serial.PARITY_NONE
         connection.stopbits=serial.STOPBITS_ONE
         connection.xonxoff=0
         connection.rtscts=0
-        connection.timeout=2
-        connection.port="/dev/ttyUSB0"
+        connection.timeout=1
+        #connection.port="/dev/ttyUSB0"
+        connection.port="COM3"
 
         return connection
-        
+
+    def listen(self, connection):
+        message = []
+       
+        while self.running:
+            line = str(connection.readline().decode("utf-8")).strip()
+            #print("ik heb een lijn")
+            #print(line)
+            if len(line) == 0:
+                continue
+            
+            if line[0] == "!":
+                self.parse(message)
+                message = []
+            else:
+                message.append(line)
 
     def stop(self):
         self.running = False
         print("Stopping..")
 
     def parse(self, message):
-        print("Parssing message")
+        print("Parsing message")
+
+        file = open("result.txt","w")
+
         for i, line in enumerate(message):
             print(i, line)
-    
-processor = Processor()
+            file.write(line+"\n")
 
-processor.start()
+        file.close()
+
+
+processor = Processor().start()
+
+#line
+#processor.start()
 #processor.stop()
 #determine the right parser
 #parse the message and return a measurement object
