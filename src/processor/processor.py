@@ -1,4 +1,5 @@
 import serial
+import re
 from time import sleep
 
 class Processor:
@@ -7,10 +8,10 @@ class Processor:
     def start(self):
         connection = self.createConnection()
          
-        print("connecting")
+        print("Connecting")
         connection.open()
         
-        print("listening")
+        print("Listening")
         self.listen(connection)
        
         print("Clossing connection")
@@ -35,13 +36,12 @@ class Processor:
        
         while self.running:
             line = str(connection.readline().decode("utf-8")).strip()
-            #print("ik heb een lijn")
-            #print(line)
+
             if len(line) == 0:
                 continue
             
             if line[0] == "!":
-                self.parse(message)
+                self.interpretMessage(message)
                 message = []
             else:
                 message.append(line)
@@ -50,19 +50,54 @@ class Processor:
         self.running = False
         print("Stopping..")
 
-    def parse(self, message):
-        print("Parsing message")
+    def interpretMessage(self, message):
+        print("Interpreting message")
+        measurement = {}
 
-        file = open("result.txt","w")
-
+        
         for i, line in enumerate(message):
-            print(i, line)
-            file.write(line+"\n")
+            lineNodes = self.parseLine(line)
+            key = self.interpretLineKey(lineNodes[0])       
+            value = self.interpretLineValue(lineNodes[1])
 
-        file.close()
+            if key is not None:
+                measurement[key] = value
+                print(key)
+                print(value)
+                                       
+    def parseLine(self, line):
+        print(line)
+
+        pattern = re.compile("^([^\(]*)\(([^\)]*)\)$")
+        line = "1-0:1.8.1(000060.140*kWh)"
+        match = pattern.match(line)
+
+        return (match.group(1),match.group(2))
+
+    def interpretLineKey(self, keyNode):
+        keyDictionary = {
+            "0-0:96.1.1" : "meterId",
+            "1-0:1.8.1" : "usage_low",
+            "1-0:1.8.2" : "usage_normal",
+            "1-0:2.8.1" : "return_low",
+            "1-0:2.8.2" : "return_normal",
+            "0-0:96.14.0" : "current_tarrif",
+            "1-0:1.7.0" : "current_usage",
+            "1-0:2.7.0" : "current_return"
+        }
+
+        return keyDictionary.get(keyNode,None)
 
 
-processor = Processor().start()
+    def interpretLineValue(self, valueNode):
+        return valueNode
+
+
+message = ["1-0:1.8.1(000060.140*kWh)"]
+
+Processor().interpretMessage(message)
+
+#processor = Processor().start()
 
 #line
 #processor.start()
