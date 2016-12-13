@@ -11,12 +11,12 @@ create table if not exists asmp.meter
 
 create table if not exists asmp.meter_measurement
 (
-    meter_id int not null auto_increment,
-    [timestamp] datetime not null,
-	usage_current decimal not null,
-	usage_total_low decimal not null,
-	usage_total_normal decimal not null,
-	return_current decimal not null,
-	return_total_low decimal not null,
-	return_total_normal decimal not null,
+    meter_id int not null,
+    timestamp datetime not null,
+	usage_current decimal(10,3) not null,
+	usage_total_low decimal(10,3) not null,
+	usage_total_normal decimal(10,3) not null,
+	return_current decimal(10,3) not null,
+	return_total_low decimal(10,3) not null,
+	return_total_normal decimal(10,3) not null
 );

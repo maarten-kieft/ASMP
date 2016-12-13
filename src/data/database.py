@@ -4,22 +4,38 @@ import os
 class Database:
 
     def initSchema(self):
-        initSriptFilePath = os.path.dirname(os.path.abspath(__file__))
-        file = open(initSriptFilePath + "\init_schema.sql","r")
-        self.executeNonQuery(file.read(), None)
+        self.executeNonQuery("init_schema.sql", None)
 
-    def executeNonQuery(self,query, database = "asmp"):
-        if database is None:
-            conn = mysql.connector.connect(host="localhost",user="python",passwd="1234")
-        else:
-            conn = mysql.connector.connect(host="localhost",user="python",passwd="1234")
-            
+    def insertMeasurement(self, measureMent):
+        self.executeNonQuery("inset_measurement.sql", )
+        
+    def executeNonQuery(self, queryFile, database = "asmp"):
+        initSriptFilePath = os.path.dirname(os.path.abspath(__file__))
+        file = open(initSriptFilePath + "\\"+ queryFile ,"r")
+        statements = file.read().split(";")
+
+        conn = self.createConnection(database)
         cursor = conn.cursor()
-        cursor.execute(query)
+
+        for statement in statements:
+            cursor.execute(statement)
+
         conn.close()
+
+    def createConnection(self, database = "asmp"):
+        host = "localhost"
+        user = "python"
+        password = "1234"
+
+        if database is None:
+            return mysql.connector.connect(host=host,user=user,passwd=password)
+        else:
+            return mysql.connector.connect(host=host,user=user,passwd=password,database=database)
+           
 
 db = Database()
 db.initSchema()
+print("Klaar .. ")
     #opzetten data model
     # inschieten van meet record
     # ophalen van data
