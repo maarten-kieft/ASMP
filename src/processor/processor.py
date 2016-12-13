@@ -2,15 +2,16 @@ import serial
 from time import sleep
 from interpreter import Interpreter
 from connector import Connector
-#from data.database import database
+from database import Database
 
 class Processor:
     running = True 
     interpreter = Interpreter()
     connector = Connector()
+    database = Database()
     
     def start(self):
-        connection = self.createConnection()
+        connection = self.connector.createConnection()
          
         print("Connecting")
         connection.open()
@@ -32,7 +33,8 @@ class Processor:
                 continue
             
             if line[0] == "!":
-                interpreter.interpretMessage(message)
+                measurement = self.interpreter.interpretMessage(message)
+                self.database.insertMeasurement(measurement)
                 message = []
             else:
                 message.append(line)
@@ -41,17 +43,4 @@ class Processor:
         self.running = False
         print("Stopping..")
 
-    
-
-message = ["1-0:1.8.1(000060.140*kWh)"]
-
-Processor().interpreter.interpretMessage(message)
-
-#processor = Processor().start()
-
-#line
-#processor.start()
-#processor.stop()
-#determine the right parser
-#parse the message and return a measurement object
-#store the measurement object in the database
+Processor().start()
