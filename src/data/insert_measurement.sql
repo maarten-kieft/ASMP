@@ -10,10 +10,10 @@ INSERT INTO meter_measurement(
 ) VALUES (
 	1,
     now(),
-    1,
-    1,
-    1, 
-    1, 
-    1,
-    1
+	1,
+	1,
+	1,
+	1,
+	1,
+	{return_total_normal}
 );

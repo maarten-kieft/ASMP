@@ -4,12 +4,12 @@ import os
 class Database:
 
     def initSchema(self):
-        self.executeNonQuery("init_schema.sql", None)
+        self.executeNonQuery("init_schema.sql",None, None)
 
-    def insertMeasurement(self, measureMent):
-        self.executeNonQuery("inset_measurement.sql", )
+    def insertMeasurement(self, measurement):
+        self.executeNonQuery("insert_measurement.sql", measurement)
         
-    def executeNonQuery(self, queryFile, database = "asmp"):
+    def executeNonQuery(self, queryFile, parameters, database = "asmp"):
         initSriptFilePath = os.path.dirname(os.path.abspath(__file__))
         file = open(initSriptFilePath + "\\"+ queryFile ,"r")
         statements = file.read().split(";")
@@ -18,7 +18,7 @@ class Database:
         cursor = conn.cursor()
 
         for statement in statements:
-            cursor.execute(statement)
+            cursor.execute(statement.format(**parameters))
 
         conn.close()
 
@@ -34,7 +34,14 @@ class Database:
            
 
 db = Database()
-db.initSchema()
+#db.initSchema()
+m = {
+    "return_total_normal": "0.50"
+}
+
+
+db.insertMeasurement(m)
+
 print("Klaar .. ")
     #opzetten data model
     # inschieten van meet record
