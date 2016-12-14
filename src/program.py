@@ -3,8 +3,9 @@ from processor.processor import Processor
 
 
 database = Database()
-processor = Processor(database)
+database.initSchema()
 
+processor = Processor(database)
 processor.start()
 
 message = [

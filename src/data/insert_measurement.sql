@@ -1,5 +1,4 @@
-INSERT IGNORE INTO meter
-SET name = '{meter_name}';
+insert ignore into meter (name) values ({meter_name});
 
 INSERT INTO meter_measurement(
 	meter_id,
