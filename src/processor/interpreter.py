@@ -15,9 +15,6 @@ class Interpreter:
             key = self.interpretLineKey(lineNodes[0])       
             value = self.interpretLineValue(key,lineNodes[1])
 
-            print(line)
-            print(key)
-            print(value)
             if key is not None:
                 measurement[key] = value
 
@@ -35,7 +32,7 @@ class Interpreter:
 
     def interpretLineKey(self, keyNode):
         keyDictionary = {
-            "0-0:96.1.1" : "meterId",
+            "0-0:96.1.1" : "meter_name",
             "1-0:1.8.1" : "usage_total_low",
             "1-0:1.8.2" : "usage_total_normal",
             "1-0:2.8.1" : "return_total_low",

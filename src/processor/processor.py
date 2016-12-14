@@ -1,14 +1,16 @@
 import serial
 from time import sleep
-from interpreter import Interpreter
-from connector import Connector
-from database import Database
+from processor.interpreter import Interpreter
+from processor.connector import Connector
 
 class Processor:
     running = True 
     interpreter = Interpreter()
     connector = Connector()
-    database = Database()
+    database = None
+
+    def __init__(self, database):
+        self.database = database
     
     def start(self):
         connection = self.connector.createConnection()
@@ -42,5 +44,3 @@ class Processor:
     def stop(self):
         self.running = False
         print("Stopping..")
-
-Processor().start()
