@@ -7,7 +7,7 @@ Milestones:
 2. (Done)Creating a hello world python application
 3. Setting up a docker scipt file to contain the application
 4. (Done)Read values from the p1 port and display the result in the console
-5. (Progess)Store values in the database
+5. (Done)Store values in the database
 6. Create a web application to display the data from the database
 7. Create a fancy web application
 	Showing the current usage
