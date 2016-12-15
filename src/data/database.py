@@ -2,24 +2,28 @@ import mysql.connector
 import os
 
 class Database:
-
     def initSchema(self):
-        self.executeNonQuery("init_schema.sql", None)
+        self.executeNonQuery("init_schema.sql",None, None)
 
-    def insertMeasurement(self, measureMent):
-        self.executeNonQuery("inset_measurement.sql", )
+    def insertMeasurement(self, measurement):
+        self.executeNonQuery("insert_measurement.sql", measurement)
         
-    def executeNonQuery(self, queryFile, database = "asmp"):
-        initSriptFilePath = os.path.dirname(os.path.abspath(__file__))
-        file = open(initSriptFilePath + "\\"+ queryFile ,"r")
-        statements = file.read().split(";")
-
+    def executeNonQuery(self, queryFile, parameters, database = "asmp"):
+        statementFilePath = os.path.dirname(os.path.abspath(__file__))
+        statementFile = open(statementFilePath + "\\"+ queryFile ,"r")
+        statements = statementFile.read().split(";")
         conn = self.createConnection(database)
         cursor = conn.cursor()
 
         for statement in statements:
-            cursor.execute(statement)
+            if parameters is None:
+                preparedStatement = statement
+            else:
+                preparedStatement = statement.format(**parameters)
 
+            cursor.execute(preparedStatement)
+            
+        conn.commit()   
         conn.close()
 
     def createConnection(self, database = "asmp"):
@@ -31,11 +35,3 @@ class Database:
             return mysql.connector.connect(host=host,user=user,passwd=password)
         else:
             return mysql.connector.connect(host=host,user=user,passwd=password,database=database)
-           
-
-db = Database()
-db.initSchema()
-print("Klaar .. ")
-    #opzetten data model
-    # inschieten van meet record
-    # ophalen van data

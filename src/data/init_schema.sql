@@ -6,7 +6,8 @@ create table if not exists asmp.meter
 (
     id int not null auto_increment,
     name varchar(80) not null,
-    primary key(id)
+    primary key(id),
+	unique key (name)
 );
 
 create table if not exists asmp.meter_measurement

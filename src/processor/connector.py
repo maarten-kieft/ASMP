@@ -1,3 +1,4 @@
+import serial
 
 class Connector:
     def createConnection(self):
