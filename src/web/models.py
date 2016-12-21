@@ -4,7 +4,7 @@ class Meter(models.Model):
     name = models.CharField(max_length=80)
 
 class MeterMeasurement(models.Model):
-    meter_id = models.ForeignKey(Meter,on_delete=models.CASCADE)
+    meter = models.ForeignKey(Meter,on_delete=models.CASCADE)
     timestamp = models.DateTimeField()
     usage_current = models.DecimalField(max_digits=10, decimal_places=3)
     usage_total_low = models.DecimalField(max_digits=10, decimal_places=3)
