@@ -3,6 +3,7 @@ from django.db import models
 class Meter(models.Model):
     name = models.CharField(max_length=80)
 
+
 class MeterMeasurement(models.Model):
     meter = models.ForeignKey(Meter,on_delete=models.CASCADE)
     timestamp = models.DateTimeField()
@@ -12,3 +13,4 @@ class MeterMeasurement(models.Model):
     return_current = models.DecimalField(max_digits=10, decimal_places=3)
     return_total_low = models.DecimalField(max_digits=10, decimal_places=3)
     return_total_normal = models.DecimalField(max_digits=10, decimal_places=3)
+

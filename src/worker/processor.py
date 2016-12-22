@@ -1,11 +1,12 @@
 import serial
 from time import sleep
-from worker.interpreter import Interpreter
+from worker.parser import Parser
 from worker.connector import Connector
+from web.models import Meter, MeterMeasurement
 
 class Processor:
     running = True 
-    interpreter = Interpreter()
+    parser = Parser()
     connector = Connector()
 
     def start(self):
@@ -37,11 +38,15 @@ class Processor:
             "1-0:22.7.0(00.000*kW)"
         ]
 
-        result = self.interpreter.interpret_message(message)
+        parsed_message = self.parser.parse_message(message)
+        
 
-        result["measurement"].save()
+        measurement = MeterMeasurement(**parsed_message)
+        #measurement.meter = Meter.objects.get_or_create(name=parsed_message["meter_name"])[0]
 
+        measurement.save()
 
+        print("Done!")
         return
 
 
