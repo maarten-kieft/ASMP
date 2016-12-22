@@ -57,7 +57,7 @@ class Processor:
         #print("Clossing connection")
         #connection.close()
 
-    
+
     def listen(self, connection):
         message = []
        
