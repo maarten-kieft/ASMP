@@ -39,7 +39,6 @@ class Processor:
         ]
 
         parsed_message = self.parser.parse_message(message)
-        
 
         measurement = MeterMeasurement(**parsed_message)
         #measurement.meter = Meter.objects.get_or_create(name=parsed_message["meter_name"])[0]
