@@ -49,8 +49,6 @@ class Processor:
         print("Done!")
         return
 
-
-
         #print("Connecting")
         #connection.open()
 
