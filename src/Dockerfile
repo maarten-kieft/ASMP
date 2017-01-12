@@ -10,3 +10,4 @@ COPY ./db.sqlite3 /usr/bin/asmp
 RUN pip install -r /usr/bin/asmp/requirements.txt
 EXPOSE 8000
 CMD ["/usr/bin/asmp/start.sh"]
+CMD ["python", "/usr/bin/asmp/manage.py", "worker"]
