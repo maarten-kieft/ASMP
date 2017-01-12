@@ -1,6 +1,7 @@
 """Processing, intterpreting and storing serial messages"""
 from datetime import datetime
 import pytz
+import time
 from worker.parser import Parser
 from worker.connector import Connector
 from web.models import Meter, MeterMeasurement
@@ -13,9 +14,15 @@ class Processor:
 
     def start(self):
         """Starting the processor to listen for message, interpret and store them"""
-        connection = self.connector.createConnection()
 
         print("Connecting")
+        connection = self.connector.create_connection()
+
+        while connection is None:
+            print("Warning: Wasn't able to obtain a connection, sleeping for 10 secs and retrying")
+            time.sleep(10)
+            connection = self.connector.create_connection()
+
         connection.open()
 
         print("Listening")

@@ -44,6 +44,7 @@ class Connector:
 
     def configure_connection(self, port):
         """"Configures the connection with smart meter specific settings"""
+        print("Info: Configuring connection through port: "+port)
         connection = serial.Serial()
         connection.baudrate = 115200
         connection.bytesize = serial.EIGHTBITS
@@ -57,4 +58,5 @@ class Connector:
 
     def test_connection(self, connection):
         """Tests if a smart meter is connected to this serial port"""
+        print("Info: Testing settings for port: "+connection.port)
         return True
