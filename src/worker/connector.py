@@ -56,6 +56,8 @@ class Connector:
         #connection.port="/dev/ttyUSB0"
         connection.port = port
 
+        return connection
+
     def test_connection(self, connection):
         """Tests if a smart meter is connected to this serial port"""
         print("Info: Testing settings for port: "+connection.port)
