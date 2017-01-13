@@ -7,11 +7,11 @@ cp -n /usr/bin/asmp/db.sqlite3 /usr/bin/asmp/data/db.sqlite3
 # Start Gunicorn processes
 echo "Starting Website"
 cd /usr/bin/asmp
-exec gunicorn asmp.wsgi:application \
+gunicorn asmp.wsgi:application \
     --bind 0.0.0.0:8000 \
-    --workers 3
-	--daemon True
+    --workers 3 \
+	--daemon
 	
 # Start the worker
 echo "Starting Worker"
-python usr/bin/asmp/manage.py worker
+python manage.py worker
