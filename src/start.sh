@@ -1,8 +1,17 @@
 #!/bin/bash
 
+# Copy initial database if not exists
+echo "Init database file"
+cp -n /usr/bin/asmp/db.sqlite3 /usr/bin/asmp/data/db.sqlite3
+
 # Start Gunicorn processes
-echo Starting Gunicorn.
+echo "Starting Website"
 cd /usr/bin/asmp
 exec gunicorn asmp.wsgi:application \
     --bind 0.0.0.0:8000 \
     --workers 3
+	--daemon True
+	
+# Start the worker
+echo "Starting Worker"
+python usr/bin/asmp/manage.py worker

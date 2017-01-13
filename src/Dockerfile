@@ -12,4 +12,3 @@ VOLUME ["/usr/bin/amp/data:/usr/bin/amp/data"]
 RUN pip install -r /usr/bin/asmp/requirements.txt
 EXPOSE 8000
 CMD ["/usr/bin/asmp/start.sh"]
-CMD ["python", "/usr/bin/asmp/manage.py", "worker"]
