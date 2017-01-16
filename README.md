@@ -17,6 +17,8 @@ Milestones:
 5. (Done)Store values in the database
 6. (Done) a web application to display the data from the database
 7. (Progress)Create a fancy web application
+	(Done) Setup view mechanism
+	(Progress) Design pages
 	Showing the current usage
 	Showing a graph of todays usage
     Showing a graph of day and night usage
