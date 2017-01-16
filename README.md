@@ -5,18 +5,18 @@ Milestones:
 
 1. (Done)Getting to know git better
 2. (Done)Creating a hello world python application
-3. (Progress) Setting up a docker scipt file to contain the application
+3. (Done) Setting up a docker scipt file to contain the application
   1. Create a docker file for web application 
     1. (Done)Determine right base image
     2. (Done)Determine requirements
     3. (Done)Deploy django app in docker image 
-  2. Create a docker file for database
-  3. (DOne)Create a docker file for processor
+  2. (Done)Create a docker file for database
+  3. (Done)Create a docker file for processor
   
 4. (Done)Read values from the p1 port and display the result in the console
 5. (Done)Store values in the database
 6. (Done) a web application to display the data from the database
-7. Create a fancy web application
+7. (Progress)Create a fancy web application
 	Showing the current usage
 	Showing a graph of todays usage
     Showing a graph of day and night usage
