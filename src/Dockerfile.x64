@@ -4,7 +4,7 @@ COPY web /usr/bin/asmp/web
 COPY worker /usr/bin/asmp/worker
 COPY asmp /usr/bin/asmp/asmp
 COPY requirements.txt manage.py start-64.sh data/db.sqlite3 /usr/bin/asmp/
-VOLUME ["/usr/bin/amp/data:/usr/bin/amp/data"]
+VOLUME ["/usr/bin/asmp/data:/usr/bin/asmp/data"]
 RUN pip install -r /usr/bin/asmp/requirements.txt
 EXPOSE 8000
 CMD ["/usr/bin/asmp/start-64.sh"]
