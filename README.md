@@ -24,3 +24,8 @@ Milestones:
     Showing a graph of day and night usage
 	Showing a comparison between yesterday, last month, last year
   
+Open issues:
+
+  1. Exceptions on parsing
+  2. Data volume reset / ignored
+  3. no auto pull newest

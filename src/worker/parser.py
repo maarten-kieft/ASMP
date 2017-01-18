@@ -51,6 +51,9 @@ class Parser:
 
     def parse_line_value(self, key, value_node):
         """Interprets the value of the line"""
+
+        print("Parsing value ("+key+"):"+value_node)
+
         if key is not None and ("usage_" in key or "return_" in key):
             return Decimal(value_node.replace("*kWh", "").replace("*kW", ""))
 
