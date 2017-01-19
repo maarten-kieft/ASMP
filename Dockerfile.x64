@@ -1,10 +1,6 @@
 FROM python:3
 RUN mkdir -p /usr/bin/asmp/data
-COPY web /usr/bin/asmp/web
-COPY worker /usr/bin/asmp/worker
-COPY asmp /usr/bin/asmp/asmp
-COPY data /usr/bin/asmp/data
-COPY requirements.txt manage.py start-64.sh
+COPY src /usr/bin/asmp
 VOLUME /usr/bin/asmp/data
 RUN pip install -r /usr/bin/asmp/requirements.txt
 EXPOSE 8000
