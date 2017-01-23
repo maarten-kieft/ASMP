@@ -18,9 +18,9 @@ class Parser:
                 continue
 
             key = self.parse_line_key(line_nodes[0])
-            value = self.parse_line_value(key, line_nodes[1])
 
             if key is not None:
+                value = self.parse_line_value(key, line_nodes[1])
                 parsed_message[key] = value
 
         return parsed_message
@@ -32,7 +32,7 @@ class Parser:
 
         if match is None:
             return None
-
+        print("parsing line"+line)
         return (match.group(1), match.group(2))
 
     def parse_line_key(self, key_node):
@@ -58,3 +58,7 @@ class Parser:
             return Decimal(value_node.replace("*kWh", "").replace("*kW", ""))
 
         return value_node
+
+#print("bla")
+#p = Parser()
+#.parse_message(["1-0:2.8.2(000000.000*kWh)"])

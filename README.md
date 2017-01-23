@@ -26,6 +26,17 @@ Milestones:
   
 Open issues:
 
-  1. Exceptions on parsing
+  1. Crash random on parsing
   2. Data volume reset / ignored
   3. no auto pull newest
+  4. Crash on invalid first message
+
+Commando:
+
+docker build -t blackhawkdesign/asmp-rpi .
+
+docker tag xxx blackhawkdesign/asmp-rpi
+
+docker push blackhawkdesign/asmp-rpi
+
+docker run -p 8000:8000 --device=/dev/ttUSB0 blackhawkdesign/asmp-rpi

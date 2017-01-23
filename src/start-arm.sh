@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# Copy initial database if not exists
-echo "Init database file"
-cp -n /usr/bin/asmp/db.sqlite3 /usr/bin/asmp/data/db.sqlite3
-
 # Start Gunicorn processes
 echo "Starting Website"
 cd /usr/bin/asmp
