@@ -1,7 +1,5 @@
 FROM python:3
-RUN mkdir -p /usr/bin/asmp/data
+RUN mkdir -p /usr/bin/asmp/
 COPY src /usr/bin/asmp
-VOLUME /usr/bin/asmp/data
+
 RUN pip install -r /usr/bin/asmp/requirements.txt
-EXPOSE 8000
-CMD ["/usr/bin/asmp/start-64.sh"]
