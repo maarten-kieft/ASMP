@@ -42,13 +42,23 @@ class Processor:
                 continue
 
             if line[0] == "!":
-                parsed_message = self.parser.parse_message(message)
-                measurement = self.interpret_message(parsed_message)
-                measurement.save()
-
+                self.process_message(message)
                 message = []
             else:
                 message.append(line)
+
+    def process_message(self, message):
+        """Processes a received message"""
+        parsed_message = self.parser.parse_message(message)
+
+        if self.is_valid_message(parsed_message):
+            measurement = self.interpret_message(parsed_message)
+            measurement.save()
+
+    def is_valid_message(self, parsed_message):
+        """Checks if the parsed message is complete"""
+
+        return "meter_name" in parsed_message
 
     def interpret_message(self, parsed_message):
         """Interpret the parsed message"""
