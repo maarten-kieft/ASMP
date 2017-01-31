@@ -27,9 +27,8 @@ Milestones:
 Open issues:
 
   1. Crash random on parsing
-  2. Data volume reset / ignored
-  3. no auto pull newest
-  4. Crash on invalid first message
+  2. no auto pull newest
+
 
 Commando:
 
