@@ -11,6 +11,7 @@ class Processor:
     running = True
     parser = Parser()
     connector = Connector()
+    i = 0
 
     def start(self):
         """Starting the processor to listen for message, interpret and store them"""
@@ -49,11 +50,13 @@ class Processor:
 
     def process_message(self, message):
         """Processes a received message"""
-        parsed_message = self.parser.parse_message(message)
-
-        if self.is_valid_message(parsed_message):
+        #skipping the first message, it seems to be competely broken
+        if self.i > 0:
+            parsed_message = self.parser.parse_message(message)
             measurement = self.interpret_message(parsed_message)
             measurement.save()
+
+        self.i += 1
 
     def is_valid_message(self, parsed_message):
         """Checks if the parsed message is complete"""

@@ -38,6 +38,6 @@ docker tag xxx blackhawkdesign/asmp-rpi
 
 docker push blackhawkdesign/asmp-rpi
 
-docker run -p 8000:8000 --device=/dev/ttyUSB0 -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-rpi
+docker run -p 8000:8000 --device=/dev/ttyUSB0 -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-rpi:latest
 
 docker run -p 8000:8000 
