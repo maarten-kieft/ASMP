@@ -32,9 +32,9 @@ Open issues:
 
 Commando:
 
-docker build -t blackhawkdesign/asmp-rpi .
+docker build -t blackhawkdesign/asmp-rpi -f Dockerfile.arm .
 
-docker tag xxx blackhawkdesign/asmp-rpi
+docker tag xxx blackhawkdesign/asmp-rpi:latest
 
 docker push blackhawkdesign/asmp-rpi
 
