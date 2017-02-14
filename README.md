@@ -23,22 +23,16 @@ Milestones:
 	Showing a graph of todays usage
     Showing a graph of day and night usage
 	Showing a comparison between yesterday, last month, last year
-  
-Open issues:
 
-  1. Crash random on parsing
-  2. Data volume reset / ignored
-  3. no auto pull newest
-  4. Crash on invalid first message
 
 Commando:
 
-docker build -t blackhawkdesign/asmp-rpi .
+docker build -t blackhawkdesign/asmp-rpi -f Dockerfile.arm .
 
-docker tag xxx blackhawkdesign/asmp-rpi
+docker tag xxx blackhawkdesign/asmp-rpi:latest
 
 docker push blackhawkdesign/asmp-rpi
 
-docker run -p 8000:8000 --device=/dev/ttUSB0 blackhawkdesign/asmp-rpi
+docker run -p 8000:8000 --device=/dev/ttyUSB0 -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-rpi:latest
 
-docker run -p 8000:8000 -v /usr/bin/asmp:/usr/bin/asmp/data asmp
+docker run -p 8000:8000 

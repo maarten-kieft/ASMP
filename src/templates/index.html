@@ -1,76 +1,297 @@
-
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="">
     <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
 
-    <title>Dashbpard - ASMP</title>
+    <title>ASMP - Dashboard</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="lib/bootstrapv4/css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="lib/morrisjs/morris.css" rel="stylesheet">
+    <link href="lib/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <style>
+        #wrapper {
+            width: 100%;
+        }
+        #page-wrapper{
+          margin-left: 0px;
+          padding-top:10px;
+        }
 
-    <!-- Custom styles for this template -->
-    <link href="narrow-jumbotron.css" rel="stylesheet">
-  </head>
+        .header {
+            background-color: #f5f5f5;
+            border-bottom: 1px solid #dddddd;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
 
-  <body>
+        .header h1 {
+            margin-top: 15px;
+        }
 
-    <div class="container">
-      <div class="header clearfix">
-        <nav>
-          <ul class="nav nav-pills float-right">
-            <li class="nav-item">
-              <a class="nav-link active" href="#">Dashboard <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Settings</a>
-            </li>
-          </ul>
-        </nav>
-        <h3 class="text-muted">ASMP</h3>
-      </div>
+        .header p {
+            margin-top:25px;
+        }
 
-      <div class="row">
-        <div class="col-12 col-sm-5" style="background-color:red;" >
-          kolom 1
+        #page-wrapper {
+            padding: 0 15px;
+        }
+
+        @media (min-width: 768px) {
+            #page-wrapper {
+                padding: 0 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrapper">
+        <div class="header">
+            <div class="row">
+                <div class="col-xs-4">
+                    <h1>ASMP</h1>
+                </div>
+                <div class="col-xs-8">
+                     <p class="text-right">
+                        <span class="fa fa-history"></span>
+                        10 seconds ago
+                     </p>
+                </div> 
+            </div>
         </div>
-        <div class="col-12 col-sm-7" style="background-color:blue;">
-          kolom 2
-          </div>
-      </div>
-
-      <div class="row marketing">
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
+        <div id="page-wrapper">
+            <div class="row">
+                <div class="col-xs-12 col-sm-4">
+                    <div id="donut-container" style="width: 100%; height: 100%; margin: 0 auto"></div>
+                </div>
+                <div class="col-xs-12 col-sm-8">
+                   <table class="table">
+                       <thead>
+                           <tr>
+                                <th><h3>Statistics</h3></th>
+                                <th>
+                                    <div class="btn-group pull-right">
+                                        <button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">
+                                            Actions
+                                            <span class="caret"></span>
+                                        </button>
+                                        <ul class="dropdown-menu pull-right" role="menu">
+                                            <li><a href="#">Action</a>
+                                            </li>
+                                            <li><a href="#">Another action</a>
+                                            </li>
+                                            <li><a href="#">Something else here</a>
+                                            </li>
+                                            <li class="divider"></li>
+                                            <li><a href="#">Separated link</a>
+                                            </li>
+                                        </ul>
+                                    </div>    
+                                </th>
+                            </tr>
+                       </thead>
+                       <tbody>
+                       <tr>
+                            <td>Today's usage</td>
+                            <td>1.25 KwH</td>
+                        </tr>
+                        <tr>
+                            <td>Yesterday's usage</td>
+                            <td>1.25 KwH</td>
+                        </tr>
+                       <tr>
+                            <td>Average daily usage</td>
+                            <td>2.56 KwH</td>
+                        </tr>
+                        <tr>
+                            <td>Highest daily usage</td>
+                            <td>12.56 KwH (13-12-2016)</td>
+                        </tr>
+                        <tr>
+                            <td>Lowest daily usage</td>
+                            <td>5.56 KwH (02-04-2015)</td>
+                        </tr>
+                       </tbody>
+                   </table>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <h3>Graph</h3>
+                </div>
+                <div class="col-xs-4">
+                    <div class="btn-group pull-right">
+                        <button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">
+                            Actions
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu pull-right" role="menu">
+                            <li><a href="#">Action</a>
+                            </li>
+                            <li><a href="#">Another action</a>
+                            </li>
+                            <li><a href="#">Something else here</a>
+                            </li>
+                            <li class="divider"></li>
+                            <li><a href="#">Separated link</a>
+                            </li>
+                        </ul>
+                    </div>    
+                </div>
+            </div>
+              <div class="row">
+                <div class="col-lg-12">
+                    <div id="container-area" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+                </div>
+            </div>
         </div>
-
-        <div class="col-lg-6">
-          <h4>Subheading</h4>
-          <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
-
-          <h4>Subheading</h4>
-          <p>Morbi leo risus, porta ac consectetur ac, vestibulum at eros. Cras mattis consectetur purus sit amet fermentum.</p>
-
-          <h4>Subheading</h4>
-          <p>Maecenas sed diam eget risus varius blandit sit amet non magna.</p>
-        </div>
-      </div>
-
-      <footer class="footer">
-        <p>&copy; Company 2017</p>
-      </footer>
-
     </div>
-  </body>
+    <!-- /#wrapper -->
+
+    <!-- jQuery -->
+    <script src="lib/jquery/jquery.min.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+
+    <!-- Morris Charts JavaScript -->
+    <script src="lib/raphael/raphael.min.js"></script>
+    <script src="lib/morrisjs/morris.min.js"></script>
+    <script src="lib/sb-admin-2/js/morris-data.js"></script>
+
+    <!-- Custom Theme JavaScript -->
+    <script src="lib/sb-admin-2/js/sb-admin-2.js"></script>
+
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script>
+        Highcharts.chart('donut-container', {
+
+    chart: {
+        type: 'solidgauge',
+        marginTop: 50
+    },
+
+    title: {
+        text: ''
+    },
+
+    
+
+    pane: {
+        startAngle: 0,
+        endAngle: 360,
+        background: [{ // Track for Move
+            outerRadius: '112%',
+            innerRadius: '88%',
+            backgroundColor: Highcharts.Color("#2677B5").setOpacity(0.3).get(),
+            borderWidth: 0
+        }]
+    },
+
+    yAxis: {
+        min: 0,
+        max: 100,
+        lineWidth: 0,
+        tickPositions: []
+    },
+
+    plotOptions: {
+        solidgauge: {
+            dataLabels: {
+                enabled: true,
+                format: '<p><span style="font-size:72px; color: {point.color}; font-weight: bold; text-align:center;">{point.y}00</span><br/>watt</p>',
+                borderWidth:0
+            },
+            linecap: 'round',
+            stickyTracking: false,
+            rounded: true
+        }
+    },
+
+    series: [{
+        name: 'Move',
+        borderColor: Highcharts.getOptions().colors[0],
+        data: [{
+            color: "#2677B5",
+            radius: '112%',
+            innerRadius: '88%',
+            y: 80
+        }]
+    }
+    ]
+});
+
+Highcharts.chart('container-area', {
+    chart: {
+        type: 'areaspline'
+    },
+    title: {
+        text: 'Average fruit consumption during one week'
+    },
+    legend: {
+        layout: 'vertical',
+        align: 'left',
+        verticalAlign: 'top',
+        x: 150,
+        y: 100,
+        floating: true,
+        borderWidth: 1,
+        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
+    },
+    xAxis: {
+        title : {
+            text: 'Time'
+        }
+    },
+    yAxis: {
+        title: {
+            text: 'KwH'
+        }
+    },
+    tooltip: {
+        shared: true,
+        valueSuffix: ' KwH'
+    },
+    credits: {
+        enabled: false
+    },
+    plotOptions: {
+        areaspline: {
+            fillOpacity: 0.5
+        }
+    },
+    series: [{
+        name: 'Today',
+        data: [
+            [09.00,2.34],
+            [10.00,2.34],
+            [11.00,2.34],
+            [12.00,2.34],
+            [13.00,2.34],
+            [14.00,2.34],
+        ]
+    }, {
+        name: 'Yesterday',
+        data: [
+             [09.00,2.34],
+            [10.00,2.34],
+            [11.00,2.34],
+            [12.00,2.34],
+            [13.00,2.34],
+            [14.00,2.34],
+        ]
+    }]
+});
+
+    </script>
+</body>
+
 </html>

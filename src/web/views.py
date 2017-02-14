@@ -5,9 +5,9 @@ from datetime import datetime
 import pytz
 
 def dashboard(request):
-    measurements = MeterMeasurement.objects.order_by('-timestamp')[:1]
+    measurements = MeterMeasurement.objects.order_by('-timestamp')[:10]
 
-    return render(request, "dashboard.html", {'model' : measurements[0].timestamp.strftime("%Y-%m-%d %H:%M:%S")})
+    return render(request, "dashboard.html", {'model' : measurements})
 
 def dashboard2(request):
     measurements = MeterMeasurement.objects.order_by('-timestamp')[:1]
