@@ -1,4 +1,49 @@
-Hello from layout page
+<!DOCTYPE html>
+<html lang="en">
 
-{% block body %}
-{% endblock %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>ASMP - Dashboard</title>
+
+    <link href="templates/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="templates/assets/css/general.css" rel="stylesheet">
+</head>
+<body>
+    <div class="header">
+        <div class="row">
+            <div class="col-xs-4">
+                <h1>ASMP</h1>
+            </div>
+            <div class="col-xs-8">
+                    <p class="text-right">
+                    <span class="fa fa-history"></span>
+                    10 seconds ago
+                    </p>
+            </div> 
+        </div>
+    </div>
+    <div id="wrapper">
+        <div id="page-wrapper">
+            {% block body %}
+            {% endblock %}            
+        </div>
+        <div class="footer">
+        &nbsp;
+        </div>
+    </div>
+    
+    <script src="lib/jquery/jquery.min.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://code.highcharts.com/highcharts-more.js"></script>
+    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+    <script src="https://code.highcharts.com/modules/exporting.js"></script>
+    <script src="/templates/assets/js/highcharts-data.js"></script>
+</body>
+
+</html>
