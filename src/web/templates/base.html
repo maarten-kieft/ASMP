@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 
@@ -10,8 +11,8 @@
 
     <title>ASMP - Dashboard</title>
 
-    <link href="templates/libs/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="templates/assets/css/general.css" rel="stylesheet">
+    <link href={% static 'web/libs/bootstrap/css/bootstrap.min.css'%} rel="stylesheet">
+    <link href={% static 'web/css/general.css'%} rel="stylesheet">
 </head>
 <body>
     <div class="header">
@@ -36,14 +37,13 @@
         &nbsp;
         </div>
     </div>
-    
-    <script src="lib/jquery/jquery.min.js"></script>
-    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://code.highcharts.com/highcharts.js"></script>
-    <script src="https://code.highcharts.com/highcharts-more.js"></script>
-    <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
-    <script src="https://code.highcharts.com/modules/exporting.js"></script>
-    <script src="/templates/assets/js/highcharts-data.js"></script>
+    <script src={% static 'web/libs/jquery/jquery.min.js'%}></script>
+    <script src={% static 'web/libs/bootstrap/js/bootstrap.min.js'%}></script>
+    <script src={% static 'web/libs/highcharts/highcharts.js'%}></script>
+    <script src={% static 'web/libs/highcharts/highcharts-more.js'%}></script>
+    <script src={% static 'web/libs/highcharts/solid-gauge.js'%}></script>
+    <script src={% static 'web/libs/highcharts/exporting.js'%}></script>
+    <script src={% static 'web/js/highcharts-data.js'%}></script>
 </body>
 
 </html>

@@ -2,11 +2,6 @@
 {% extends 'base.html' %}
 
 {% block body %}
-Hello from template:<br/>
-{% for k in model %}
-    {{ k.timestamp  }} | {{k.usage_current}} <br/>
-{% endfor %}
-
 
 <div class="row">
                 <div class="col-xs-12 col-sm-4">
@@ -95,7 +90,10 @@ Hello from template:<br/>
      
        
 
-
+Hello from template:<br/>
+{% for k in model %}
+    {{ k.timestamp  }} | {{k.usage_current}} <br/>
+{% endfor %}
 
 {% endblock %}
 
