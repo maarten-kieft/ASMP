@@ -2,3 +2,4 @@ django
 gunicorn
 pytz
 pyserial
+dj-static
