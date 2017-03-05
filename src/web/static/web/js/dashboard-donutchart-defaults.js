@@ -33,7 +33,7 @@ var dashboardDonutChartDefaults =  {
         solidgauge: {
             dataLabels: {
                 enabled: true,
-                format: '<p><span style="font-size:72px; color: {point.color}; font-weight: bold; text-align:center;">{point.description}</span><br/>watt</p>',
+                format: '<span style="font-size:72px; color: {point.color}; font-weight: bold;">{point.description}</span>',
                 borderWidth:0
             },
             linecap: 'round',
@@ -43,7 +43,7 @@ var dashboardDonutChartDefaults =  {
     },
 
     series: [{
-        name: 'Move',
+        name: 'Current usage',
         borderColor: Highcharts.getOptions().colors[0],
         data: [{
             color: "#2677B5",
