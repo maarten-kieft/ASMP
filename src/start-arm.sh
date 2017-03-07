@@ -11,9 +11,11 @@ gunicorn asmp.wsgi:application \
 	--daemon \
     --bind unix:/usr/bin/asmp/gunicorn.sock \
 	
+
+# Start nginx
+echo "Stating nginx"
+service nginx start
+
 # Start the worker
 echo "Starting Worker"
 python3 manage.py worker
-
-# Start nginx
-service nginx start
