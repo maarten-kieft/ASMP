@@ -1,5 +1,4 @@
 #!/bin/bash
-
 echo "Copying initial database if not exists"
 cp -n /usr/bin/asmp/db.sqlite3 /usr/bin/asmp/db.sqlite3
 
