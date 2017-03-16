@@ -20,19 +20,18 @@ Another Smart Meter Project, which allows users to read the values of their (dut
 
 Building a new image
 ```
-docker build -t blackhawkdesign/asmp-rpi -f Dockerfile.arm .
-```
-Tagging the new image
-```
-docker tag xxx blackhawkdesign/asmp-rpi:latest
+docker build -t blackhawkdesign/asmp-arm -f Dockerfile.arm .
+docker build -t blackhawkdesign/asmp-x64 -f Dockerfile.x64 .
 ```
 Pushing the new image
 ```
-docker push blackhawkdesign/asmp-rpi
+docker push blackhawkdesign/asmp-arm
+docker push blackhawkdesign/asmp-x64
 ```
 Running an image
 ```
-docker run -p 8000:8000 --device=/dev/ttyUSB0 -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-rpi:latest
+docker run -p 8000:8000 --device=/dev/ttyUSB0 -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-arm:latest
+docker run -p 8000:8000 --device=/dev/ttyUSB0 -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-x64:latest
 ```
 ```
 docker run -p 8000:8000 

@@ -1,5 +1,10 @@
-FROM python:3
-RUN mkdir -p /usr/bin/asmp/
-COPY src /usr/bin/asmp
-
-RUN pip install -r /usr/bin/asmp/requirements.txt
+FROM debian:jessie
+RUN apt-get update && apt-get install -y python3 python3-pip nginx nano
+RUN mkdir -p /usr/bin/asmp
+COPY src /usr/bin/asmp/
+COPY src/data/db.sqlite3 /usr/bin/asmp/db.sqlite3
+COPY src/nginx.conf /etc/nginx/nginx.conf
+VOLUME /usr/bin/asmp/data
+RUN pip3 install -r /usr/bin/asmp/requirements.txt 
+EXPOSE 8000
+CMD ["/usr/bin/asmp/start.sh"]
