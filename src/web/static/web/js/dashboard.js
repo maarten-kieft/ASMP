@@ -1,7 +1,7 @@
 var Dashboard = {
     State : {
         MaxCurrentUsage : null,
-        CurrentUsageChart : null
+        CurrentUsageChart : null,
     },
     
     Init : function(){
@@ -24,6 +24,7 @@ var Dashboard = {
             url: "/last-current-usage",
             success: function (lastMeasurement) {
                 Dashboard.UpdateCurrentUsageChart(lastMeasurement);
+                Dashboard.UpdateLastUpdateLabel(lastMeasurement);
             },
             error: function () {
                
@@ -33,7 +34,7 @@ var Dashboard = {
 
     UpdateCurrentUsageChart : function(lastMeasurement){
         var currentUsage = parseFloat(lastMeasurement.currentUsage);
-                
+      
         if(lastMeasurement.currentUsage > Dashboard.State.MaxCurrentUsage){
             Dashboard.State.MaxCurrentUsage = currentUsage;
         }
@@ -42,6 +43,12 @@ var Dashboard = {
         Dashboard.State.CurrentUsageChart.series[0].data[0].description = currentUsage * 1000;
         Dashboard.State.CurrentUsageChart.yAxis[0].isDirty = true;
         Dashboard.State.CurrentUsageChart.redraw();
+    },
+
+    UpdateLastUpdateLabel : function(lastMeasurement){
+          var relativeTimeStamp = moment(lastMeasurement.timestamp).fromNow(); 
+          $("#js-last-update-label").html(relativeTimeStamp);
+
     }
 };
 

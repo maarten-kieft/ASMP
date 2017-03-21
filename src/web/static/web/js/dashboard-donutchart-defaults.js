@@ -29,11 +29,14 @@ var dashboardDonutChartDefaults =  {
         lineWidth: 0,
         tickPositions: []
     },
+    tooltip: {
+        enabled: false
+    },
     plotOptions: {
         solidgauge: {
             dataLabels: {
                 enabled: true,
-                format: '<span style="font-size:72px; color: {point.color}; font-weight: bold;">{point.description}</span>',
+                format: '<span style="font-size:62px; color: {point.color}; font-weight: bold;">{point.description}</span><span style="font-size:8px;">Watt</span>',
                 borderWidth:0
             },
             linecap: 'round',
