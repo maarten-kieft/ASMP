@@ -16,11 +16,19 @@ var Dashboard = {
     },
 
     InitCurrentUsageChart : function(){
-        Dashboard.State.CurrentUsageChart = Highcharts.chart('donut-container',dashboardDonutChartDefaults);
+        var chart = Highcharts.chart('donut-container',dashboardDonutChartDefaults);
+        
+        chart.series[0].data[0].y = 0
+        chart.series[0].data[0].description = 0;
+        chart.yAxis[0].isDirty = true;
+        chart.redraw();
+        Dashboard.State.CurrentUsageChart = chart;
     },
 
     Update(){
-         $.ajax({
+        Dashboard.ToggleLoader(true);
+        
+        $.ajax({
             url: "/last-current-usage",
             success: function (lastMeasurement) {
                 Dashboard.UpdateCurrentUsageChart(lastMeasurement);
@@ -28,6 +36,9 @@ var Dashboard = {
             },
             error: function () {
                
+            },
+            complete: function(){
+                Dashboard.ToggleLoader(false);
             }
         });
     },
@@ -49,6 +60,16 @@ var Dashboard = {
           var relativeTimeStamp = moment(lastMeasurement.timestamp).fromNow(); 
           $("#js-last-update-label").html(relativeTimeStamp);
 
+    },
+
+    ToggleLoader : function(showLoader){
+        if(showLoader){
+            $("#js-loader").removeClass("hide");
+            $("#js-last-update-label").addClass("hide");
+        }else{
+            $("#js-loader").addClass("hide");
+            $("#js-last-update-label").removeClass("hide");
+        }
     }
 };
 

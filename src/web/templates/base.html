@@ -12,6 +12,7 @@
     <title>ASMP - Dashboard</title>
 
     <link href={% static 'web/libs/bootstrap/css/bootstrap.min.css'%} rel="stylesheet">
+    <link href={% static 'web/libs/font-awesome/css/font-awesome.min.css'%} rel="stylesheet">
     <link href={% static 'web/css/general.css'%} rel="stylesheet">
 </head>
 <body>
@@ -22,8 +23,8 @@
             </div>
             <div class="col-xs-8">
                     <p class="text-right">
-                    <span class="fa fa-history"></span>
-                    <span id="js-last-update-label">-</span>
+                        <span id="js-loader" class="fa fa-spinner fa-spin hide"></span>
+                        <span id="js-last-update-label">-</span>
                     </p>
             </div> 
         </div>
