@@ -3,7 +3,7 @@ Another Smart Meter Project, which allows users to read the values of their (dut
 
 ## Todo
 
-1. Fix static files in docker image
+1. Fix static files in docker image V
 2. Implement general way to retrieve updates
 3. Implement statistics
 4. Implement dropdown statistics
@@ -30,8 +30,8 @@ docker push blackhawkdesign/asmp-x64
 ```
 Running an image
 ```
-docker run -p 8000:8000 --device=/dev/ttyUSB0 -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-arm:latest
-docker run -p 8000:8000 --device=/dev/ttyUSB0 -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-x64:latest
+docker run -p 81:81 --device=/dev/ttyUSB0 -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-arm:latest
+docker run -p 81:81 --device=/dev/ttyUSB0 -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-x64:latest
 ```
 ```
 docker run -p 8000:8000 
