@@ -57,7 +57,7 @@ var Dashboard = {
     },
 
     UpdateLastUpdateLabel : function(lastMeasurement){
-          var relativeTimeStamp = moment(lastMeasurement.timestamp).fromNow(); 
+          var relativeTimeStamp = lastMeasurement.timestamp ? moment(lastMeasurement.timestamp).fromNow() : "-"; 
           $("#js-last-update-label").html(relativeTimeStamp);
 
     },

@@ -2,6 +2,9 @@
 echo "Copying initial database if not exists"
 cp -n /usr/bin/asmp/db.sqlite3 /usr/bin/asmp/db.sqlite3
 
+echo "Executing database migrations"
+python3 manage.py migrate
+
 # Start Gunicorn processes
 echo "Starting Website"
 cd /usr/bin/asmp

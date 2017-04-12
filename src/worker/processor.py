@@ -4,7 +4,7 @@ import pytz
 import time
 from worker.parser import Parser
 from worker.connector import Connector
-from web.models import Meter, MeterMeasurement
+from web.models import Meter, Measurement
 
 class Processor:
     """"Class responsible for listening for serial messages, interpreting and storing them"""
@@ -68,7 +68,7 @@ class Processor:
         meter = Meter.objects.get_or_create(name=parsed_message["meter_name"])[0]
 
         del parsed_message["meter_name"]
-        measurement = MeterMeasurement(**parsed_message)
+        measurement = Measurement(**parsed_message)
         measurement.meter = meter
         measurement.timestamp = datetime.now(pytz.utc)
 
