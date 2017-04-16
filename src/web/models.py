@@ -16,13 +16,7 @@ class Measurement(models.Model):
     return_current = models.DecimalField(max_digits=10, decimal_places=3)
     return_total_low = models.DecimalField(max_digits=10, decimal_places=3)
     return_total_normal = models.DecimalField(max_digits=10, decimal_places=3)
-
+    aggregated = models.BooleanField()
+    
     class Meta:
         db_table = "Measurement"
-
-class Statistic(models.Model):
-    meter = models.ForeignKey(Meter,on_delete=models.CASCADE)
-    timestamp = models.DateTimeField()
-    usage = models.DecimalField(max_digits=10, decimal_places=3)
-    return_ = models.DecimalField(max_digits=10, decimal_places=3)
-
