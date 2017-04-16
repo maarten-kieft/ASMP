@@ -1,38 +1,42 @@
 # ASMP
 Another Smart Meter Project, which allows users to read the values of their (dutch) smart meter, aggregate them and display them in nice graphs. This project is build in python and uses docker to deploy the application. This is work in progress.. 
 
-Milestones:
+## Todo
 
-1. (Done)Getting to know git better
-2. (Done)Creating a hello world python application
-3. (Done) Setting up a docker scipt file to contain the application
-  1. Create a docker file for web application 
-    1. (Done)Determine right base image
-    2. (Done)Determine requirements
-    3. (Done)Deploy django app in docker image 
-  2. (Done)Create a docker file for database
-  3. (Done)Create a docker file for processor
-  
-4. (Done)Read values from the p1 port and display the result in the console
-5. (Done)Store values in the database
-6. (Done) a web application to display the data from the database
-7. (Progress)Create a fancy web application
-	(Done) Setup view mechanism
-	(Progress) Design pages
-	Showing the current usage
-	Showing a graph of todays usage
-    Showing a graph of day and night usage
-	Showing a comparison between yesterday, last month, last year
+1. Fix static files in docker image V
+2. Implement general way to retrieve updates
+3. Implement statistics
+4. Implement dropdown statistics
+5. Implement graph
+6. Implement dropdown graph
+7. Merge docker files into a single file
+8. Merge start files into a single file
+9. Create screenshots
+10. Create docs for getting started on a pie
+11. Create docs for getting started on source
 
 
-Commando:
+## Commands
 
-docker build -t blackhawkdesign/asmp-rpi -f Dockerfile.arm .
-
-docker tag xxx blackhawkdesign/asmp-rpi:latest
-
-docker push blackhawkdesign/asmp-rpi
-
-docker run -p 8000:8000 --device=/dev/ttyUSB0 -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-rpi:latest
-
+Building a new image
+```
+docker build -t blackhawkdesign/asmp-arm -f Dockerfile.arm .
+docker build -t blackhawkdesign/asmp-x64 -f Dockerfile.x64 .
+```
+Pushing the new image
+```
+docker push blackhawkdesign/asmp-arm
+docker push blackhawkdesign/asmp-x64
+```
+Running an image
+```
+docker run -p 81:81 --device=/dev/ttyUSB0 -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-arm:latest
+docker run -p 81:81 --device=/dev/ttyUSB0 -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-x64:latest
+```
+```
 docker run -p 8000:8000 
+```
+Running with bash
+```
+docker run -t -i mysnapshot /bin/bash
+```
