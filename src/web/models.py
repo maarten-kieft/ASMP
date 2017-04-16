@@ -16,7 +16,7 @@ class Measurement(models.Model):
     return_current = models.DecimalField(max_digits=10, decimal_places=3)
     return_total_low = models.DecimalField(max_digits=10, decimal_places=3)
     return_total_normal = models.DecimalField(max_digits=10, decimal_places=3)
-    aggregated = models.BooleanField()
+    aggregated = models.BooleanField(default='0')
     
     class Meta:
         db_table = "Measurement"
