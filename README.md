@@ -4,13 +4,13 @@ Another Smart Meter Project, which allows users to read the values of their (dut
 ## Todo
 
 1. Fix static files in docker image V
-2. Implement general way to retrieve updates
-3. Implement statistics
-4. Implement dropdown statistics
-5. Implement graph
-6. Implement dropdown graph
-7. Merge docker files into a single file
-8. Merge start files into a single file
+2. Implement database updates V
+3. Implement general way to retrieve updates 
+4. Implement statistics (In progress)
+5. Implement dropdown statistics
+6. Implement graph
+7. Implement dropdown graph
+8. Merge start files into a single file V
 9. Create screenshots
 10. Create docs for getting started on a pie
 11. Create docs for getting started on source
