@@ -56,19 +56,19 @@ class Aggregator:
 
     def start(self):
         """Execute aggregation and cleanup of the measurements"""
-        with connection.cursor() as cursor:
-            perform_ceanup = True
+        while True:
+            with connection.cursor() as cursor:
+                perform_ceanup = True
 
-            while perform_ceanup:
-                print("Performing cleanup")
-                cursor.execute(self.cleanupQuery)
+                while perform_ceanup:
+                    print("Performing cleanup")
+                    cursor.execute(self.cleanupQuery)
 
-                if cursor.rowcount < 1000:
-                    perform_ceanup = False
+                    if cursor.rowcount < 1000:
+                        perform_ceanup = False
 
-            print("Aggregating results")
-            cursor.execute(self.aggregateQuery)
-            print("Sleeping for 30 mins")
+                print("Aggregating results")
+                cursor.execute(self.aggregateQuery)
+                print("Sleeping for 30 mins")
             time.sleep(5)
-		# iets als thread sleep
 
