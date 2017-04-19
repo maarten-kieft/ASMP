@@ -40,7 +40,15 @@ class Aggregator:
 	"""
 
     cleanupQuery = """
-
+	DELETE 
+	FROM measurement 
+	where id in (
+		SELECT m.id
+		FROM
+		measurement m 
+		INNER JOIN statistic s ON CAST(strftime('%s', m.timestamp) as integer) BETWEEN CAST(strftime('%s', s.timestamp_start) as integer) AND CAST(strftime('%s', s.timestamp_end) as integer)
+		LIMIT 1000
+	)
 	"""
 
     def run(self):
