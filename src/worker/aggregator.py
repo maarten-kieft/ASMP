@@ -1,3 +1,6 @@
+import time
+from django.db import connection
+
 class Aggregator:
     """"Class responsible for aggregating the received messages"""
 
@@ -51,14 +54,21 @@ class Aggregator:
 	)
 	"""
 
-    def run(self):
+    def start(self):
+        """Execute aggregation and cleanup of the measurements"""
         with connection.cursor() as cursor:
-            cursor.execute(aggregateQuery)
+            perform_ceanup = True
 
-    
-#1. je doet een groepering, 
-#2. Je groeppeert op uur, pakt max van al die velden en avg van huidig.
-#3. Je voegt die toe en verwijdert de source regels.
-# dat doe je herhaal je tot er niks te doen is, daarna sleep je een uur
-# di tmoet waars op een andere thread draaien
+            while perform_ceanup:
+                print("Performing cleanup")
+                cursor.execute(self.cleanupQuery)
+
+                if cursor.rowcount < 1000:
+                    perform_ceanup = False
+
+            print("Aggregating results")
+            cursor.execute(self.aggregateQuery)
+            print("Sleeping for 30 mins")
+            time.sleep(5)
+		# iets als thread sleep
 
