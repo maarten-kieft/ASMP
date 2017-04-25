@@ -43,32 +43,18 @@ class Aggregator:
 	"""
 
     cleanupQuery = """
-	DELETE 
-	FROM measurement 
-	where id in (
-		SELECT m.id
-		FROM
-		measurement m 
-		INNER JOIN statistic s ON CAST(strftime('%s', m.timestamp) as integer) BETWEEN CAST(strftime('%s', s.timestamp_start) as integer) AND CAST(strftime('%s', s.timestamp_end) as integer)
-		LIMIT 1000
-	)
+        DELETE FROM measurement where timestamp < (SELECT max(timestamp_end) from statistic)
 	"""
 
     def start(self):
         """Execute aggregation and cleanup of the measurements"""
         while True:
             with connection.cursor() as cursor:
-                perform_ceanup = True
-
-                while perform_ceanup:
-                    print("Performing cleanup")
-                    cursor.execute(self.cleanupQuery)
-
-                    if cursor.rowcount < 1000:
-                        perform_ceanup = False
-
-                print("Aggregating results")
+                print("Aggregator: Performing cleanup")
+                cursor.execute(self.cleanupQuery)
+            with connection.cursor() as cursor:
+                print("Aggregator: Aggregating results")
                 cursor.execute(self.aggregateQuery)
-                print("Sleeping for 30 mins")
-            time.sleep(5)
 
+            print("Aggregator: Sleeping for 30 mins")
+            time.sleep(5)

@@ -16,20 +16,20 @@ class Processor:
     def start(self):
         """Starting the processor to listen for message, interpret and store them"""
 
-        print("Connecting")
+        print("Processor: Connecting")
         connection = self.connector.create_connection()
 
         while connection is None:
-            print("Warning: Wasn't able to obtain a connection, sleeping for 10 secs and retrying")
+            print("Processor: Warning: Couldn't connect, sleeping 10 secs and retrying")
             time.sleep(10)
             connection = self.connector.create_connection()
 
         connection.open()
 
-        print("Listening")
+        print("Processor: Listening")
         self.listen(connection)
 
-        print("Clossing connection")
+        print("Processor: Clossing connection")
         connection.close()
 
     def listen(self, connection):
@@ -77,4 +77,4 @@ class Processor:
     def stop(self):
         """Stopping the processor"""
         self.running = False
-        print("Stopping..")
+        print("Processor: Stopping..")
