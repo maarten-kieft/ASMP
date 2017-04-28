@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
-from web.models import Measurement
+from web.models import Measurement, Statistic
+from django.db.models.functions import TruncMonth
 
 def dashboard(request):
     """Returns the dashboard"""
@@ -22,3 +23,7 @@ def get_last_current_usage(request):
         }
 
     return JsonResponse(model)
+
+def get_statistics(request):
+    """Return statistics based on the period"""
+    Stati
