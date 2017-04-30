@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from web.models import Measurement, Statistic
-from django.db.models.functions import TruncMonth
+from django.db.models.functions import Trunc
+from django.db.models import Min, Max, DateTimeField
+
 
 def dashboard(request):
     """Returns the dashboard"""
@@ -26,41 +28,16 @@ def get_last_current_usage(request):
 
 def get_statistics(request):
     """Return statistics based on the period"""
-    statistics = Statistic.objects.raw("""
-        SELECT 
-              min(id) as id
-            , meter_id
-            , timestamp as timestamp_start
-            , DATETIME(timestamp,'+1 days') as timestamp_end
-            , min(usage_start) as usage_start 
-            , max(usage_end) as usage_end
-            , min(return_start) as return_start
-            , max(return_end) as return_end
-        FROM (
-            select 
-                  id
-                , strftime('%Y-%m-%dT00:00:00.000', timestamp_start) as timestamp
-                , usage_start
-                , usage_end
-                , return_start
-                , return_end
-                , meter_id
-            FROM 
-                statistic
-        ) as data
-        WHERE
-            timestamp in (
-                strftime('%Y-%m-%dT00:00:00.000', datetime('NOW', '-60 days'))
-                , strftime('%Y-%m-%dT00:00:00.000', datetime('NOW','-61 day'))
-            ) 
-        GROUP BY 
-            meter_id
-            , timestamp
-        """)
+
+    statistics = Statistic.objects.annotate(timestamp=Trunc('timestamp_start', 'day'), usage=Max('usage_end') - Min('usage_start'))
+    
+    #model = [
+    #    {'timestamp' : statistics[0].timestamp, 'usage':statistics[0].usage},
+    #    {'timestamp' : statistics[1].timestamp, 'usage':statistics[1].usage},
+    #]
 
     model = [
-        {'timestamp' : statistics[0].timestamp_start, 'usage':statistics[0].usage_end - statistics[0].usage_start},
-        {'timestamp' : statistics[1].timestamp_start, 'usage':statistics[1].usage_end - statistics[1].usage_start}
+        {'timestamp' : statistics[20].timestamp, 'usage' : statistics[20].usage},
     ]
 
     return JsonResponse(model,safe=False)
