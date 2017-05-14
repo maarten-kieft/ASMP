@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from web.models import Measurement, Statistic
-from django.db.models.functions import Trunc
+from django.db.models.functions import Trunc, TruncMonth
 from django.db.models import Min, Max, DateTimeField
 
 
@@ -29,15 +29,17 @@ def get_last_current_usage(request):
 def get_statistics(request):
     """Return statistics based on the period"""
 
-    statistics = Statistic.objects.annotate(timestamp=Trunc('timestamp_start', 'day'), usage=Max('usage_end') - Min('usage_start'))
-    
+    #import pdb; pdb.set_trace()
+    #statistics = Statistic.objects.filter(id=1).annotate(timestamp=Trunc('timestamp_start','day', output_field=DateTimeField())).values('timestamp').annotate(usage_start = Min('usage_start'))
+    #s = Statistic.objects.filter(id=1)
+    s = Statistic.objects.filter(id=1).annotate(timestamp=Trunc('timestamp_start','day')).values('timestamp').annotate(usage_start = Min('usage_start'))
     #model = [
     #    {'timestamp' : statistics[0].timestamp, 'usage':statistics[0].usage},
     #    {'timestamp' : statistics[1].timestamp, 'usage':statistics[1].usage},
     #]
 
     model = [
-        {'timestamp' : statistics[20].timestamp, 'usage' : statistics[20].usage},
+        {'timestamp' : s[0].timestamp},
     ]
 
     return JsonResponse(model,safe=False)
