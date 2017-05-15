@@ -1,5 +1,8 @@
 import time
 from django.db import connection
+from web.models import Measurement, Statistic
+from django.db.models.functions import Trunc, TruncMonth
+from django.db.models import Min, Max, DateTimeField
 
 class Aggregator:
     """"Class responsible for aggregating the received messages"""
@@ -42,13 +45,7 @@ class Aggregator:
 		, timestamp
 	"""
 
-    cleanupQuery = """
-        DELETE FROM measurement where timestamp < (SELECT max(timestamp_end) from statistic)
-	"""
-
-    def start(self):
-        """Execute aggregation and cleanup of the measurements"""
-        while True:
+    """while True:
             with connection.cursor() as cursor:
                 print("Aggregator: Performing cleanup")
                 cursor.execute(self.cleanupQuery)
@@ -58,3 +55,33 @@ class Aggregator:
 
             print("Aggregator: Sleeping for 30 mins")
             time.sleep(5)
+            """
+
+    cleanupQuery = """
+        DELETE FROM measurement where timestamp < (SELECT max(timestamp_end) from statistic)
+	"""
+
+    def start(self):
+        """Execute aggregation and cleanup of the measurements"""
+        while True:
+            self.create_statistics()
+
+    def create_statistics(self):
+        """Aggregates the measurements into statistics"""
+        Statistic.objects.bulk_create(
+            Measurement
+            .objects
+            .annotate(
+                timestamp_start=Trunc('timestamp_start', 'day'),
+                timestamp_end=Trunc('timestamp_end', 'day')
+            )
+            .values('timestamp_start', 'timestamp_end')
+            .annotate(
+                usage_start=Min('usage_start'),
+                usage_end=Max('usage_end')
+            )
+        )
+
+    def clean_measurements(self):
+        """Cleaning up the measuments"""
+        

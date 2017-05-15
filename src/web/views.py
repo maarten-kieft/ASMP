@@ -29,11 +29,17 @@ def get_last_current_usage(request):
 def get_statistics(request):
     """Return statistics based on the period"""
 
-    statistics = Statistic.objects
-    .annotate(timestamp=Trunc('timestamp_start', 'day', output_field=DateTimeField())).values('timestamp').annotate(usage_start = Min('usage_start'),  usage_end = Max('usage_end'))
+    statistics = (Statistic
+                  .objects
+                  .annotate(timestamp=Trunc('timestamp_start', 'day', output_field=DateTimeField()))
+                  .values('timestamp')
+                  .annotate(usage_start=Min('usage_start'), usage_end=Max('usage_end')))
 
     model = [
-        {'timestamp' : statistics[0]["timestamp"], 'usage':statistics[0]["usage_end"] - statistics[0]["usage_start"]}
+        {
+            'timestamp' : statistics[0]["timestamp"],
+            'usage':statistics[0]["usage_end"] - statistics[0]["usage_start"]
+        }
     ]
 
     return JsonResponse(model, safe=False)
