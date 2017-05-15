@@ -29,18 +29,12 @@ def get_last_current_usage(request):
 def get_statistics(request):
     """Return statistics based on the period"""
 
-    #import pdb; pdb.set_trace()
-    #statistics = Statistic.objects.filter(id=1).annotate(timestamp=Trunc('timestamp_start','day', output_field=DateTimeField())).values('timestamp').annotate(usage_start = Min('usage_start'))
-    #s = Statistic.objects.filter(id=1)
-    s = Statistic.objects.filter(id=1).annotate(timestamp=Trunc('timestamp_start','day')).values('timestamp').annotate(usage_start = Min('usage_start'))
-    #model = [
-    #    {'timestamp' : statistics[0].timestamp, 'usage':statistics[0].usage},
-    #    {'timestamp' : statistics[1].timestamp, 'usage':statistics[1].usage},
-    #]
+    statistics = Statistic.objects
+    .annotate(timestamp=Trunc('timestamp_start', 'day', output_field=DateTimeField())).values('timestamp').annotate(usage_start = Min('usage_start'),  usage_end = Max('usage_end'))
 
     model = [
-        {'timestamp' : s[0].timestamp},
+        {'timestamp' : statistics[0]["timestamp"], 'usage':statistics[0]["usage_end"] - statistics[0]["usage_start"]}
     ]
 
-    return JsonResponse(model,safe=False)
+    return JsonResponse(model, safe=False)
 
