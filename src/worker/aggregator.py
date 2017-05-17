@@ -63,8 +63,8 @@ class Aggregator:
 
     def start(self):
         """Execute aggregation and cleanup of the measurements"""
-        while True:
-            self.create_statistics()
+        #while True:
+        self.create_statistics()
 
     def create_statistics(self):
         """Aggregates the measurements into statistics"""
@@ -72,13 +72,15 @@ class Aggregator:
             Measurement
             .objects
             .annotate(
-                timestamp_start=Trunc('timestamp_start', 'day'),
-                timestamp_end=Trunc('timestamp_end', 'day')
+                timestamp_start=Trunc('timestamp', 'day'),
+                timestamp_end=Trunc('timestamp', 'day')
             )
             .values('timestamp_start', 'timestamp_end')
             .annotate(
-                usage_start=Min('usage_start'),
-                usage_end=Max('usage_end')
+                usage_start=Min('usage_total_low') + Min('usage_total_normal'),
+                usage_end=Max('usage_total_low') + Max('usage_total_normal'),
+                return_start=Min('return_total_low') + Min('return_total_normal'),
+                return_end=Max('return_total_low') + Max('return_total_normal')
             )
         )
 
