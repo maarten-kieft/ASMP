@@ -9,19 +9,6 @@ import pdb
 class Aggregator:
     """"Class responsible for aggregating the received messages"""
 
-
-    """while True:
-            with connection.cursor() as cursor:
-                print("Aggregator: Performing cleanup")
-                cursor.execute(self.cleanupQuery)
-            with connection.cursor() as cursor:
-                print("Aggregator: Aggregating results")
-                cursor.execute(self.aggregateQuery)
-
-            print("Aggregator: Sleeping for 30 mins")
-            time.sleep(5)
-            """
-
     cleanupQuery = """
         DELETE FROM measurement where timestamp < (SELECT max(timestamp_end) from statistic)
 	"""
