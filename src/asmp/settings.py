@@ -69,7 +69,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'data', 'db.sqlite3'),
-        'TIME_ZONE': 'Europe/Amsterdam'
+        'TIME_ZONE': 'UTC'
     }
 }
 
@@ -98,7 +98,7 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'Europe/Amsterdam'
+TIME_ZONE = 'UTC'
 
 USE_I18N = True
 

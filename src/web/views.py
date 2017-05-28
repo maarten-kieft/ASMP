@@ -1,8 +1,10 @@
+from datetime import datetime, timedelta, date
 from django.shortcuts import render
 from django.http import JsonResponse
+from django.db.models.functions import Trunc
+from django.db.models import Min, Max, DateTimeField, Q
 from web.models import Measurement, Statistic
-from django.db.models.functions import Trunc, TruncMonth
-from django.db.models import Min, Max, DateTimeField
+from pytz import timezone
 
 
 def dashboard(request):
@@ -28,17 +30,23 @@ def get_last_current_usage(request):
 
 def get_statistics(request):
     """Return statistics based on the period"""
+    now = datetime.now()
+    current = datetime(now.year, now.month, now.day, tzinfo=timezone('UTC'))
+    previous = current + timedelta(days=-1)
 
-    statistics = (Statistic
-                  .objects
-                  .annotate(timestamp=Trunc('timestamp_start', 'day', output_field=DateTimeField()))
-                  .values('timestamp')
-                  .annotate(usage_start=Min('usage_start'), usage_end=Max('usage_end')))
+    stats = (Statistic
+             .objects
+             .annotate(timestamp=Trunc('timestamp_start', 'day', output_field=DateTimeField()))
+             .values('timestamp')
+             .annotate(usage=Max('usage_end')-Min('usage_start')))
+
+    cur_stats = list(filter(lambda s: s["timestamp"] == current, stats))
+    prev_stats = list(filter(lambda s: s["timestamp"] == previous, stats))
 
     model = [
         {
-            'timestamp' : statistics[0]["timestamp"],
-            'usage':statistics[0]["usage_end"] - statistics[0]["usage_start"]
+            'current' : cur_stats[0] if len(cur_stats) > 0 else None,
+            'previous': prev_stats[0] if len(prev_stats) > 0 else None
         }
     ]
 

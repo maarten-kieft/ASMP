@@ -47,8 +47,7 @@ class Aggregator:
             usage_end=row["usage_end"],
             return_start=row["return_start"],
             return_end=row["return_end"],
-            ) for row in query_set
-        ]
+            ) for row in query_set]
 
         Statistic.objects.bulk_create(statistics)
 

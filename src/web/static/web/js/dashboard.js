@@ -25,6 +25,33 @@ var Dashboard = {
         Dashboard.State.CurrentUsageChart = chart;
     },
 
+    InitStatistics : function(){
+        /*
+         <tbody>
+            <tr>
+                <td>Today's usage</td>
+                <td>1.25 KwH</td>
+            </tr>
+            <tr>
+                <td>Yesterday's usage</td>
+                <td>1.25 KwH</td>
+            </tr>
+            <tr>
+                <td>Average daily usage</td>
+                <td>2.56 KwH</td>
+            </tr>
+            <tr>
+                <td>Highest daily usage</td>
+                <td>12.56 KwH (13-12-2016)</td>
+            </tr>
+            <tr>
+                <td>Lowest daily usage</td>
+                <td>5.56 KwH (02-04-2015)</td>
+            </tr>
+            </tbody>
+            */
+    }
+
     Update(){
         Dashboard.ToggleLoader(true);
         
