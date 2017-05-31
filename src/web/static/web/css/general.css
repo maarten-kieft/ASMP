@@ -50,9 +50,23 @@
     margin-left: auto;
     margin-right: auto;
     margin-top:20px;
+    margin-bottom: 20px;
 }
 
 @keyframes spin {
     0% { transform: rotate(0deg); }
     100% { transform: rotate(360deg); }
+}
+
+.loader-red {
+    border-top: 16px solid #d9534f; /* Blue */   
+}
+
+.loader-green {
+    border-top: 16px solid #4DA707; /* Blue */   
+}
+
+.statistics-table {
+    border-top: 2px solid #cccccc;
+    margin-top: 5px;
 }

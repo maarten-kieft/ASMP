@@ -7,6 +7,7 @@ var Dashboard = {
     Init : function(){
         Dashboard.InitTotalUsageChart();
         Dashboard.InitCurrentUsageChart();
+        Dashboard.LoadStatistics();
         Dashboard.Update();
         setInterval(Dashboard.Update, 10000);  
     },
@@ -25,34 +26,7 @@ var Dashboard = {
         Dashboard.State.CurrentUsageChart = chart;
     },
 
-    InitStatistics : function(){
-        /*
-         <tbody>
-            <tr>
-                <td>Today's usage</td>
-                <td>1.25 KwH</td>
-            </tr>
-            <tr>
-                <td>Yesterday's usage</td>
-                <td>1.25 KwH</td>
-            </tr>
-            <tr>
-                <td>Average daily usage</td>
-                <td>2.56 KwH</td>
-            </tr>
-            <tr>
-                <td>Highest daily usage</td>
-                <td>12.56 KwH (13-12-2016)</td>
-            </tr>
-            <tr>
-                <td>Lowest daily usage</td>
-                <td>5.56 KwH (02-04-2015)</td>
-            </tr>
-            </tbody>
-            */
-    }
-
-    Update(){
+    Update : function(){
         Dashboard.ToggleLoader(true);
         
         $.ajax({
@@ -63,9 +37,6 @@ var Dashboard = {
             },
             error: function () {
                
-            },
-            complete: function(){
-                Dashboard.ToggleLoader(false);
             }
         });
     },
@@ -81,6 +52,34 @@ var Dashboard = {
         Dashboard.State.CurrentUsageChart.series[0].data[0].description = currentUsage * 1000;
         Dashboard.State.CurrentUsageChart.yAxis[0].isDirty = true;
         Dashboard.State.CurrentUsageChart.redraw();
+    },
+
+    LoadStatistics : function(){
+        $("#js-statistics-loader").removeClass("hidden");
+        $("#js-statistics-table").addClass("hidden");
+         
+         $.ajax({
+            url: "/statistics",
+            success: function (statistics) {
+                var current = statistics.current ? statistics.current.usage : 0;               
+                var previous = statistics.previous ? statistics.previous.usage : 0;
+                
+                $("#js-stats-current-row td:eq(1)").html(current + " kWh");
+                $("#js-stats-previous-row td:eq(1)").html(previous + " kWh");
+
+                $("#js-statistics-loader").addClass("hidden");
+                $("#js-statistics-table").removeClass("hidden");
+
+            },
+            error: function () {
+               
+            },
+            complete: function(){
+                Dashboard.ToggleLoader(false);
+            }
+        });
+        
+                            
     },
 
     UpdateLastUpdateLabel : function(lastMeasurement){
