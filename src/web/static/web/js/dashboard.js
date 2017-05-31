@@ -34,6 +34,7 @@ var Dashboard = {
             success: function (lastMeasurement) {
                 Dashboard.UpdateCurrentUsageChart(lastMeasurement);
                 Dashboard.UpdateLastUpdateLabel(lastMeasurement);
+                Dashboard.ToggleLoader(false);
             },
             error: function () {
                
@@ -63,9 +64,13 @@ var Dashboard = {
             success: function (statistics) {
                 var current = statistics.current ? statistics.current.usage : 0;               
                 var previous = statistics.previous ? statistics.previous.usage : 0;
+                var min = statistics.min ? statistics.min.usage : 0;
+                var max = statistics.max ? statistics.max.usage : 0;
                 
                 $("#js-stats-current-row td:eq(1)").html(current + " kWh");
                 $("#js-stats-previous-row td:eq(1)").html(previous + " kWh");
+                $("#js-stats-min-row td:eq(1)").html(min + " kWh");
+                $("#js-stats-max-row td:eq(1)").html(max + " kWh");
 
                 $("#js-statistics-loader").addClass("hidden");
                 $("#js-statistics-table").removeClass("hidden");

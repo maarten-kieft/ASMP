@@ -5,7 +5,7 @@ from django.db.models.functions import Trunc
 from django.db.models import Min, Max, DateTimeField, Q
 from web.models import Measurement, Statistic
 from pytz import timezone
-
+import operator
 
 def dashboard(request):
     """Returns the dashboard"""
@@ -42,13 +42,15 @@ def get_statistics(request):
 
     cur_stats = list(filter(lambda s: s["timestamp"] == current, stats))
     prev_stats = list(filter(lambda s: s["timestamp"] == previous, stats))
+    min_stats = list(sorted(stats, key=lambda s: s["usage"]))
+    max_stats = list(sorted(stats, key=lambda s: s["usage"], reverse=True))
 
-    model = [
-        {
-            'current' : cur_stats[0] if len(cur_stats) > 0 else None,
-            'previous': prev_stats[0] if len(prev_stats) > 0 else None
-        }
-    ]
+    model = {
+        'current' : cur_stats[0] if len(cur_stats) > 0 else None,
+        'previous': prev_stats[0] if len(prev_stats) > 0 else None,
+        'min': min_stats[0] if len(min_stats) > 0 else None,
+        'max': max_stats[0] if len(max_stats) > 0 else None
+    }
 
     return JsonResponse(model, safe=False)
 
