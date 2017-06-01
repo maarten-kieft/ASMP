@@ -56,4 +56,24 @@ def get_statistics(request):
     }
 
     return JsonResponse(model, safe=False)
+    
+    def get_graph_data(request):
+        """Return graph data based on the period"""
+        now = datetime.now()
+        current = datetime(now.year, now.month, now.day, tzinfo=timezone('UTC'))
+        previous = current + timedelta(days=-1)
+
+        stats = (Statistic
+                .objects
+                .annotate(timestamp=Trunc('timestamp_start', 'day', output_field=DateTimeField()))
+                .values('timestamp')
+                .annotate(usage=Max('usage_end')-Min('usage_start')))
+
+      
+
+        model = {
+           
+        }
+
+    return JsonResponse(model, safe=False)
 
