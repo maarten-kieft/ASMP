@@ -7,6 +7,7 @@ var Dashboard = {
     Init : function(){
         Dashboard.InitTotalUsageChart();
         Dashboard.InitCurrentUsageChart();
+        Dashboard.LoadStatistics();
         Dashboard.Update();
         setInterval(Dashboard.Update, 10000);  
     },
@@ -25,7 +26,7 @@ var Dashboard = {
         Dashboard.State.CurrentUsageChart = chart;
     },
 
-    Update(){
+    Update : function(){
         Dashboard.ToggleLoader(true);
         
         $.ajax({
@@ -33,12 +34,10 @@ var Dashboard = {
             success: function (lastMeasurement) {
                 Dashboard.UpdateCurrentUsageChart(lastMeasurement);
                 Dashboard.UpdateLastUpdateLabel(lastMeasurement);
+                Dashboard.ToggleLoader(false);
             },
             error: function () {
                
-            },
-            complete: function(){
-                Dashboard.ToggleLoader(false);
             }
         });
     },
@@ -54,6 +53,40 @@ var Dashboard = {
         Dashboard.State.CurrentUsageChart.series[0].data[0].description = currentUsage * 1000;
         Dashboard.State.CurrentUsageChart.yAxis[0].isDirty = true;
         Dashboard.State.CurrentUsageChart.redraw();
+    },
+
+    LoadStatistics : function(){
+        $("#js-statistics-loader").removeClass("hidden");
+        $("#js-statistics-table").addClass("hidden");
+         
+         $.ajax({
+            url: "/statistics",
+            success: function (statistics) {
+                var current = statistics.current ? statistics.current.usage : 0;               
+                var previous = statistics.previous ? statistics.previous.usage : 0;
+                var min = statistics.min ? statistics.min.usage : 0;
+                var max = statistics.max ? statistics.max.usage : 0;
+                var avg = statistics.avg;
+
+                $("#js-stats-current-row td:eq(1)").html(current + " kWh");
+                $("#js-stats-previous-row td:eq(1)").html(previous + " kWh");
+                $("#js-stats-min-row td:eq(1)").html(min + " kWh");
+                $("#js-stats-max-row td:eq(1)").html(max + " kWh");
+                $("#js-stats-avg-row td:eq(1)").html(avg + " kWh");
+
+                $("#js-statistics-loader").addClass("hidden");
+                $("#js-statistics-table").removeClass("hidden");
+
+            },
+            error: function () {
+               
+            },
+            complete: function(){
+                Dashboard.ToggleLoader(false);
+            }
+        });
+        
+                            
     },
 
     UpdateLastUpdateLabel : function(lastMeasurement){

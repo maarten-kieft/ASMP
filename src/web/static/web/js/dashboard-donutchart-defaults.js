@@ -6,7 +6,8 @@ var dashboardDonutChartDefaults =  {
     },
     chart: {
         type: 'solidgauge',
-        marginTop: 50
+        marginTop: 0,
+        spacingTop:0
     },
     title: {
         text: ''

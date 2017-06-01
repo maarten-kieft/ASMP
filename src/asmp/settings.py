@@ -68,7 +68,8 @@ WSGI_APPLICATION = 'asmp.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'data','db.sqlite3'),
+        'NAME': os.path.join(BASE_DIR, 'data', 'db.sqlite3'),
+        'TIME_ZONE': 'UTC'
     }
 }
 
