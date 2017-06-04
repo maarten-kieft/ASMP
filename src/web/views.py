@@ -10,6 +10,7 @@ from functools import reduce
 
 def dashboard(request):
     """Returns the dashboard"""
+
     model = {
         'lastMeasurements' : Measurement.objects.order_by('-timestamp')[:10]
     }
@@ -53,6 +54,28 @@ def get_statistics(request):
         'min': min_stats[0] if len(min_stats) > 0 else None,
         'max': max_stats[0] if len(max_stats) > 0 else None,
         'avg' : avg_stats / len(stats)
+    }
+
+    return JsonResponse(model, safe=False)
+
+def get_graph_data(request):
+    """Return graph data based on the period"""
+    now = datetime.now()
+    #current = datetime(now.year, now.month, now.day, tzinfo=timezone('UTC'))
+    current = datetime(2017, 4, 15, tzinfo=timezone('UTC'))
+    previous = current + timedelta(days=-1)
+
+    stats = (Statistic
+             .objects
+             .annotate(timestamp=Trunc('timestamp_start', 'hour', output_field=DateTimeField()))
+             .values('timestamp')
+             .annotate(usage=Max('usage_end')-Min('usage_start')))
+
+    cur_stats = list(filter(lambda s: (current + timedelta(days=1)) >= s["timestamp"] >= current, stats))
+    prev_stats = list(filter(lambda s: (previous + timedelta(days=1)) >= s["timestamp"] >= previous, stats))
+
+    model = {
+        'current':cur_stats
     }
 
     return JsonResponse(model, safe=False)
