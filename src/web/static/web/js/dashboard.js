@@ -2,6 +2,7 @@ var Dashboard = {
     State : {
         MaxCurrentUsage : null,
         CurrentUsageChart : null,
+        TotalUsageChart : null,
     },
     
     Init : function(){
@@ -13,7 +14,69 @@ var Dashboard = {
     },
 
     InitTotalUsageChart : function(){
-        Highcharts.chart('container-area',dashboardAreaChartDefaults);
+       
+
+        $.ajax({
+            url: "/graph-data",
+            success: function (graphData) {
+                var data = [];
+                
+                for(var i=0;i<graphData["current"].length;i++){
+                    var record = graphData["current"][i];
+                    data.push([Date.parse(record.timestamp),parseFloat(record.usage)])
+                }
+
+
+                var settings = {
+                    series: [
+                        {
+                            name: "Today",
+                            data: data
+                        }
+                    ]
+                }
+
+                $.extend(settings,dashboardAreaChartDefaults);
+
+                 Dashboard.State.TotalUsageChart = Highcharts.chart('container-area',settings);
+            },
+            error: function () {
+               
+            }
+        });
+/*
+        series: [{
+        name: 'Today',
+        data: [
+            [Date.UTC(2017,10,1,9,0),2.34],
+            [Date.UTC(2017,10,1,10,0),3.34],
+            [Date.UTC(2017,10,1,11,0),2.54],
+            [Date.UTC(2017,10,1,12,0),1.34],
+            [Date.UTC(2017,10,1,13,0),6.34],
+            [Date.UTC(2017,10,1,14,0),1.54]
+        ]
+    }, {
+        name: 'Yesterday',
+        data: [
+            [Date.UTC(2017,10,1,9,0),2.34],
+            [Date.UTC(2017,10,1,10,0),1.34],
+            [Date.UTC(2017,10,1,11,0),2.87],
+            [Date.UTC(2017,10,1,12,0),4.24],
+            [Date.UTC(2017,10,1,13,0),2.34],
+            [Date.UTC(2017,10,1,14,0),2.54]
+        ]
+    }, {
+        name: 'Average',
+        data: [
+            [Date.UTC(2017,10,1,9,0),0.34],
+            [Date.UTC(2017,10,1,10,0),3.34],
+            [Date.UTC(2017,10,1,11,0),5.87],
+            [Date.UTC(2017,10,1,12,0),6.24],
+            [Date.UTC(2017,10,1,13,0),1.34],
+            [Date.UTC(2017,10,1,14,0),3.54]
+        ]
+    }]
+*/
     },
 
     InitCurrentUsageChart : function(){
