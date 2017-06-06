@@ -67,6 +67,10 @@
 }
 
 .statistics-table {
-    border-top: 2px solid #cccccc;
+    border-top: 0px;
     margin-top: 5px;
+}
+
+ .statistics-table th {
+    font-weight: bold;
 }

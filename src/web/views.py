@@ -7,6 +7,7 @@ from web.models import Measurement, Statistic
 from pytz import timezone
 import operator
 from functools import reduce
+from web.services.datetimeservice import DateTimeService
 
 def dashboard(request):
     """Returns the dashboard"""
@@ -58,21 +59,18 @@ def get_statistics(request):
 
     return JsonResponse(model, safe=False)
 
-def get_graph_data(request):
+def get_overview_graph_data(request, period="year", start_date=None):
     """Return graph data based on the period"""
-    now = datetime.now()
-    #current = datetime(now.year, now.month, now.day, tzinfo=timezone('UTC'))
-    current = datetime(2017, 4, 15, tzinfo=timezone('UTC'))
-    previous = current + timedelta(days=-1)
+    start = DateTimeService.calculate_start_date(period) if start_date is None else  DateTimeService.parse(start_date)
+    end = DateTimeService.calculate_end_date(start, period)
 
     stats = (Statistic
              .objects
-             .annotate(timestamp=Trunc('timestamp_start', 'hour', output_field=DateTimeField()))
+             .annotate(timestamp=Trunc('timestamp_start', 'month', output_field=DateTimeField()))
              .values('timestamp')
              .annotate(usage=Max('usage_end')-Min('usage_start')))
 
-    cur_stats = list(filter(lambda s: (current + timedelta(days=1)) >= s["timestamp"] >= current, stats))
-    prev_stats = list(filter(lambda s: (previous + timedelta(days=1)) >= s["timestamp"] >= previous, stats))
+    cur_stats = list(filter(lambda s: end >= s["timestamp"] >= start, stats))
 
     model = {
         'current':cur_stats

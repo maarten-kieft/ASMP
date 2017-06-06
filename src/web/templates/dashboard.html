@@ -15,42 +15,47 @@
             <div class="col-xs-6">
                 <h3>Statistics</h3>
             </div>
-            <div class="col-xs-6">
-                <div class="btn-group pull-right" style="margin-top:10px;">
-                    <button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">
-                        Switch period
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu pull-right" role="menu">
-                        <li><a href="#">Day statistics</a></li>
-                        <li><a href="#">Month statistics</a></li>
-                        <li><a href="#">Year statistics</a></li>
-                    </ul>
-                </div>
-            </div>
         </div>
-        <div id="js-statistics-loader" class="loader loader-green"></div>
+        <div id="js-statistics-loader" class="loader loader-red"></div>
         <table id="js-statistics-table" class="table hidden statistics-table">
+            <thead>
+                <tr>
+                    <th>&nbsp;</th>
+                    <th>Day</th>
+                    <th>Month</th>
+                    <th>Year</th>
+                </tr>
+            </thead>
+            <tbody>
             <tr id="js-stats-current-row">
-                <td>Today's usage</td>
+                <td>Current usage</td>
                 <td>-</td>
             </tr>
             <tr id="js-stats-previous-row">
-                <td>Yesterday's usage</td>
+                <td>Previous usage</td>
+                <td>-</td>
+                <td>-</td>
                 <td>-</td>
             </tr>
             <tr id="js-stats-avg-row">
-                <td>Average daily usage</td>
+                <td>Average usage</td>
+                <td>-</td>
+                <td>-</td>
                 <td>-</td>
             </tr>
             <tr id="js-stats-max-row">
-                <td>Highest daily usage</td>
+                <td>Highest usage</td>
+                <td>-</td>
+                <td>-</td>
                 <td>-</td>
             </tr>
             <tr id="js-stats-min-row">
-                <td>Lowest daily usage</td>
+                <td>Lowest usage</td>
+                <td>-</td>
+                <td>-</td>
                 <td>-</td>
             </tr>
+            </tbody>
         </table>
     </div>
 </div>
@@ -75,7 +80,7 @@
     <div class="row">
     <div class="col-lg-12">
         <div id="container-area" style="min-width: 310px; height: 400px; margin: 0 auto">
-            <div class="loader loader-red"></div>
+            <div class="loader loader-green"></div>
         </div>
     </div>
 </div>

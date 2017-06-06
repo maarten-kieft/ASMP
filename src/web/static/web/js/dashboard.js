@@ -17,7 +17,7 @@ var Dashboard = {
        
 
         $.ajax({
-            url: "/graph-data",
+            url: "/graph-overview-data",
             success: function (graphData) {
                 var data = [];
                 

@@ -4,7 +4,7 @@ var dashboardAreaChartDefaults =  {
             enabled: false
         }
     },
-    colors: ["#2677B5","#4DA707","#d9534f"],
+    colors: ["#4DA707","#2677B5","#d9534f"],
     chart: {
         type: 'areaspline'
     },
