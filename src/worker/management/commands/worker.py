@@ -16,5 +16,7 @@ class Command(BaseCommand):
 
         processor_thread.start()
         aggregator_thread.start()"""
-        a = Aggregator()
-        a.start()
+        """a = Aggregator()
+        a.start()"""
+        p = Processor()
+        p.start()
