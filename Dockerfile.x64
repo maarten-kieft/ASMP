@@ -1,5 +1,5 @@
 FROM debian:jessie
-RUN apt-get update && apt-get install -y python3 python3-pip nginx nano
+RUN apt-get update && apt-get install -y python3 python3-pip nginx nano && apt-get clean
 RUN mkdir -p /usr/bin/asmp
 COPY src /usr/bin/asmp/
 COPY src/data/db.sqlite3 /usr/bin/asmp/db.sqlite3

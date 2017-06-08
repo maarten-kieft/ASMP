@@ -38,5 +38,5 @@ docker run -p 8000:8000
 ```
 Running with bash
 ```
-docker run -t -i mysnapshot /bin/bash
+docker run -t -i {containerid} /bin/bash
 ```
