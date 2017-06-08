@@ -27,7 +27,7 @@ var dashboardAreaChartDefaults =  {
         },
  labels: {
             formatter: function() {
-                return Highcharts.dateFormat('%H:%M', this.value);
+                return Highcharts.dateFormat('%b %Y', this.value);
             }
         },
         type: 'datetime',

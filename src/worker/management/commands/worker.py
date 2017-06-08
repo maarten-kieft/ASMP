@@ -8,15 +8,16 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         """Handle for this command"""
-        """processor = Processor()
+        processor = Processor()
         aggregator = Aggregator()
 
         processor_thread = threading.Thread(target=processor.start)
         aggregator_thread = threading.Thread(target=aggregator.start)
 
         processor_thread.start()
-        aggregator_thread.start()"""
-        """a = Aggregator()
-        a.start()"""
+        aggregator_thread.start()
+        """
         p = Processor()
         p.start()
+        a = Aggregator()
+        a.start() """
