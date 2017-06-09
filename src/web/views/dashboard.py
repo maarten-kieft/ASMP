@@ -1,15 +1,15 @@
 from datetime import datetime, timedelta, date
 from django.shortcuts import render
 from django.http import JsonResponse
-from django.db.models.functions import Trunc
 from django.db.models import Min, Max, DateTimeField, Q
-from web.models import Measurement, Statistic
 from pytz import timezone
-import operator
 from functools import reduce
 from web.services.datetimeservice import DateTimeService
+from web.services.statisticservice import StatisticService
+from web.models import Measurement, Statistic
+import operator
 
-def dashboard(request):
+def index(request):
     """Returns the dashboard"""
 
     model = {
@@ -36,12 +36,7 @@ def get_statistics(request):
     now = datetime.now()
     current = datetime(now.year, now.month, now.day, tzinfo=timezone('UTC'))
     previous = current + timedelta(days=-1)
-
-    stats = (Statistic
-             .objects
-             .annotate(timestamp=Trunc('timestamp_start', 'day', output_field=DateTimeField()))
-             .values('timestamp')
-             .annotate(usage=Max('usage_end')-Min('usage_start')))
+    stats = StatisticService.get_aggregated_statistics("day")
 
     cur_stats = list(filter(lambda s: s["timestamp"] == current, stats))
     prev_stats = list(filter(lambda s: s["timestamp"] == previous, stats))
@@ -61,19 +56,14 @@ def get_statistics(request):
 
 def get_overview_graph_data(request, period="year", start_date=None):
     """Return graph data based on the period"""
-    start = DateTimeService.calculate_start_date(period) if start_date is None else  DateTimeService.parse(start_date)
+    start = DateTimeService.calculate_start_date(period) if start_date is None else DateTimeService.parse(start_date)
     end = DateTimeService.calculate_end_date(start, period)
+    stats = StatisticService.get_aggregated_statistics(DateTimeService.calculate_interval(period))
 
-    stats = (Statistic
-             .objects
-             .annotate(timestamp=Trunc('timestamp_start', 'month', output_field=DateTimeField()))
-             .values('timestamp')
-             .annotate(usage=Max('usage_end')-Min('usage_start')))
-
-    cur_stats = list(filter(lambda s: end >= s["timestamp"] >= start, stats))
+    #import pdb; pdb.set_trace()
 
     model = {
-        'current':cur_stats
+        'data': list(filter(lambda s: end >= s["timestamp"] >= start, stats))
     }
 
     return JsonResponse(model, safe=False)
