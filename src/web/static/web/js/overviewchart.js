@@ -1,4 +1,4 @@
-var OverviewGraph = {
+var OverviewChart = {
     currentPeriod : null, 
     chart: null,
     periods : [
@@ -9,24 +9,24 @@ var OverviewGraph = {
     settings : { 
         labels: {
             formatter: function() {
-                return Highcharts.dateFormat(OverviewGraph.currentPeriod.format, this.value);
+                return Highcharts.dateFormat(OverviewChart.currentPeriod.format, this.value);
             }
         },
         series: [ 
             { 
                 name: "Usage",
                 cursor: "pointer",
-                point: { events: { click: function() {OverviewGraph.handleClick(this);}  }} 
+                point: { events: { click: function() {OverviewChart.handleClick(this);}  }} 
             }
         ]
     },
         
     init : function() {
-        $.extend(OverviewGraph.settings,dashboardAreaChartDefaults);
+        $.extend(OverviewChart.settings,dashboardAreaChartDefaults);
 
-        OverviewGraph.currentPeriod = OverviewGraph.periods[0];
-        OverviewGraph.chart = Highcharts.chart('container-area',OverviewGraph.settings);
-        OverviewGraph.load();
+        OverviewChart.currentPeriod = OverviewChart.periods[0];
+        OverviewChart.chart = Highcharts.chart('container-area',OverviewChart.settings);
+        OverviewChart.load();
     },
 
     load : function(period, startDate){
@@ -38,13 +38,13 @@ var OverviewGraph = {
         
         $.ajax({
             url: url,
-            success: OverviewGraph.update
+            success: OverviewChart.update
         });
     },
 
     update :  function (graphData) {
         var data = [];
-        var chart = OverviewGraph.chart;
+        var chart = OverviewChart.chart;
         
         for(var i=0;i<graphData["data"].length;i++){
             var record = graphData["data"][i];
@@ -57,8 +57,8 @@ var OverviewGraph = {
     },
 
     handleClick : function(e){ 
-        var periods = OverviewGraph.periods;
-        var currentPeriod = OverviewGraph.currentPeriod;
+        var periods = OverviewChart.periods;
+        var currentPeriod = OverviewChart.currentPeriod;
         var newPeriod = currentPeriod;
 
         for(var i=0;i<periods.length;i++){
@@ -72,8 +72,8 @@ var OverviewGraph = {
             }
         }
         
-        OverviewGraph.currentPeriod = newPeriod;
-        OverviewGraph.load(newPeriod,Highcharts.dateFormat('%Y-%m-%d',e.x))
+        OverviewChart.currentPeriod = newPeriod;
+        OverviewChart.load(newPeriod,Highcharts.dateFormat('%Y-%m-%d',e.x))
     }
 }
 

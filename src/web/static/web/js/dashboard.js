@@ -10,7 +10,7 @@ var Dashboard = {
 
     
     Init : function(){
-        OverviewGraph.init();
+        OverviewChart.init();
         Dashboard.InitCurrentUsageChart();
         Dashboard.LoadStatistics();
         Dashboard.Update();
