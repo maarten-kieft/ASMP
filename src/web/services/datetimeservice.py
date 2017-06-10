@@ -26,7 +26,7 @@ class DateTimeService:
     def calculate_end_date(start_date, period):
         """Calculates an end date based on a start date and period"""
         if period == "day":
-            return start_date
+            return datetime(start_date.year, start_date.month, start_date.day+1, tzinfo=timezone('UTC'))
 
         if period == "month":
             return datetime(start_date.year, start_date.month+1, 1, tzinfo=timezone('UTC'))

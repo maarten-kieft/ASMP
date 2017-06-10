@@ -3,48 +3,21 @@ var Dashboard = {
         MaxCurrentUsage : null,
         CurrentUsageChart : null,
         TotalUsageChart : null,
+        TotalUsageChartPeriod : "year"
     },
+
+   
+
     
     Init : function(){
-        Dashboard.InitTotalUsageChart();
+        OverviewGraph.init();
         Dashboard.InitCurrentUsageChart();
         Dashboard.LoadStatistics();
         Dashboard.Update();
         setInterval(Dashboard.Update, 10000);  
     },
 
-    InitTotalUsageChart : function(){
-        var settings = { series: [ { name: "Usage" } ] }
-        $.extend(settings,dashboardAreaChartDefaults);
-
-        Dashboard.State.TotalUsageChart = Highcharts.chart('container-area',settings);
-        Dashboard.LoadTotalUsageChartData();
-    },
-
-    LoadTotalUsageChartData : function(period, startDate){
-        var url = "/graph-overview-data";
-
-        if(period && startDate){
-            url += "/" + period + "/" + startDate;
-        }
-        
-        $.ajax({
-            url: url,
-            success: Dashboard.UpdateTotalUsageChart
-        });
-    },
-
-    UpdateTotalUsageChart :  function (graphData) {
-        var data = [];
-        var chart = Dashboard.State.TotalUsageChart;
-        for(var i=0;i<graphData["data"].length;i++){
-            var record = graphData["data"][i];
-            data.push([Date.parse(record.timestamp),parseFloat(record.usage)])
-        }
-
-        chart.series[0].setData(data, false);
-        chart.redraw();
-    },
+  
 
     InitCurrentUsageChart : function(){
         var chart = Highcharts.chart('donut-container',dashboardDonutChartDefaults);
@@ -54,6 +27,19 @@ var Dashboard = {
         chart.yAxis[0].isDirty = true;
         chart.redraw();
         Dashboard.State.CurrentUsageChart = chart;
+    },
+
+    UpdateCurrentUsageChart : function(lastMeasurement){
+        var currentUsage = parseFloat(lastMeasurement.currentUsage);
+      
+        if(lastMeasurement.currentUsage > Dashboard.State.MaxCurrentUsage){
+            Dashboard.State.MaxCurrentUsage = currentUsage;
+        }
+
+        Dashboard.State.CurrentUsageChart.series[0].data[0].y = currentUsage / (Dashboard.State.MaxCurrentUsage / 100)
+        Dashboard.State.CurrentUsageChart.series[0].data[0].description = currentUsage * 1000;
+        Dashboard.State.CurrentUsageChart.yAxis[0].isDirty = true;
+        Dashboard.State.CurrentUsageChart.redraw();
     },
 
     Update : function(){
@@ -70,19 +56,6 @@ var Dashboard = {
                
             }
         });
-    },
-
-    UpdateCurrentUsageChart : function(lastMeasurement){
-        var currentUsage = parseFloat(lastMeasurement.currentUsage);
-      
-        if(lastMeasurement.currentUsage > Dashboard.State.MaxCurrentUsage){
-            Dashboard.State.MaxCurrentUsage = currentUsage;
-        }
-
-        Dashboard.State.CurrentUsageChart.series[0].data[0].y = currentUsage / (Dashboard.State.MaxCurrentUsage / 100)
-        Dashboard.State.CurrentUsageChart.series[0].data[0].description = currentUsage * 1000;
-        Dashboard.State.CurrentUsageChart.yAxis[0].isDirty = true;
-        Dashboard.State.CurrentUsageChart.redraw();
     },
 
     LoadStatistics : function(){

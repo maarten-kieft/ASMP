@@ -4,7 +4,7 @@ var dashboardAreaChartDefaults =  {
             enabled: false
         }
     },
-    colors: ["#4DA707","#2677B5","#d9534f"],
+    colors: ["#2677B5","#4DA707","#d9534f"],
     chart: {
         type: 'areaspline'
     },
@@ -26,9 +26,6 @@ var dashboardAreaChartDefaults =  {
             text: 'Time'
         },
  labels: {
-            formatter: function() {
-                return Highcharts.dateFormat('%b %Y', this.value);
-            }
         },
         type: 'datetime',
         dateTimeLabelFormats: {
