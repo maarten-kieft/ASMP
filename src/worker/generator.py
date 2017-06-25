@@ -5,6 +5,7 @@ import time
 from worker.parser import Parser
 from worker.connector import Connector
 from web.models import Meter, Measurement
+import random
 
 class Generator:
     """"Class responsible for generating measurements just for development and debugging purposes"""
@@ -15,6 +16,7 @@ class Generator:
         while True:
             measurement = self.generate_message()
             print("MEASUREMENT GENERATRED")
+            #import pdb;pdb.set_trace()
             measurement.save()
             print("Save")
             time.sleep(10)
@@ -22,10 +24,10 @@ class Generator:
 
     def generate_message(self):
         meter = Meter.objects.get_or_create(name="4530303237303030303130313334353136")[0]
-      
+
         measurement = Measurement()
         measurement.meter = meter
-        measurement.usage_current = 0.5
+        measurement.usage_current = random.randint(300,400) / 1000
         measurement.usage_total_low = 0
         measurement.usage_total_normal = 0
         measurement.return_current = 0

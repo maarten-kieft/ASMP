@@ -17,11 +17,8 @@ def get_last_current_usage(request, amount = "1"):
     if last_measurements is None:
         return JsonResponse([{'timestamp':None, 'current_usage':0}], safe=False)
 
-    for measurement in last_measurements:
-        model.append({
-            'timestamp':measurement.timestamp,
-            'currentUsage':measurement.usage_current
-        })
+    for measurement in reversed(last_measurements):
+        model.append({'timestamp':measurement.timestamp, 'currentUsage':measurement.usage_current})
 
     return JsonResponse(model, safe=False)
 

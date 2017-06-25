@@ -1,4 +1,4 @@
-var dashboardAreaChartDefaults =  {
+var dashboardBarChartDefaults =  {
     navigation : {
         buttonOptions : {
             enabled: false
@@ -6,7 +6,7 @@ var dashboardAreaChartDefaults =  {
     },
     colors: ["#2677B5","#4DA707","#d9534f"],
     chart: {
-        type: 'areaspline'
+        type: 'bar'
     },
     title: {
         text: ''
