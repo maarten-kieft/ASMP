@@ -13,11 +13,6 @@ urlpatterns = [
         , name='last-current-usage'
     ),
     url(
-        r'^statistics$'
-        , dashboard.get_statistics
-        , name='get_statistics'
-    ),
-    url(
         r'^graph-overview-data/(?P<period>\w{0,15})/(?P<start_date>\d{4}-\d{2}-\d{2})$'
         , dashboard.get_overview_graph_data
         , name='get_overview_graph_data'

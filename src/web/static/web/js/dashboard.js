@@ -10,12 +10,9 @@ var Dashboard = {
         OverviewChart.init();
         CurrentChart.init();
         RecentChart.init();
-        Dashboard.LoadStatistics();
         Dashboard.Update();
         setInterval(Dashboard.Update, 10000);  
     },
-
-  
 
     Update : function(){
         Dashboard.ToggleLoader(true);
@@ -34,41 +31,8 @@ var Dashboard = {
         });
     },
 
-    LoadStatistics : function(){
-        $("#js-statistics-loader").removeClass("hidden");
-        $("#js-statistics-table").addClass("hidden");
-         
-         $.ajax({
-            url: "/statistics",
-            success: function (statistics) {
-                var current = statistics.current ? statistics.current.usage : 0;               
-                var previous = statistics.previous ? statistics.previous.usage : 0;
-                var min = statistics.min ? statistics.min.usage : 0;
-                var max = statistics.max ? statistics.max.usage : 0;
-                var avg = statistics.avg;
-
-                $("#js-stats-current-row td:eq(1)").html(current + " kWh");
-                $("#js-stats-previous-row td:eq(1)").html(previous + " kWh");
-                $("#js-stats-min-row td:eq(1)").html(min + " kWh");
-                $("#js-stats-max-row td:eq(1)").html(max + " kWh");
-                $("#js-stats-avg-row td:eq(1)").html(avg + " kWh");
-
-                $("#js-statistics-loader").addClass("hidden");
-                $("#js-statistics-table").removeClass("hidden");
-
-            },
-            error: function () {
-               
-            },
-            complete: function(){
-                Dashboard.ToggleLoader(false);
-            }
-        });
-        
-                            
-    },
-
-    UpdateLastUpdateLabel : function(lastMeasurement){
+    UpdateLastUpdateLabel : function(lastMeasurements){
+        var lastMeasurement = lastMeasurements[lastMeasurements.length-1];
           var relativeTimeStamp = lastMeasurement.timestamp ? moment(lastMeasurement.timestamp).fromNow() : "-"; 
           $("#js-last-update-label").html(relativeTimeStamp);
 

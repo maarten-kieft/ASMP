@@ -7,9 +7,15 @@ from web.models import Measurement
 def index(request):
     """Returns the dashboard"""
 
-    return render(request, "dashboard.html")
+    model = {
+        'dayStats' : StatisticService.get_summerized_statistics("day"),
+        'month_stats' : StatisticService.get_summerized_statistics("month"),
+        'year_stats' : StatisticService.get_summerized_statistics("year")
+    }
 
-def get_last_current_usage(request, amount = "1"):
+    return render(request, "dashboard.html", {'model' : model})
+
+def get_last_current_usage(request, amount="1"):
     """Returns the last know current usage"""
     model = []
     last_measurements = Measurement.objects.order_by('-timestamp')[:int(amount)]
@@ -21,12 +27,6 @@ def get_last_current_usage(request, amount = "1"):
         model.append({'timestamp':measurement.timestamp, 'currentUsage':measurement.usage_current})
 
     return JsonResponse(model, safe=False)
-
-def get_statistics(request):
-    """Return statistics based on the period"""
-    day_statistics = StatisticService.get_summerized_statistics("day")
-
-    return JsonResponse(day_statistics, safe=False)
 
 def get_overview_graph_data(request, period="year", start_date=None):
     """Return graph data based on the period"""
