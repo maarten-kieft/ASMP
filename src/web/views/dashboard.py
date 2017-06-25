@@ -1,35 +1,29 @@
-from datetime import datetime, timedelta, date
 from django.shortcuts import render
 from django.http import JsonResponse
-from django.db.models import Min, Max, DateTimeField, Q
-from pytz import timezone
-from functools import reduce
 from web.services.datetimeservice import DateTimeService
 from web.services.statisticservice import StatisticService
-from web.models import Measurement, Statistic
-import operator
+from web.models import Measurement
 
 def index(request):
     """Returns the dashboard"""
 
-    model = {
-        'lastMeasurements' : Measurement.objects.order_by('-timestamp')[:10]
-    }
+    return render(request, "dashboard.html")
 
-    return render(request, "dashboard.html", {'model' : model})
-
-def get_last_current_usage(request):
+def get_last_current_usage(request, amount = "1"):
     """Returns the last know current usage"""
-    last_measurement = Measurement.objects.order_by('-timestamp').first()
-    model = {'timestamp':None, 'currentUsage':0}
+    model = []
+    last_measurements = Measurement.objects.order_by('-timestamp')[:int(amount)]
 
-    if last_measurement is not None:
-        model = {
-            'timestamp':last_measurement.timestamp,
-            'currentUsage':last_measurement.usage_current
-        }
+    if last_measurements is None:
+        return JsonResponse([{'timestamp':None, 'current_usage':0}], safe=False)
 
-    return JsonResponse(model)
+    for measurement in last_measurements:
+        model.append({
+            'timestamp':measurement.timestamp,
+            'currentUsage':measurement.usage_current
+        })
+
+    return JsonResponse(model, safe=False)
 
 def get_statistics(request):
     """Return statistics based on the period"""

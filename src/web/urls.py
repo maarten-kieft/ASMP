@@ -8,6 +8,11 @@ urlpatterns = [
         , name='last-current-usage'
     ),
     url(
+        r'^last-current-usage/(?P<amount>\d+)$'
+        , dashboard.get_last_current_usage
+        , name='last-current-usage'
+    ),
+    url(
         r'^statistics$'
         , dashboard.get_statistics
         , name='get_statistics'

@@ -25,7 +25,7 @@ var OverviewChart = {
         $.extend(OverviewChart.settings,dashboardAreaChartDefaults);
 
         OverviewChart.currentPeriod = OverviewChart.periods[0];
-        OverviewChart.chart = Highcharts.chart('container-area',OverviewChart.settings);
+        OverviewChart.chart = Highcharts.chart('js-overview-chart',OverviewChart.settings);
         OverviewChart.load();
     },
 

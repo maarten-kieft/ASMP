@@ -5,18 +5,50 @@
 
 <div class="row">
     <div class="col-xs-12 col-sm-4">
-        <h3>Currently</h3>
-        <div id="donut-container" style="width: 100%; height: 100%; margin: 0 auto">
-            <div class="loader"></div>
+        <h3>Now</h3>
+        <div id="js-current-chart" style="width: 100%; height: 100%; margin: 0 auto">
+
         </div>
     </div>
     <div class="col-xs-12 col-sm-8">
-        <div class="row">
-            <div class="col-xs-6">
-                <h3>Statistics</h3>
-            </div>
+         <h3>Last 10 minutes<h3>
+         <div id="js-recent-chart">
+            
         </div>
-        <div id="js-statistics-loader" class="loader loader-red"></div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-8">
+        <h3>Overview</h3>
+    </div>
+    <div class="col-xs-4">
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">
+                Switch period
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu pull-right" role="menu">
+                <li><a href="#">Day graph</a></li>
+                <li><a href="#">Month graph</a></li>
+                <li><a href="#">Year graph</a></li>
+            </ul>
+        </div>    
+    </div>
+</div>
+    <div class="row">
+    <div class="col-lg-12">
+        <div id="js-overview-chart" style="min-width: 310px; height: 400px; margin: 0 auto">
+            
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
+        <h3>Statistics</h3>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-12">
         <table id="js-statistics-table" class="table hidden statistics-table">
             <thead>
                 <tr>
@@ -55,57 +87,6 @@
                 <td>-</td>
                 <td>-</td>
             </tr>
-            </tbody>
-        </table>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-8">
-        <h3>Graph</h3>
-    </div>
-    <div class="col-xs-4">
-        <div class="btn-group pull-right">
-            <button type="button" class="btn btn-primary btn-lg dropdown-toggle" data-toggle="dropdown">
-                Switch period
-                <span class="caret"></span>
-            </button>
-            <ul class="dropdown-menu pull-right" role="menu">
-                <li><a href="#">Day graph</a></li>
-                <li><a href="#">Month graph</a></li>
-                <li><a href="#">Year graph</a></li>
-            </ul>
-        </div>    
-    </div>
-</div>
-    <div class="row">
-    <div class="col-lg-12">
-        <div id="container-area" style="min-width: 310px; height: 400px; margin: 0 auto">
-            <div class="loader loader-green"></div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-12">
-        <h3>Last measurements</h3>
-    </div>
-</div>
-<div class="row">
-    <div class="col-xs-12">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>Date</th>
-                    <th>Current usage</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for k in model.lastMeasurements %}
-                    <tr>
-                        <td>{{ k.timestamp  }}</td>
-                        <td>{{k.usage_current}}</td>
-                    </tr>
-                {% endfor %}
-
             </tbody>
         </table>
     </div>

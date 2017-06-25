@@ -5,13 +5,11 @@ var Dashboard = {
         TotalUsageChart : null,
         TotalUsageChartPeriod : "year"
     },
-
-   
-
     
     Init : function(){
         OverviewChart.init();
-        Dashboard.InitCurrentUsageChart();
+        CurrentChart.init();
+        RecentChart.init();
         Dashboard.LoadStatistics();
         Dashboard.Update();
         setInterval(Dashboard.Update, 10000);  
@@ -19,36 +17,14 @@ var Dashboard = {
 
   
 
-    InitCurrentUsageChart : function(){
-        var chart = Highcharts.chart('donut-container',dashboardDonutChartDefaults);
-        
-        chart.series[0].data[0].y = 0
-        chart.series[0].data[0].description = 0;
-        chart.yAxis[0].isDirty = true;
-        chart.redraw();
-        Dashboard.State.CurrentUsageChart = chart;
-    },
-
-    UpdateCurrentUsageChart : function(lastMeasurement){
-        var currentUsage = parseFloat(lastMeasurement.currentUsage);
-      
-        if(lastMeasurement.currentUsage > Dashboard.State.MaxCurrentUsage){
-            Dashboard.State.MaxCurrentUsage = currentUsage;
-        }
-
-        Dashboard.State.CurrentUsageChart.series[0].data[0].y = currentUsage / (Dashboard.State.MaxCurrentUsage / 100)
-        Dashboard.State.CurrentUsageChart.series[0].data[0].description = currentUsage * 1000;
-        Dashboard.State.CurrentUsageChart.yAxis[0].isDirty = true;
-        Dashboard.State.CurrentUsageChart.redraw();
-    },
-
     Update : function(){
         Dashboard.ToggleLoader(true);
         
         $.ajax({
             url: "/last-current-usage",
             success: function (lastMeasurement) {
-                Dashboard.UpdateCurrentUsageChart(lastMeasurement);
+                CurrentChart.update(lastMeasurement);
+                RecentChart.update(lastMeasurement);
                 Dashboard.UpdateLastUpdateLabel(lastMeasurement);
                 Dashboard.ToggleLoader(false);
             },

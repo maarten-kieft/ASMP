@@ -9,7 +9,7 @@ var dashboardAreaChartDefaults =  {
         type: 'areaspline'
     },
     title: {
-        text: 'Daily usage'
+        text: ''
     },
     legend: {
         layout: 'vertical',
