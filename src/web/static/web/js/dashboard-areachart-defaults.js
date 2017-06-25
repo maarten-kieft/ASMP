@@ -9,7 +9,7 @@ var dashboardAreaChartDefaults =  {
         type: 'areaspline'
     },
     title: {
-        text: 'Daily usage'
+        text: ''
     },
     legend: {
         layout: 'vertical',
@@ -26,9 +26,6 @@ var dashboardAreaChartDefaults =  {
             text: 'Time'
         },
  labels: {
-            formatter: function() {
-                return Highcharts.dateFormat('%H:%M', this.value);
-            }
         },
         type: 'datetime',
         dateTimeLabelFormats: {
@@ -55,6 +52,9 @@ var dashboardAreaChartDefaults =  {
     },
     plotOptions: {
         areaspline: {
+             marker: {
+                 enabled: true
+             },
             fillOpacity: 0.5
         }
     }

@@ -1,28 +1,30 @@
-import time
 from datetime import datetime, timedelta
-from django.db import connection
 from web.models import Measurement, Statistic, Meter
-from django.db.models.functions import Trunc, TruncMonth
-from django.db.models import Min, Max, DateTimeField
-import pdb
+from django.db.models.functions import Trunc
+from django.db.models import Min, Max
+from pytz import timezone
+import pytz
+import time
 
 class Aggregator:
     """"Class responsible for aggregating the received messages"""
 
-    cleanupQuery = """
-        DELETE FROM measurement where timestamp < (SELECT max(timestamp_end) from statistic)
-	"""
-
     def start(self):
         """Execute aggregation and cleanup of the measurements"""
-        #while True:
-        self.create_statistics()
+        while True:
+            print("Aggregator: Creating statistics")
+            self.create_statistics()
+            print("Aggregator: Sleeping for 1 minute")
+            time.sleep(60)
 
     def create_statistics(self):
         """Aggregates the measurements into statistics"""
         now = datetime.now()
         min_timestamp = Statistic.objects.all().aggregate(Max('timestamp_end'))["timestamp_end__max"]
-        max_timestamp = now + ((datetime.min - now) % timedelta(minutes=60)) - timedelta(minutes=60)
+        max_timestamp = (now + ((datetime.min - now) % timedelta(minutes=60)) - timedelta(minutes=60)).replace(tzinfo=pytz.UTC)
+
+        if min_timestamp is None:
+            min_timestamp = datetime(2000, 1, 1, tzinfo=timezone('UTC'))
 
         query_set = (Measurement
                      .objects
@@ -53,4 +55,6 @@ class Aggregator:
 
     def clean_measurements(self):
         """Cleaning up the measuments"""
+
+        cleanupQuery = "DELETE FROM measurement where timestamp < (SELECT max(timestamp_end) from statistic)"
         

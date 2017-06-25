@@ -8,7 +8,7 @@ Another Smart Meter Project, which allows users to read the values of their (dut
 3. Implement general way to retrieve updates V
 4. Implement statistics V
 5. Implement dropdown statistics
-6. Implement graph 
+6. Implement graph V
 7. Implement dropdown graph
 8. Merge start files into a single file V
 9. Create screenshots
@@ -28,6 +28,10 @@ Pushing the new image
 docker push blackhawkdesign/asmp-arm
 docker push blackhawkdesign/asmp-x64
 ```
+Pulling the most recent image
+```
+docker pull blackhawkdesign/asmp-arm:latest
+```
 Running an image
 ```
 docker run -p 81:81 --device=/dev/ttyUSB0 -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-arm:latest
@@ -38,5 +42,5 @@ docker run -p 8000:8000
 ```
 Running with bash
 ```
-docker run -t -i mysnapshot /bin/bash
+docker run -t -i {containerid} /bin/bash
 ```
