@@ -55,10 +55,7 @@ var dashboardAreaChartDefaults =  {
              marker: {
                  enabled: true
              },
-             connectEnds: false,
-            fillOpacity: 0.5,
-            pointInterval: 10,
-            pointIntervalUnit: "second"
+            fillOpacity: 0.5
         }
     }
 };

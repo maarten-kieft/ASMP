@@ -25,7 +25,7 @@ var RecentChart = {
     },
 
     load : function(period, startDate){
-        var url = "/last-current-usage/60";
+        var url = "/last-current-usage/30";
         
         $.ajax({
             url: url,
@@ -57,7 +57,7 @@ var RecentChart = {
                 continue;
             }
 
-            var shift = RecentChart.chart.series[0].points.length >= 60;
+            var shift = RecentChart.chart.series[0].points.length >= 30;
             RecentChart.lastPoint = timestamp;
             chart.series[0].addPoint([timestamp, currentUsage], false, shift);
         }

@@ -1,5 +1,6 @@
 var OverviewChart = {
     currentPeriod : null, 
+    startDate: null,
     chart: null,
     periods : [
         {period : "year", format : "%b %Y"},
@@ -22,9 +23,10 @@ var OverviewChart = {
     },
         
     init : function() {
-        $.extend(OverviewChart.settings,dashboardAreaChartDefaults);
+        $.extend(OverviewChart.settings,dashboardBarChartDefaults);
 
         OverviewChart.currentPeriod = OverviewChart.periods[0];
+        OverviewChart.startDate = moment().startOf('year');
         OverviewChart.chart = Highcharts.chart('js-overview-chart',OverviewChart.settings);
         OverviewChart.load();
     },
@@ -51,6 +53,11 @@ var OverviewChart = {
             data.push([Date.parse(record.timestamp),parseFloat(record.usage)])
         }
 
+        var min = OverviewChart.startDate.toDate();
+        var max = OverviewChart.startDate.clone().endOf(OverviewChart.currentPeriod.period).toDate();
+        chart.xAxis[0].setExtremes(min,max);
+        chart.xAxis[0].isDirty = true;
+
         chart.yAxis[0].isDirty = true;
         chart.series[0].setData(data, false);
         chart.redraw();
@@ -73,6 +80,7 @@ var OverviewChart = {
         }
         
         OverviewChart.currentPeriod = newPeriod;
+        OverviewChart.startDate = moment(Highcharts.dateFormat('%Y-%m-%d',e.x), "YYYY-MM-DD")
         OverviewChart.load(newPeriod,Highcharts.dateFormat('%Y-%m-%d',e.x))
     }
 }

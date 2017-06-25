@@ -6,28 +6,18 @@ var dashboardBarChartDefaults =  {
     },
     colors: ["#2677B5","#4DA707","#d9534f"],
     chart: {
-        type: 'bar'
+        type: 'column'
     },
     title: {
         text: ''
-    },
-    legend: {
-        layout: 'vertical',
-        align: 'left',
-        verticalAlign: 'top',
-        x: 150,
-        y: 100,
-        floating: true,
-        borderWidth: 1,
-        backgroundColor: (Highcharts.theme && Highcharts.theme.legendBackgroundColor) || '#FFFFFF'
     },
     xAxis: {
         title : {
             text: 'Time'
         },
- labels: {
-        },
+        labels: {},
         type: 'datetime',
+
         dateTimeLabelFormats: {
             second: '%H:%M',
             minute: '%H:%M',
@@ -51,14 +41,6 @@ var dashboardBarChartDefaults =  {
         enabled: false
     },
     plotOptions: {
-        areaspline: {
-             marker: {
-                 enabled: true
-             },
-             connectEnds: false,
-            fillOpacity: 0.5,
-            pointInterval: 10,
-            pointIntervalUnit: "second"
-        }
+       
     }
 };
