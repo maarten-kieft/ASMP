@@ -7,6 +7,8 @@ var Dashboard = {
     },
     
     Init : function(){
+        Highcharts.setOptions({global: {timezone: 'Europe/Amsterdam'}});
+
         OverviewChart.init();
         CurrentChart.init();
         RecentChart.init();
@@ -18,7 +20,7 @@ var Dashboard = {
         Dashboard.ToggleLoader(true);
         
         $.ajax({
-            url: "/last-current-usage",
+            url: "/last-measurements",
             success: function (lastMeasurement) {
                 CurrentChart.update(lastMeasurement);
                 RecentChart.update(lastMeasurement);

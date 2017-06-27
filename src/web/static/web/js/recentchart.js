@@ -2,17 +2,9 @@ var RecentChart = {
     chart: null,
     lastPoint: null,
     settings : { 
-        /*labels: {
-            formatter: function() {
-                return Highcharts.dateFormat(OverviewChart.currentPeriod.format, this.value);
-            }
-        },*/
         series: [ 
             { 
                 name: "Usage"
-            /*
-                point: { events: { click: function() {OverviewChart.handleClick(this);}  }} 
-                */
             }
         ]
     },
@@ -25,7 +17,7 @@ var RecentChart = {
     },
 
     load : function(period, startDate){
-        var url = "/last-current-usage/30";
+        var url = "/last-measurements/60";
         
         $.ajax({
             url: url,
@@ -51,7 +43,7 @@ var RecentChart = {
         for(var i =0; i< lastMeasurements.length;i++){
             var lastMeasurement = lastMeasurements[i];
             var currentUsage = parseFloat(lastMeasurement.currentUsage);
-            var timestamp = Date.parse(lastMeasurement.timestamp);
+            var timestamp = new Date(lastMeasurement.timestamp);
 
             if(timestamp <= RecentChart.lastPoint){
                 continue;

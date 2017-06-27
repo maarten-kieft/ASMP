@@ -3,14 +3,14 @@ from django.conf.urls import url
 
 urlpatterns = [
     url(
-        r'^last-current-usage$'
-        , dashboard.get_last_current_usage
-        , name='last-current-usage'
+        r'^last-measurements$'
+        , dashboard.get_last_measurements
+        , name='last-measurements'
     ),
     url(
-        r'^last-current-usage/(?P<amount>\d+)$'
-        , dashboard.get_last_current_usage
-        , name='last-current-usage'
+        r'^last-measurements/(?P<amount>\d+)$'
+        , dashboard.get_last_measurements
+        , name='last-measurements'
     ),
     url(
         r'^graph-overview-data/(?P<period>\w{0,15})/(?P<start_date>\d{4}-\d{2}-\d{2})$'

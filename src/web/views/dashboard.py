@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from dateutil import tz
 from web.services.datetimeservice import DateTimeService
 from web.services.statisticservice import StatisticService
 from web.models import Measurement
@@ -15,7 +16,7 @@ def index(request):
 
     return render(request, "dashboard.html", {'model' : model})
 
-def get_last_current_usage(request, amount="1"):
+def get_last_measurements(request, amount="1"):
     """Returns the last know current usage"""
     model = []
     last_measurements = Measurement.objects.order_by('-timestamp')[:int(amount)]
