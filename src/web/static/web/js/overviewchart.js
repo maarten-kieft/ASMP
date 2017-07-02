@@ -49,13 +49,17 @@ var OverviewChart = {
         var chart = OverviewChart.chart;
         
         for(var i=0;i<graphData["data"].length;i++){
+            if(i > 23 && OverviewChart.currentPeriod.period == "day"){
+                break;
+            }
+
             var record = graphData["data"][i];
             data.push([Date.parse(record.timestamp),parseFloat(record.usage)])
         }
 
         var min = OverviewChart.startDate.toDate();
         var max = OverviewChart.startDate.clone().endOf(OverviewChart.currentPeriod.period).toDate();
-        chart.xAxis[0].setExtremes(min,max);
+        chart.xAxis[0].setExtremes(min,max,true,true);
         chart.xAxis[0].isDirty = true;
 
         chart.yAxis[0].isDirty = true;

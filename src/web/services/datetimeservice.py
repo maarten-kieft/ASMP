@@ -8,15 +8,14 @@ class DateTimeService:
     @staticmethod
     def parse(date_string):
         """Calculates an end date based on a start date and period"""
-        local_time_zone = tz.tzlocal()
-        
-        return datetime.strptime(date_string, '%Y-%m-%d').replace(tzinfo=local_time_zone)
+        return datetime.strptime(date_string, '%Y-%m-%d').replace(tzinfo=tz.tzlocal())
 
     @staticmethod
     def calculate_start_date(period):
         """Calculates a start date based on a period"""
         now = datetime.now()
         local_time_zone = tz.tzlocal()
+
         if period == "month":
             return datetime(now.year, now.month, 1, tzinfo=local_time_zone)
 
