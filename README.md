@@ -5,7 +5,6 @@ Another Smart Meter Project, which allows users to read the values of their (dut
 5. Implement month/year statistics
 6. Implement switching and zoom out in overview chart
 8. Bugfix: 30 april 2017 doesnt work: error
-9. Bugfix: utc time
 10. Loader when click on overview chart
 10. One big loader
 9. Create screenshots

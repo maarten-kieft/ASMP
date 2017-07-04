@@ -51,7 +51,7 @@ var RecentChart = {
 
             var shift = RecentChart.chart.series[0].points.length >= 30;
             RecentChart.lastPoint = timestamp;
-            chart.series[0].addPoint([timestamp, currentUsage], false, shift);
+            chart.series[0].addPoint({x:timestamp, y:currentUsage}, false, shift);
         }
             
         chart.yAxis[0].isDirty = true;
