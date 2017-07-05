@@ -2,16 +2,17 @@
 Another Smart Meter Project, which allows users to read the values of their (dutch) smart meter, aggregate them and display them in nice graphs. This project is build in python and uses docker to deploy the application. This is work in progress.. 
 
 ## Todo
-5. Implement month/year statistics
-6. Implement switching and zoom out in overview chart
-8. Bugfix: 30 april 2017 doesnt work: error
-10. Loader when click on overview chart
-10. One big loader
-9. Create screenshots
-10. Show health notifications
-10. Create docs for getting started on a pie
-11. Create docs for getting started on source
-
+1. Implement month/year statistics
+2. Implement switching and zoom out in overview chart
+3. Bugfix: 30 april 2017 doesnt work: error
+4. Loader when click on overview chart
+5. One big loader
+6. Create screenshots
+7. Show health notifications
+8. Create docs for getting started on a pie
+9. Create docs for getting started on source
+10. Showing notifications about the status of processor / aggregator
+11. Creating a heartbeat local and remote
 
 ## Commands
 
