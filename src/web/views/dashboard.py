@@ -1,15 +1,23 @@
 from django.shortcuts import render
 from django.http import JsonResponse
+from dateutil import tz
 from web.services.datetimeservice import DateTimeService
 from web.services.statisticservice import StatisticService
 from web.models import Measurement
+import pytz
 
 def index(request):
     """Returns the dashboard"""
 
-    return render(request, "dashboard.html")
+    model = {
+        'dayStats' : StatisticService.get_summerized_statistics("day"),
+        'month_stats' : StatisticService.get_summerized_statistics("month"),
+        'year_stats' : StatisticService.get_summerized_statistics("year")
+    }
 
-def get_last_current_usage(request, amount = "1"):
+    return render(request, "dashboard.html", {'model' : model})
+
+def get_last_measurements(request, amount="1"):
     """Returns the last know current usage"""
     model = []
     last_measurements = Measurement.objects.order_by('-timestamp')[:int(amount)]
@@ -22,20 +30,16 @@ def get_last_current_usage(request, amount = "1"):
 
     return JsonResponse(model, safe=False)
 
-def get_statistics(request):
-    """Return statistics based on the period"""
-    day_statistics = StatisticService.get_summerized_statistics("day")
-
-    return JsonResponse(day_statistics, safe=False)
-
 def get_overview_graph_data(request, period="year", start_date=None):
     """Return graph data based on the period"""
     start = DateTimeService.calculate_start_date(period) if start_date is None else DateTimeService.parse(start_date)
     end = DateTimeService.calculate_end_date(start, period)
     stats = StatisticService.get_aggregated_statistics(DateTimeService.calculate_interval(period))
-
+    start_utc = start.astimezone(pytz.utc)
+    end_utc = end.astimezone(pytz.utc)
+    #import pdb;pdb.set_trace()
     model = {
-        'data': list(filter(lambda s: end >= s["timestamp"] >= start, stats))
+        'data': list(filter(lambda s: end_utc >= s["timestamp"] >= start_utc, stats))
     }
 
     return JsonResponse(model, safe=False)

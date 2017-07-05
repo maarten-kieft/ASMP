@@ -21,7 +21,7 @@ var CurrentChart = {
             CurrentChart.max = currentUsage;
         }
 
-        chart.series[0].data[0].y = currentUsage / (Dashboard.State.MaxCurrentUsage / 100)
+        chart.series[0].data[0].y = currentUsage / (CurrentChart.max / 100)
         chart.series[0].data[0].description = currentUsage * 1000;
         chart.yAxis[0].isDirty = true;
         chart.redraw();

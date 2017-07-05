@@ -49,7 +49,7 @@
 </div>
 <div class="row">
     <div class="col-xs-12">
-        <table id="js-statistics-table" class="table hidden statistics-table">
+        <table class="table statistics-table">
             <thead>
                 <tr>
                     <th>&nbsp;</th>
@@ -59,33 +59,35 @@
                 </tr>
             </thead>
             <tbody>
-            <tr id="js-stats-current-row">
+            <tr>
                 <td>Current usage</td>
-                <td>-</td>
+                <td>{{ model.dayStats.current.usage }}</td>
+                <td>{{ model.monthStats.current.usage }}</td>
+                <td>{{ model.yearStats.current.usage }}</td>
             </tr>
             <tr id="js-stats-previous-row">
                 <td>Previous usage</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
+                <td>{{ model.dayStats.previous.usage }}</td>
+                <td>{{ model.monthStats.previoust.usage }}</td>
+                <td>{{ model.yearStats.previous.usage }}</td>
             </tr>
             <tr id="js-stats-avg-row">
                 <td>Average usage</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
+                <td>{{ model.dayStats.avg }}</td>
+                <td>{{ model.monthStats.avg }}</td>
+                <td>{{ model.yearStats.avg }}</td>
             </tr>
             <tr id="js-stats-max-row">
                 <td>Highest usage</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
+                <td>{{ model.dayStats.max.usage }}</td>
+                <td>{{ model.monthStats.max.usage }}</td>
+                <td>{{ model.yearStats.max.usage }}</td>
             </tr>
             <tr id="js-stats-min-row">
                 <td>Lowest usage</td>
-                <td>-</td>
-                <td>-</td>
-                <td>-</td>
+                <td>{{ model.dayStats.min.usage }}</td>
+                <td>{{ model.monthStats.min.usage }}</td>
+                <td>{{ model.yearStats.min.usage }}</td>
             </tr>
             </tbody>
         </table>
