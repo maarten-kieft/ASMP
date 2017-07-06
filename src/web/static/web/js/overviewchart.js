@@ -22,13 +22,14 @@ var OverviewChart = {
         ]
     },
         
-    init : function() {
+    init : function(initializedCallback) {
         $.extend(OverviewChart.settings,dashboardBarChartDefaults);
 
         OverviewChart.currentPeriod = OverviewChart.periods[0];
         OverviewChart.startDate = moment().startOf('year');
         OverviewChart.chart = Highcharts.chart('js-overview-chart',OverviewChart.settings);
         OverviewChart.load();
+        initializedCallback("overviewChart");
     },
 
     load : function(period, startDate){

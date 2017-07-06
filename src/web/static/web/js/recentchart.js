@@ -9,11 +9,12 @@ var RecentChart = {
         ]
     },
         
-    init : function() {
+    init : function(initializedCallback) {
         $.extend(RecentChart.settings,dashboardAreaChartDefaults);
 
         RecentChart.chart = Highcharts.chart('js-recent-chart',RecentChart.settings);
         RecentChart.load();
+        initializedCallback("overviewChart");
     },
 
     load : function(period, startDate){

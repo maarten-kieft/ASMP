@@ -2,7 +2,7 @@ var CurrentChart = {
     chart : null,
     max : 0,
 
-    init : function(){
+    init : function(initializedCallback){
         var chart = Highcharts.chart('js-current-chart',dashboardDonutChartDefaults);
         
         chart.series[0].data[0].y = 0
@@ -10,6 +10,7 @@ var CurrentChart = {
         chart.yAxis[0].isDirty = true;
         chart.redraw();
         CurrentChart.chart = chart;
+        initializedCallback("currentChart");
     },
 
     update : function(lastMeasurements){
