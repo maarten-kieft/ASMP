@@ -19,9 +19,11 @@ var Dashboard = {
 
     ComponentIntiialized : function(name){
         Dashboard.State.LoadedComponents.push(name);
+        $("#loading-overlay").height($("#page-wrapper").height())
 
         if(Dashboard.State.LoadedComponents.length === 3){
             $("#loading-overlay").addClass("hidden")
+            $("#page-wrapper").removeClass("hidden")
         }
     },
 

@@ -77,10 +77,9 @@
 
 #loading-overlay{
     width: 100%;
-    height: 100%;
+    height: 320px;
     background-color:#ffffff;
     position: absolute;
     z-index: 10;
     padding-top: 20px;
-
 }
