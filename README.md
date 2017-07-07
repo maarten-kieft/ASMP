@@ -6,7 +6,6 @@ Another Smart Meter Project, which allows users to read the values of their (dut
 2. Implement switching and zoom out in overview chart
 3. Bugfix: 30 april 2017 doesnt work: error
 4. Loader when click on overview chart
-5. One big loader on startup
 6. Showing only recent measurements in recent chart / current chart. So only last 5 mins. Otherwise gray out
 7. Storing in local time, instead of utc
 6. Create screenshots

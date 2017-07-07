@@ -1,8 +1,9 @@
-from datetime import datetime, timedelta, date
-from pytz import timezone
+from datetime import datetime, timedelta
 from functools import reduce
+from pytz import timezone
 from django.db.models.functions import Trunc
-from django.db.models import Min, Max, DateTimeField, Q
+from django.db.models import Min, Max
+from django.utils.timezone import get_current_timezone
 from web.models import Statistic
 
 class StatisticService:
@@ -11,9 +12,10 @@ class StatisticService:
     @staticmethod
     def get_aggregated_statistics(period):
         """Calculates an end date based on a start date and period"""
+
         return (Statistic
                 .objects
-                .annotate(timestamp=Trunc('timestamp_start', period, output_field=DateTimeField()))
+                .annotate(timestamp=Trunc('timestamp_start', period,tzinfo=get_current_timezone()))
                 .values('timestamp')
                 .annotate(usage=Max('usage_end')-Min('usage_start')))
 
