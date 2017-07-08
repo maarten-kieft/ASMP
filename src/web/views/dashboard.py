@@ -39,11 +39,9 @@ def get_overview_graph_data(request, period="year", start_date=None):
     start = DateTimeService.calculate_start_date(period) if start_date is None else DateTimeService.parse(start_date)
     end = DateTimeService.calculate_end_date(start, period)
     stats = StatisticService.get_aggregated_statistics(DateTimeService.calculate_interval(period))
-    start_utc = start.astimezone(pytz.utc)
-    end_utc = end.astimezone(pytz.utc)
-
+   
     model = {
-        'data': list(filter(lambda s: end_utc >= s["timestamp"] >= start_utc, stats))
+        'data': list(filter(lambda s: end >= s["timestamp"] >= start, stats))
     }
 
     return JsonResponse(model, safe=False)
