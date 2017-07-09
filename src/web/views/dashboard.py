@@ -11,7 +11,7 @@ def index(request):
     """Returns the dashboard"""
 
     model = {
-        'dayStats' : StatisticService.get_summerized_statistics("day"),
+        'day_stats' : StatisticService.get_summerized_statistics("day"),
         'month_stats' : StatisticService.get_summerized_statistics("month"),
         'year_stats' : StatisticService.get_summerized_statistics("year")
     }
@@ -38,12 +38,8 @@ def get_last_measurements(request, amount="1"):
 def get_overview_graph_data(request, period="year", start_date=None):
     """Return graph data based on the period"""
 
-    start = DateTimeService.calculate_start_date(period) if start_date is None else DateTimeService.parse(start_date)
-    end = DateTimeService.calculate_end_date(start, period)
-    stats = StatisticService.get_aggregated_statistics(DateTimeService.calculate_interval(period))
-
     model = {
-        'data': list(filter(lambda s: end >= s["timestamp"] >= start, stats))
+        'data' : StatisticService.get_filtered_aggregated_statistics(period,start_date)
     }
 
     return JsonResponse(model, safe=False)
