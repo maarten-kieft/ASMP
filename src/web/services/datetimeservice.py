@@ -1,7 +1,9 @@
-from datetime import datetime
+
 from dateutil import tz
+from dateutil.parser import *
 from dateutil.relativedelta import relativedelta
 from django.utils.timezone import get_current_timezone
+from datetime import datetime
 import pytz
 
 class DateTimeService:
@@ -9,8 +11,11 @@ class DateTimeService:
 
     @staticmethod
     def parse(date_string):
-        """Calculates an end date based on a start date and period"""
-        return datetime.strptime(date_string, '%Y-%m-%d').replace(tzinfo=get_current_timezone()).astimezone(pytz.utc)
+        """Parse a local datettime string and convert it to utc"""
+        local_datetime =  get_current_timezone().localize(parse(date_string))
+        utc_datetime = local_datetime.astimezone(pytz.utc)
+        
+        return utc_datetime
 
     @staticmethod
     def calculate_start_date(period):

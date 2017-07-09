@@ -1,9 +1,11 @@
-from django.shortcuts import render
+import pytz
 from django.http import JsonResponse
+from django.shortcuts import render
+
+from web.models import Measurement
 from web.services.datetimeservice import DateTimeService
 from web.services.statisticservice import StatisticService
-from web.models import Measurement
-import pytz
+
 
 def index(request):
     """Returns the dashboard"""
@@ -35,14 +37,13 @@ def get_last_measurements(request, amount="1"):
 
 def get_overview_graph_data(request, period="year", start_date=None):
     """Return graph data based on the period"""
- 
+
     start = DateTimeService.calculate_start_date(period) if start_date is None else DateTimeService.parse(start_date)
     end = DateTimeService.calculate_end_date(start, period)
     stats = StatisticService.get_aggregated_statistics(DateTimeService.calculate_interval(period))
-   
+
     model = {
         'data': list(filter(lambda s: end >= s["timestamp"] >= start, stats))
     }
 
     return JsonResponse(model, safe=False)
-
