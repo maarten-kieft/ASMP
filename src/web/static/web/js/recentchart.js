@@ -18,7 +18,7 @@ var RecentChart = {
     },
 
     load : function(period, startDate){
-        var url = "/last-measurements/60";
+        var url = "/last-measurements/30";
         
         $.ajax({
             url: url,
