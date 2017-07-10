@@ -19,40 +19,25 @@ class DateTimeService:
     def calculate_start_date(period):
         """Calculates a start date based on a period"""
         now = datetime.now()
-        timezone = get_current_timezone()
+        month = now.month if period == "month" else 1
+        day = now.day if period == "day" else 1 
 
-        if period == "month":
-            return get_current_timezone().localize(datetime(now.year, now.month, 1)).astimezone(pytz.utc)
-
-        if period == "day":
-            return get_current_timezone().localize(datetime(now.year, now.month, now.day)).astimezone(pytz.utc)
-
-        return  get_current_timezone().localize(datetime(now.year, 1, 1)).astimezone(pytz.utc)
+        return get_current_timezone().localize(datetime(now.year, month, day)).astimezone(pytz.utc)
 
     @staticmethod
-    def calculate_end_date(start_date, period):
+    def calculate_end_date(start_date, period, backwards=False):
         """Calculates an end date based on a start date and period"""
-
+        amount = -1 if backwards == True else 1
+        local_start_date = start_date.astimezone( get_current_timezone())
+        local_end_date = local_start_date + relativedelta(years=amount)
+        
         if period == "day":
-            return start_date + relativedelta(days=1)
+            local_end_date = local_start_date + relativedelta(days=amount)
 
         if period == "month":
-            return start_date + relativedelta(months=1)
-
-        return  start_date + relativedelta(years=1)
-
-    @staticmethod
-    def calculate_previous(start_date, period):
-        """Calculates an end date based on a start date and period"""
-
-        if period == "day":
-            return start_date + relativedelta(days=-1)
-
-        if period == "month":
-            return start_date + relativedelta(months=-1)
-
-        return  start_date + relativedelta(years=-1)
-
+            local_end_date = local_start_date + relativedelta(months=amount)
+            
+        return  local_end_date.astimezone(pytz.utc)
 
     @staticmethod
     def calculate_interval(period):

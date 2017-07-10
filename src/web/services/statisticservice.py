@@ -26,7 +26,7 @@ class StatisticService:
         """Calculates an end date based on a start date and period"""
 
         current = DateTimeService.calculate_start_date(period)
-        previous = DateTimeService.calculate_previous(current,period)
+        previous = DateTimeService.calculate_end_date(current,period,True)
         stats = StatisticService.get_aggregated_statistics(period)
 
         cur_stats = list(filter(lambda s: s["timestamp"] == current, stats))
