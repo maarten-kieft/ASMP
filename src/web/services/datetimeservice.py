@@ -19,7 +19,7 @@ class DateTimeService:
     def calculate_start_date(period):
         """Calculates a start date based on a period"""
         now = datetime.now()
-        month = now.month if period == "month" else 1
+        month = now.month if period != "year" else 1
         day = now.day if period == "day" else 1 
 
         return get_current_timezone().localize(datetime(now.year, month, day)).astimezone(pytz.utc)
@@ -27,7 +27,7 @@ class DateTimeService:
     @staticmethod
     def calculate_end_date(start_date, period, backwards=False):
         """Calculates an end date based on a start date and period"""
-        amount = -1 if backwards == True else 1
+        amount = -1 if backwards else 1
         local_start_date = start_date.astimezone( get_current_timezone())
         local_end_date = local_start_date + relativedelta(years=amount)
         

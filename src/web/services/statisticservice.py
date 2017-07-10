@@ -34,7 +34,7 @@ class StatisticService:
         min_stats = list(sorted(stats, key=lambda s: s["usage"]))
         max_stats = list(sorted(stats, key=lambda s: s["usage"], reverse=True))
         avg_stats = len(stats) if reduce(lambda x, s: x+int(s["usage"]), stats, 0) else 0
-
+        
         return {
             'current' : cur_stats[0] if len(cur_stats) > 0 else None,
             'previous': prev_stats[0] if len(prev_stats) > 0 else None,

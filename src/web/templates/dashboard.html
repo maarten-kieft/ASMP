@@ -68,7 +68,7 @@
             <tr id="js-stats-previous-row">
                 <td>Previous usage</td>
                 <td>{{ model.day_stats.previous.usage }}</td>
-                <td>{{ model.month_stats.previoust.usage }}</td>
+                <td>{{ model.month_stats.previous.usage }}</td>
                 <td>{{ model.year_stats.previous.usage }}</td>
             </tr>
             <tr id="js-stats-avg-row">
@@ -79,15 +79,15 @@
             </tr>
             <tr id="js-stats-max-row">
                 <td>Highest usage</td>
-                <td>{{ model.day_stats.max.usage }} ({{ model.day_stats.max.timestamp }})</td>
-                <td>{{ model.month_stats.max.usage }} ({{ model.month_stats.max.timestamp }})</td>
-                <td>{{ model.year_stats.max.usage }} ({{ model.year_stats.max.timestamp }})</td>
+                <td>{{ model.day_stats.max.usage }} ({{ model.day_stats.max.timestamp|date:"d-m-Y" }})</td>
+                <td>{{ model.month_stats.max.usage }} ({{ model.month_stats.max.timestamp|date:"M Y" }})</td>
+                <td>{{ model.year_stats.max.usage }} ({{ model.year_stats.max.timestamp|date:"Y" }})</td>
             </tr>
             <tr id="js-stats-min-row">
                 <td>Lowest usage</td>
-                <td>{{ model.day_stats.min.usage }}</td>
-                <td>{{ model.month_stats.min.usage }}</td>
-                <td>{{ model.year_stats.min.usage }}</td>
+                <td>{{ model.day_stats.min.usage }} ({{ model.day_stats.min.timestamp|date:"d-m-Y" }})</td>
+                <td>{{ model.month_stats.min.usage }} ({{ model.month_stats.min.timestamp|date:"M Y" }})</td>
+                <td>{{ model.year_stats.min.usage }} ({{ model.year_stats.min.timestamp|date:"Y" }})</td>
             </tr>
             </tbody>
         </table>
