@@ -28,19 +28,19 @@ class StatisticService:
         current = DateTimeService.calculate_start_date(period)
         previous = DateTimeService.calculate_end_date(current,period,True)
         stats = StatisticService.get_aggregated_statistics(period)
-
+        
         cur_stats = list(filter(lambda s: s["timestamp"] == current, stats))
         prev_stats = list(filter(lambda s: s["timestamp"] == previous, stats))
         min_stats = list(sorted(stats, key=lambda s: s["usage"]))
         max_stats = list(sorted(stats, key=lambda s: s["usage"], reverse=True))
-        avg_stats = len(stats) if reduce(lambda x, s: x+int(s["usage"]), stats, 0) else 0
+        avg_stats = reduce(lambda x,s: x + s, (s["usage"] for s in stats)) if len(stats) > 0 else 0
         
         return {
-            'current' : cur_stats[0] if len(cur_stats) > 0 else None,
-            'previous': prev_stats[0] if len(prev_stats) > 0 else None,
-            'min': min_stats[0] if len(min_stats) > 0 else None,
-            'max': max_stats[0] if len(max_stats) > 0 else None,
-            'avg' : avg_stats / len(stats) if len(stats) > 0 else 0
+            'current' : cur_stats[0] if len(cur_stats) > 0 else {"usage" : 0},
+            'previous': prev_stats[0] if len(prev_stats) > 0 else {"usage" : 0},
+            'min': min_stats[0] if len(min_stats) > 0 else {"usage" : 0},
+            'max': max_stats[0] if len(max_stats) > 0 else {"usage" : 0},
+            'avg' : avg_stats / len(stats) if len(stats) > 0 else {"usage" : 0}
         }
     
     @staticmethod
