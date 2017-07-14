@@ -2,16 +2,17 @@
 Another Smart Meter Project, which allows users to read the values of their (dutch) smart meter, aggregate them and display them in nice graphs. This project is build in python and uses docker to deploy the application. This is work in progress.. 
 
 ## Todo
-1. Implement month/year statistics
 2. Implement switching and zoom out in overview chart
 4. Loader when click on overview chart
 6. Showing only recent measurements in recent chart / current chart. So only last 5 mins. Otherwise gray out
 6. Create screenshots
-7. Show health notifications
 8. Create docs for getting started on a pie
 9. Create docs for getting started on source
-10. Showing notifications about the status of processor / aggregator
+10. Showing (health)notifications about the status of processor / aggregator
 11. Creating a heartbeat local and remote
+12. Implement return charts
+13. Implement gas database changes
+14. Implement gas ui changes
 
 ## Commands
 
