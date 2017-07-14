@@ -13,7 +13,7 @@ Another Smart Meter Project, which allows users to read the values of their (dut
 12. Implement return charts
 13. Implement gas database changes
 14. Implement gas ui changes
-
+15. Create update mechanism
 ## Commands
 
 Building a new image

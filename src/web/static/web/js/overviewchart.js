@@ -3,9 +3,9 @@ var OverviewChart = {
     startDate: null,
     chart: null,
     periods : [
-        {period : "year", format : "%b %Y"},
-        {period : "month", format : "%b %Y"},
-        {period : "day", format : "%b %Y"}
+        {period : "year", format : "%b %Y", momentInterval : "years"},
+        {period : "month", format : "%b %Y", momentInterval : "months"},
+        {period : "day", format : "%b %Y", momentInterval : "days"}
     ],
     settings : { 
         labels: {
@@ -17,7 +17,7 @@ var OverviewChart = {
             { 
                 name: "Usage",
                 cursor: "pointer",
-                point: { events: { click: function() {OverviewChart.handleClick(this);}  }} 
+                point: { events: { click: function() {OverviewChart.handleBarClick(this);}  }} 
             }
         ]
     },
@@ -29,7 +29,13 @@ var OverviewChart = {
         OverviewChart.startDate = moment().startOf('year');
         OverviewChart.chart = Highcharts.chart('js-overview-chart',OverviewChart.settings);
         OverviewChart.load();
+        OverviewChart.initBindings();
         initializedCallback("overviewChart");
+    },
+
+    initBindings : function(){
+        $("#js-overview-chart-prev").click(function(){OverviewChart.handleNavClick("prev")});
+        $("#js-overview-chart-next").click(function(){OverviewChart.handleNavClick("next")});
     },
 
     load : function(period, startDate){
@@ -68,7 +74,7 @@ var OverviewChart = {
         chart.redraw();
     },
 
-    handleClick : function(e){ 
+    handleBarClick : function(e){ 
         var periods = OverviewChart.periods;
         var currentPeriod = OverviewChart.currentPeriod;
         var newPeriod = currentPeriod;
@@ -87,6 +93,15 @@ var OverviewChart = {
         OverviewChart.currentPeriod = newPeriod;
         OverviewChart.startDate = moment(Highcharts.dateFormat('%Y-%m-%d',e.x), "YYYY-MM-DD")
         OverviewChart.load(newPeriod,Highcharts.dateFormat('%Y-%m-%d',e.x))
+    },
+
+    handleNavClick : function(direction){
+        var period = OverviewChart.currentPeriod;
+        var amount = direction == "prev" ? -1 : 1;
+        OverviewChart.startDate =OverviewChart.startDate.add(amount, period.momentInterval);
+        OverviewChart.load(period,OverviewChart.startDate.format("YYYY-MM-DD"));
     }
+
+
 }
 

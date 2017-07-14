@@ -70,6 +70,26 @@
     border-top: 16px solid #4DA707; /* Blue */   
 }
 
+.overview-chart-navigation {
+    text-align: right;
+    color:#cccccc;
+}
+
+.overview-chart-navigation .fa {
+    margin-top: 15px;
+    margin-bottom:10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.overview-chart-navigation .fa-angle-left, .overview-chart-navigation .fa-angle-right{
+    font-size: 32px;
+}
+
+.overview-chart-navigation .fa-angle-left, .overview-chart-navigation .fa-zoom-minus {
+    margin-right: 5px;
+}
+
 .statistics-table {
     border-top: 0px;
     margin-top: 5px;
