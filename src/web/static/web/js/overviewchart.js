@@ -36,6 +36,7 @@ var OverviewChart = {
     initBindings : function(){
         $("#js-overview-chart-prev").click(function(){OverviewChart.handleNavClick("prev")});
         $("#js-overview-chart-next").click(function(){OverviewChart.handleNavClick("next")});
+        $("#js-overview-chart-zoomout").click(OverviewChart.handleZoomOutClick);
     },
 
     load : function(period, startDate){
@@ -75,24 +76,20 @@ var OverviewChart = {
     },
 
     handleBarClick : function(e){ 
-        var periods = OverviewChart.periods;
-        var currentPeriod = OverviewChart.currentPeriod;
-        var newPeriod = currentPeriod;
-
-        for(var i=0;i<periods.length;i++){
-            if(periods[i].period === currentPeriod.period){
-                if(periods.length <= i+1){
-                    return
-                }
-
-                newPeriod = periods[i+1];
-                break;
-            }
-        }
+        var newPeriod = OverviewChart.getNewPeriod("next");
+        var startDate = Highcharts.dateFormat('%Y-%m-%d',e.x);
         
         OverviewChart.currentPeriod = newPeriod;
-        OverviewChart.startDate = moment(Highcharts.dateFormat('%Y-%m-%d',e.x), "YYYY-MM-DD")
-        OverviewChart.load(newPeriod,Highcharts.dateFormat('%Y-%m-%d',e.x))
+        OverviewChart.startDate = moment(startDate, "YYYY-MM-DD")
+        OverviewChart.load(newPeriod,startDate)
+    },
+
+    handleZoomOutClick : function(){
+        var newPeriod = OverviewChart.getNewPeriod("prev");
+          
+        OverviewChart.currentPeriod = newPeriod;
+        OverviewChart.startDate.startOf(newPeriod.period);
+        OverviewChart.load(newPeriod,OverviewChart.startDate.format("YYYY-MM-DD"))
     },
 
     handleNavClick : function(direction){
@@ -100,6 +97,22 @@ var OverviewChart = {
         var amount = direction == "prev" ? -1 : 1;
         OverviewChart.startDate =OverviewChart.startDate.add(amount, period.momentInterval);
         OverviewChart.load(period,OverviewChart.startDate.format("YYYY-MM-DD"));
+    },
+
+    getNewPeriod : function(direction){
+        var periods = OverviewChart.periods;
+        var currentPeriod = OverviewChart.currentPeriod;
+        var index = periods.findIndex(p => p.period === currentPeriod.period);
+
+        if(direction == "next"){
+            return periods.length <= index+1
+                ?  currentPeriod
+                : periods[index+1];
+        }
+        
+        return index == 0
+            ? currentPeriod
+            : periods[index-1];
     }
 
 
