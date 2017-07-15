@@ -40,6 +40,7 @@ var OverviewChart = {
     },
 
     load : function(period, startDate){
+        $("#js-overview-chart-loader-overlay").removeClass("hidden");
         var url = "/graph-overview-data";
 
         if(period && startDate){
@@ -73,6 +74,7 @@ var OverviewChart = {
         chart.yAxis[0].isDirty = true;
         chart.series[0].setData(data, false);
         chart.redraw();
+        $("#js-overview-chart-loader-overlay").addClass("hidden");
     },
 
     handleBarClick : function(e){ 
