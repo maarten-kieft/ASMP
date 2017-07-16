@@ -2,8 +2,6 @@
 Another Smart Meter Project, which allows users to read the values of their (dutch) smart meter, aggregate them and display them in nice graphs. This project is build in python and uses docker to deploy the application. This is work in progress.. 
 
 ## Todo
-2. Implement switching and zoom out in overview chart
-4. Loader when click on overview chart
 6. Showing only recent measurements in recent chart / current chart. So only last 5 mins. Otherwise gray out
 6. Create screenshots
 8. Create docs for getting started on a pie

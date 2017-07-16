@@ -1,8 +1,7 @@
-
 {% extends 'base.html' %}
+{% load static %}
 
 {% block body %}
-
 <div class="row">
     <div class="col-xs-12 col-sm-4">
         <h3>Now</h3>
@@ -89,6 +88,17 @@
     </div>
 </div>
 {% endblock %}
+
+{% block scripts %}
+<script src={% static 'web/js/dashboard.js'%}></script>
+<script src={% static 'web/js/dashboard-overviewchart.js'%}></script>
+<script src={% static 'web/js/dashboard-currentchart.js'%}></script>
+<script src={% static 'web/js/dashboard-recentchart.js'%}></script>
+<script src={% static 'web/js/charts/donutchart-defaults.js'%}></script>
+<script src={% static 'web/js/charts/areachart-defaults.js'%}></script>
+<script src={% static 'web/js/charts/barchart-defaults.js'%}></script>
+{% endblock %}
+    
 
 
 
