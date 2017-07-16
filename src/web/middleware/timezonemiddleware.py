@@ -13,7 +13,7 @@ class TimeZoneMiddleware(object):
         
         if timezone_string is None:
             template = loader.get_template('init.html')
-            context = RequestContext(request, {})
+            context = {"test":"test"}
 
             return HttpResponse(template.render(context))
 
