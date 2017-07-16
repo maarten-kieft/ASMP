@@ -3,4 +3,5 @@ gunicorn
 pytz
 pyserial
 dj-static
+tzlocal
 python-dateutil

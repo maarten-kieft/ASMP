@@ -4,12 +4,10 @@ var Dashboard = {
         CurrentUsageChart : null,
         TotalUsageChart : null,
         TotalUsageChartPeriod : "year",
-        LoadedComponents : []
+        LoadedComponents : [],
     },
     
     Init : function(){
-        Highcharts.setOptions({global: {timezone: 'Europe/Amsterdam'}});
-
         OverviewChart.init(Dashboard.ComponentIntiialized);
         CurrentChart.init(Dashboard.ComponentIntiialized);
         RecentChart.init(Dashboard.ComponentIntiialized);
@@ -22,8 +20,7 @@ var Dashboard = {
         $("#loading-overlay").height($("#page-wrapper").height())
 
         if(Dashboard.State.LoadedComponents.length === 3){
-            $("#loading-overlay").addClass("hidden")
-            $("#page-wrapper").removeClass("hidden")
+            App.PageLoaded();
         }
     },
 
@@ -62,4 +59,4 @@ var Dashboard = {
     }
 };
 
-$(document).ready(Dashboard.Init);
+App.InitPage(Dashboard.Init);

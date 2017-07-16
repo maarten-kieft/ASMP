@@ -1,4 +1,5 @@
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -49,14 +50,9 @@
     <script src={% static 'web/libs/highcharts/exporting.js'%}></script>
     <script src={% static 'web/libs/momentjs/moment-with-locales.min.js'%}></script>
     <script src={% static 'web/libs/momentjs/moment-timezone-with-data-2012-2022.js'%}></script>
-    <script src={% static 'web/js/dashboard.js'%}></script>
-    <script src={% static 'web/js/overviewchart.js'%}></script>
-    <script src={% static 'web/js/currentchart.js'%}></script>
-    <script src={% static 'web/js/recentchart.js'%}></script>
-    <script src={% static 'web/js/dashboard-donutchart-defaults.js'%}></script>
-    <script src={% static 'web/js/dashboard-areachart-defaults.js'%}></script>
-    <script src={% static 'web/js/dashboard-barchart-defaults.js'%}></script>
-    
+    <script src={% static 'web/js/app.js'%}></script>
+    {% block scripts %}
+    {% endblock %}
 </body>
 
 </html>

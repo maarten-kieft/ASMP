@@ -32,12 +32,17 @@
 
 #page-wrapper {
     padding: 0 15px;
+    min-height: 100%;
 }
 
 @media (min-width: 768px) {
     #page-wrapper {
         padding: 0 30px;
     }
+}
+
+.usage-color {
+    color:#337ab7;
 }
 
 .loader {
@@ -66,6 +71,34 @@
     border-top: 16px solid #4DA707; /* Blue */   
 }
 
+.overview-chart-loader-overlay {
+    position: absolute;
+    z-index: 99;
+    width: 100%;
+    height: 100%;
+    background-color: #ffffff;
+}
+
+.overview-chart-navigation {
+    text-align: right;
+    color:#cccccc;
+}
+
+.overview-chart-navigation .fa {
+    margin-top: 15px;
+    margin-bottom:10px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.overview-chart-navigation .fa-angle-left, .overview-chart-navigation .fa-angle-right{
+    font-size: 32px;
+}
+
+.overview-chart-navigation .fa-angle-left, .overview-chart-navigation .fa-zoom-minus {
+    margin-right: 5px;
+}
+
 .statistics-table {
     border-top: 0px;
     margin-top: 5px;
@@ -77,7 +110,7 @@
 
 #loading-overlay{
     width: 100%;
-    height: 320px;
+    height: 100%;
     background-color:#ffffff;
     position: absolute;
     z-index: 10;
