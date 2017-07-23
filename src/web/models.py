@@ -37,3 +37,14 @@ class Statistic(models.Model):
     class Meta:
         """Meta data class"""
         db_table = "Statistic"
+
+class Message(models.Model):
+    """Log messages coming from the application""" 
+    module = models.CharField(max_length=80)
+    text = models.TextField()
+    level = models.CharField(max_length=80)
+    timestamp = models.DateTimeField(db_index=True)
+
+    class Meta:
+        """Meta data class"""
+        db_table = "Message"

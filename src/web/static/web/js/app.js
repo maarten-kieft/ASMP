@@ -17,6 +17,11 @@ var App = {
         }
     },
 
+    InitPage : function(pageInitCallback) {
+        App.State.PageInitCallback = pageInitCallback;
+    },
+
+
     InitTimeZone : function(){
         if (App.GetTimeZone()) {
             return;
@@ -34,10 +39,6 @@ var App = {
         }
         
         return document.cookie.replace("asmp-timezone=","");
-    },
-
-    InitPage : function(pageInitCallback) {
-        App.State.PageInitCallback = pageInitCallback;
     },
 
     ResizeLoadingOverlay : function(){
