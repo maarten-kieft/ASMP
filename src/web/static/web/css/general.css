@@ -4,15 +4,7 @@ html {
 }
 
 body {
-    margin: 0 0 100px;
-}
-
-#wrapper {
-    width: 100%;
-}
-#page-wrapper{
-    margin-left: 0px;
-    padding-top:10px;
+    margin: 0 0 40px;
 }
 
 .header {
@@ -20,6 +12,29 @@ body {
     border-bottom: 1px solid #dddddd;
     padding-left: 30px;
     padding-right: 30px;
+}
+
+.header h1 {
+    margin-top: 15px;
+}
+
+.header p {
+    margin-top:25px;
+}
+
+#wrapper {
+    width: 100%;
+}
+#page-wrapper{
+    margin-left: 0px;
+    padding: 0 15px;
+    padding-top:10px;
+}
+
+@media (min-width: 768px) {
+    #page-wrapper {
+        padding: 0 30px;
+    }
 }
 
 .footer {
@@ -33,25 +48,6 @@ body {
     border-top: 1px solid #dddddd;
     padding-left: 30px;
     padding-right: 30px;
-}
-
-.header h1 {
-    margin-top: 15px;
-}
-
-.header p {
-    margin-top:25px;
-}
-
-#page-wrapper {
-    padding: 0 15px;
-    min-height: 100%;
-}
-
-@media (min-width: 768px) {
-    #page-wrapper {
-        padding: 0 30px;
-    }
 }
 
 .usage-color {
@@ -127,5 +123,4 @@ body {
     background-color:#ffffff;
     position: absolute;
     z-index: 10;
-    padding-top: 20px;
 }

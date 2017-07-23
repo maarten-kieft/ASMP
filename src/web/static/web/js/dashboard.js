@@ -17,7 +17,7 @@ var Dashboard = {
 
     ComponentIntiialized : function(name){
         Dashboard.State.LoadedComponents.push(name);
-        $("#loading-overlay").height($("#page-wrapper").height())
+        App.ResizeLoadingOverlay()
 
         if(Dashboard.State.LoadedComponents.length === 3){
             App.PageLoaded();
