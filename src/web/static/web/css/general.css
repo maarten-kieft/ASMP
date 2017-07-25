@@ -1,9 +1,10 @@
-#wrapper {
-    width: 100%;
+html {
+    position: relative;
+    min-height: 100%;
 }
-#page-wrapper{
-    margin-left: 0px;
-    padding-top:10px;
+
+body {
+    margin: 0 0 40px;
 }
 
 .header {
@@ -11,15 +12,6 @@
     border-bottom: 1px solid #dddddd;
     padding-left: 30px;
     padding-right: 30px;
-}
-
-    .footer {
-    display: block;
-    background-color: #f5f5f5;
-    border-top: 1px solid #dddddd;
-    padding-left: 30px;
-    padding-right: 30px;
-    height: 40px;
 }
 
 .header h1 {
@@ -30,15 +22,32 @@
     margin-top:25px;
 }
 
-#page-wrapper {
+#wrapper {
+    width: 100%;
+}
+#page-wrapper{
+    margin-left: 0px;
     padding: 0 15px;
-    min-height: 100%;
+    padding-top:10px;
 }
 
 @media (min-width: 768px) {
     #page-wrapper {
         padding: 0 30px;
     }
+}
+
+.footer {
+    position: absolute;
+    left:0;
+    bottom: 0;
+    height: 40px;
+    width: 100%;
+    overflow: hidden;
+    background-color: #f5f5f5;
+    border-top: 1px solid #dddddd;
+    padding-left: 30px;
+    padding-right: 30px;
 }
 
 .usage-color {
@@ -114,5 +123,4 @@
     background-color:#ffffff;
     position: absolute;
     z-index: 10;
-    padding-top: 20px;
 }

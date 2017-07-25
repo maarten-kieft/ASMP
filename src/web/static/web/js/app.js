@@ -1,20 +1,26 @@
 var App = {
     State : {
         Initalized : false,
-        Page : null
+        PageInitCallback : null
     },
     
     Init : function(){
+        App.ResizeLoadingOverlay();
         App.InitTimeZone();
         Highcharts.setOptions({global: {timezone: App.GetTimeZone()}});
         App.State.Initalized = true;
-
-        if(App.State.Page != null){
-            App.State.Page();
+        
+        if(App.State.PageInitCallback != null){
+            App.State.PageInitCallback();
         } else{
             App.PageLoaded();
         }
     },
+
+    InitPage : function(pageInitCallback) {
+        App.State.PageInitCallback = pageInitCallback;
+    },
+
 
     InitTimeZone : function(){
         if (App.GetTimeZone()) {
@@ -35,13 +41,12 @@ var App = {
         return document.cookie.replace("asmp-timezone=","");
     },
 
-    InitPage : function(page) {
-        App.State.Page = page;
+    ResizeLoadingOverlay : function(){
+        $("#loading-overlay").height($("#page-wrapper").height())
     },
 
     PageLoaded : function(){
         $("#loading-overlay").addClass("hidden");
-        $("#page-wrapper").removeClass("hidden");
     }
 };
 
