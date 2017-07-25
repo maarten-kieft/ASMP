@@ -2,6 +2,7 @@
 from datetime import datetime
 import pytz
 import time
+from asmp.services.messageservice import MessageService
 from worker.parser import Parser
 from worker.connector import Connector
 from web.models import Meter, Measurement
@@ -16,11 +17,11 @@ class Processor:
     def start(self):
         """Starting the processor to listen for message, interpret and store them"""
 
-        print("Processor: Connecting")
+        MessageService.log("processor","info","Connecting..")
         connection = self.connector.create_connection()
 
         while connection is None:
-            print("Processor: Warning: Couldn't connect, sleeping 10 secs and retrying")
+            MessageService.log("processor","warning","Couldn't connect, sleeping 10 secs and retrying")
             time.sleep(10)
             connection = self.connector.create_connection()
 

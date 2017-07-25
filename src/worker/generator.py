@@ -22,7 +22,6 @@ class Generator:
 
     def generate_message(self):
         meter = Meter.objects.get_or_create(name="4530303237303030303130313334353136")[0]
-        local_time_zone = tz.tzlocal()
 
         measurement = Measurement()
         measurement.meter = meter
@@ -32,6 +31,6 @@ class Generator:
         measurement.return_current = random.randint(300,400) / 1000
         measurement.return_total_low = 0
         measurement.return_total_normal = 0
-        measurement.timestamp = datetime.now(local_time_zone)
+        measurement.timestamp = datetime.now(pytz.utc)
 
         return measurement
