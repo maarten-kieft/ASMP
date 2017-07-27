@@ -16,3 +16,9 @@ class MessageService:
         message.timestamp = datetime.now(pytz.utc)
 
         message.save()
+
+    @staticmethod
+    def get_recent():
+        """Logs a message into the database"""
+        
+        return Message.objects.order_by('-timestamp')

@@ -7,6 +7,11 @@
         <h3>Status</h3>
       </div>
 </div>
+
+{%for message in model%}
+        hallo {{ message.text }}
+{%endfor%}
+
 {% endblock %}
 
 {% block scripts %}
