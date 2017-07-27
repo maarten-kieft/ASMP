@@ -8,8 +8,15 @@
       </div>
 </div>
 
-{%for message in model%}
-        hallo {{ message.text }}
+{% regroup model by module as message_groups %}
+
+{%for message_group in message_groups%}
+        <h4>{{ message_group.grouper }}</h4>
+
+        {% for message in message_group.list %}
+          <li>{{ message.timestamp|date:"d-m-Y H:i:s" }} : {{ message.text }}</li>
+
+        {% endfor %}
 {%endfor%}
 
 {% endblock %}
