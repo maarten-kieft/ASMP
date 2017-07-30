@@ -1,29 +1,30 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load dictionaryfilter %}
 
 {% block body %}
+
+{% regroup messages by module as message_groups %}
+
 <div class="row">
-    <div class="col-xs-12">
-        <h3>Status</h3>
-      </div>
-</div>
+    {%for message_group in message_groups%}
+        <div class="col-md-12 col-xs-12">
+            <h3>{{ message_group.grouper|title }}</h4>
 
-{% regroup model by module as message_groups %}
-
-{%for message_group in message_groups%}
-    <h4>{{ message_group.grouper }}</h4>
-
-    <div class="console">
-        
-               
-                    {% for message in message_group.list %}
-                         <span>{{ message.timestamp|date:"H:i:s" }} :{{ message.text }}</span>
-                    {% endfor %}
-                </span>
-            
+            <div class="console">
+                            {% for message in message_group.list %}            
+                                <span class="message">         
+                                {{ message.timestamp|date:"H:i" }} <span class="label label-{{label_types|get_item:message.level}}"> {{message.level}}</span> : {{ message.text }}
+                                </span>
+                                
+                            {% endfor %}
+                        </span>
+                    
+            </div>
         </div>
-{%endfor%}
-
+    {%endfor%}
+</div>
+<br/>
 {% endblock %}
 
 {% block scripts %}

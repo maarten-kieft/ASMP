@@ -1,6 +1,11 @@
 {% extends 'base.html' %}
 {% load static %}
 
+{% block headernotification %}
+<span id="js-loader" class="fa fa-spinner fa-spin hide"></span>
+<span id="js-last-update-label">-</span>
+{% endblock %}
+
 {% block body %}
 <div class="row">
     <div class="col-xs-12 col-sm-4">

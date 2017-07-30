@@ -131,6 +131,12 @@ body {
     padding: 10px;
 }
 
-.console span {
+.console .message {
     display: block;
+}
+
+
+.console .message .label {
+    width: 60px;
+    display: inline-block;
 }

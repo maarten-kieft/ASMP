@@ -21,4 +21,4 @@ class MessageService:
     def get_recent():
         """Logs a message into the database"""
         
-        return Message.objects.order_by('-timestamp')
+        return Message.objects.order_by('module','-timestamp',)
