@@ -1,5 +1,9 @@
 # ASMP
-Another Smart Meter Project, which allows users to read the values of their (dutch) smart meter, aggregate them and display them in nice graphs. This project is build in python and uses docker to deploy the application. This is work in progress.. 
+#### ASMP connects to your smart energy meter, provides insight and allows you to control your energy consumption. The collected data is stored locally to guarantee your privacy. ASMP is completely open source and runs on almost any platform. 
+
+ASMP was started as a personal research project to learn new programming languages, frameworks and tools. However, it was also a chance to create a beautiful piece of software that allows users to get insight in their energy consumption without giving up their privacy. Hopefully you will enjoy using it as much as I did programming it. 
+
+![Interface screenshot 1](/docs/screenshots/interface/interface_sh1.png)
 
 ## Todo
 6. Showing only recent measurements in recent chart / current chart. So only last 5 mins. Otherwise gray out
