@@ -1,6 +1,7 @@
 import serial
 import sys
 import glob
+from asmp.services.messageservice import MessageService
 
 class Connector:
     """Creates a serial connection to a smart meter"""
@@ -44,7 +45,7 @@ class Connector:
 
     def configure_connection(self, port):
         """"Configures the connection with smart meter specific settings"""
-        print("Info: Configuring connection through port: "+port)
+        MessageService.log("connector","info","Configuring connection through port: "+port)
         connection = serial.Serial()
         connection.baudrate = 115200
         connection.bytesize = serial.EIGHTBITS

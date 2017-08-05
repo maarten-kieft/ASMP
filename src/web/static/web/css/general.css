@@ -124,3 +124,19 @@ body {
     position: absolute;
     z-index: 10;
 }
+
+.console {
+    background-color: #f5f5f5;
+    border: 1px solid #cccccc;
+    padding: 10px;
+}
+
+.console .message {
+    display: block;
+}
+
+
+.console .message .label {
+    width: 60px;
+    display: inline-block;
+}

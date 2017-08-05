@@ -1,0 +1,16 @@
+ASMP orchestrator
+ASMP WEB
+ASMP AGGREGATOR
+ASMP PROCESSOR
+
+
+allemaal toegang tot database, via volume
+Web krijgt toegang tot poort 80
+Processor tot device
+
+orchestrator pollt of er geupdate moet worden
+	Als er geupdate moet worden
+	- Fetched als eerste alle nieuwe versies
+	- Stopt oude container
+	- Start nieuwe container
+	- Als hij het zelf is, start alleen en exit.
