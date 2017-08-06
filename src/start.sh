@@ -14,11 +14,14 @@ gunicorn asmp.wsgi:application --bind 0.0.0.0:8000 --workers 3 --daemon
 echo "Stating nginx"
 service nginx start
 
+# Start the processor
+echo "Starting Processor"
+python3 manage.py runprocessor &
 
 # Start the aggregator
 echo "Starting Aggregator"
 python3 manage.py runaggregator &
 
-# Start the worker
-echo "Starting Processor"
-python3 manage.py runprocessor
+# Start the updater
+echo "Starting Updater"
+python3 manage.py runupdater

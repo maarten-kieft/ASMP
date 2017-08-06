@@ -6,6 +6,16 @@ class MessageService:
     """Service to perform actions around messages"""
 
     @staticmethod
+    def log_info(module,text):
+        """Logs a info message into the database"""
+        MessageService.log(module,"info",text)
+
+    @staticmethod
+    def log_warning(module,text):
+        """Logs a info message into the database"""
+        MessageService.log(module,"warning",text)
+
+    @staticmethod
     def log(module,level,text):
         """Logs a message into the database"""
         print(module + " [" + level + "]: " + text)
