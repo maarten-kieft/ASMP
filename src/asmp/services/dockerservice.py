@@ -1,5 +1,5 @@
 from subprocess import call
-
+from asmp.services.messageservice import MessageService
 class DockerService:
     """Service to perform actions around docker"""
 
@@ -11,13 +11,18 @@ class DockerService:
     @staticmethod
     def start_container(name):
         """Starts a new asmp container in the given mode"""
+        MessageService.log_info("dockerservice", "ik ga starten:" + name)
         if name == "asmp-updater":
-            call(["docker", "run", "-d", "-v", "/var/run/docker.sock:/var/run/docker.sock", "blackhawkdesign/asmp-x64:latest", "/usr/bin/asmp/update.sh"])
+            call(["docker", "run", "--name", name, "-d", "-v", "/var/run/docker.sock:/var/run/docker.sock", "blackhawkdesign/asmp-x64:latest", "/usr/bin/asmp/update.sh"])
         else:
-            call(["docker", "run", "--name", name, "-d", "-p", "81:81",  "-v","/var/run/docker.sock:/var/run/docker.sock", "blackhawkdesign/asmp-x64:latest" ])
+            call(["docker", "run", "--name", name, "-d", "-v", "/var/run/docker.sock:/var/run/docker.sock", "-p", "81:81", "blackhawkdesign/asmp-x64:latest"])
 
     @staticmethod
     def stop_container(name):
-        """Starts a  container"""
+        """Stops a container"""
         call(["docker", "stop", name])
+    
+    @staticmethod
+    def remove_container(name):
+        """Removes a container"""
         call(["docker", "rm", name])

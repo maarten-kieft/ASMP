@@ -9,7 +9,7 @@ class Updater:
     def start(self):   
           while self.running:
             MessageService.log_info("updater","Sleeping 1 minute")
-            time.sleep(30)
+            time.sleep(20)
 
             if self.requires_update():
                 self.init_update()
@@ -20,7 +20,7 @@ class Updater:
 
     def init_update(self):
         MessageService.log_info("updater","Init update process")
-        DockerService.stop_container("asmp-updater")
+        DockerService.remove_container("asmp-updater")
         DockerService.start_container("asmp-updater")
 
     def execute_update(self):
@@ -29,6 +29,7 @@ class Updater:
 
         MessageService.log_info("updater","Starting new container")
         DockerService.stop_container("asmp")
+        DockerService.remove_container("asmp")
         
         DockerService.start_container("asmp")        
         MessageService.log_info("updater","Exit this container")
