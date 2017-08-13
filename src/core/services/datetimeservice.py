@@ -1,5 +1,4 @@
 from datetime import datetime
-from dateutil import tz
 from dateutil.parser import parse
 from dateutil.relativedelta import relativedelta
 from django.utils.timezone import get_current_timezone

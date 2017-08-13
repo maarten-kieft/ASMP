@@ -31,11 +31,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'core.apps.CoreConfig',
     'web.apps.WebConfig',
-    'aggregator.apps.WorkerConfig',
-    'generator.apps.WorkerConfig',
-    'processor.apps.WorkerConfig',
-    'updater.apps.WorkerConfig',
+    'aggregator.apps.AggregatorConfig',
+    'generator.apps.GeneratorConfig',
+    'processor.apps.ProcessorConfig',
+    'updater.apps.UpdaterConfig',
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
 ]

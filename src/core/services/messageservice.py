@@ -1,6 +1,6 @@
-import pytz
 from datetime import datetime
-from web.models import Message
+from core.models import Message
+import pytz
 
 class MessageService:
     """Service to perform actions around messages"""

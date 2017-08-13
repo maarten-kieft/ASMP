@@ -1,12 +1,9 @@
-from datetime import datetime, timedelta
 from functools import reduce
-from pytz import timezone
 from django.db.models.functions import Trunc
 from django.db.models import Min, Max
 from django.utils.timezone import get_current_timezone
-from dateutil.relativedelta import relativedelta
-from web.models import Statistic
-from web.services.datetimeservice import DateTimeService 
+from core.models import Statistic
+from core.services.datetimeservice import DateTimeService
 
 class StatisticService:
     """Service to perform actions around statistics"""

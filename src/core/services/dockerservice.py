@@ -1,5 +1,6 @@
 from subprocess import call
-from asmp.services.messageservice import MessageService
+from core.services.messageservice import MessageService
+
 class DockerService:
     """Service to perform actions around docker"""
 

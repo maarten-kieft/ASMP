@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from asmp.services.messageservice import MessageService
+from core.services.messageservice import MessageService
 
 def index(request):
     """Returns the status screen"""
