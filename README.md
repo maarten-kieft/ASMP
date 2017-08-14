@@ -23,7 +23,7 @@ Will follow soon ...
 1. Create an update mechanism
 2. Showing only recent measurements in recent chart / current chart. So only last 5 mins. Otherwise gray out
 3. Create docs for getting started on a pie
-4. Create docs for getting started on source
+4. Create docs for getting started on linux docker
 5. Creating a heartbeat local and remote
 6. Implement return charts
 7. Implement gas database changes
