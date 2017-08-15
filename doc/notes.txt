@@ -1,0 +1,3 @@
+ik moest lokaal 
+
+pip install pypiwin32 
