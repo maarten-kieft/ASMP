@@ -10,4 +10,4 @@ COPY src /usr/bin/asmp/
 COPY src/data/db_clean.sqlite3 /usr/bin/asmp/db.sqlite3
 VOLUME /usr/bin/asmp/data
 
-CMD ["/usr/bin/asmp/start.sh"]
+CMD ["/usr/bin/asmp/updater/start.sh"]

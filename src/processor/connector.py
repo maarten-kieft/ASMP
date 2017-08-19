@@ -1,7 +1,7 @@
 import serial
 import sys
 import glob
-from asmp.services.messageservice import MessageService
+from core.services.messageservice import MessageService
 
 class Connector:
     """Creates a serial connection to a smart meter"""

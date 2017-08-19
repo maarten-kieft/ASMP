@@ -1,5 +1,6 @@
 from datetime import datetime, timedelta
-from web.models import Measurement, Statistic, Meter
+from core.models import Measurement, Statistic, Meter
+from core.services.messageservice import MessageService
 from django.db.models.functions import Trunc
 from django.db.models import Min, Max
 from pytz import timezone
@@ -12,9 +13,9 @@ class Aggregator:
     def start(self):
         """Execute aggregation and cleanup of the measurements"""
         while True:
-            print("Aggregator: Creating statistics")
+            MessageService.log_info("aggregator","Creating statistics")
             self.create_statistics()
-            print("Aggregator: Sleeping for 1 minute")
+            MessageService.log_info("aggregator","Sleeping for 1 minute")
             time.sleep(60)
 
     def create_statistics(self):

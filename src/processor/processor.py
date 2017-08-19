@@ -2,10 +2,10 @@
 from datetime import datetime
 import pytz
 import time
-from asmp.services.messageservice import MessageService
+from core.services.messageservice import MessageService
+from core.models import Meter, Measurement
 from processor.parser import Parser
 from processor.connector import Connector
-from web.models import Meter, Measurement
 
 class Processor:
     """"Class responsible for listening for serial messages, interpreting and storing them"""

@@ -12,8 +12,13 @@ class MessageService:
 
     @staticmethod
     def log_warning(module,text):
-        """Logs a info message into the database"""
+        """Logs a warning message into the database"""
         MessageService.log(module,"warning",text)
+
+    @staticmethod
+    def log_error(module,text):
+        """Logs a error message into the database"""
+        MessageService.log(module,"error",text)
 
     @staticmethod
     def log(module,level,text):
