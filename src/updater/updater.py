@@ -1,14 +1,17 @@
 import os
 import time
+import http.client 
 from core.services.messageservice import MessageService
 from updater.dockercomponent import DockerComponent
 
 class Updater:
     """Class responsible for updating the whole docker container"""
-    
-    running = False
-    data_volume = None
-   
+
+    updater = None
+    web = None
+    processor = None
+    aggregator = None
+
     def start(self):
         """Stats the updater"""
         if not self.valid_update_container():
@@ -47,9 +50,9 @@ class Updater:
     def requires_update(self):
         """"Checks if an update is required"""
         MessageService.log_info("updater","Checking for updates")
-        return True
-
-    def get_current_container(self):
-         for container in self.client.containers.list(filters={"status":"running"}):
-            if "blackhawkdesign/asmp-updater" in container.image.tags[0]:
-                return container
+        conn = http.client.HTTPConnection("www.pccleaner.nl")
+        conn.request("GET","/asmp/update-check.php")
+        res = conn.getresponse()
+        data = res.read()
+        conn.close()
+        return  data == "true"
