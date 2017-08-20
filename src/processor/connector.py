@@ -1,6 +1,6 @@
-import serial
 import sys
 import glob
+import serial
 from core.services.messageservice import MessageService
 
 class Connector:

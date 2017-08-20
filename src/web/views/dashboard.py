@@ -1,9 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
-from django.utils.timezone import get_current_timezone
 from core.models import Measurement
 from core.services.statisticservice import StatisticService
-
 
 def index(request):
     """Returns the dashboard"""

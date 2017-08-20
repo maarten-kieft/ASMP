@@ -1,7 +1,6 @@
-"""Processing, intterpreting and storing serial messages"""
+import time
 from datetime import datetime
 import pytz
-import time
 from core.services.messageservice import MessageService
 from core.models import Meter, Measurement
 from processor.parser import Parser

@@ -1,6 +1,6 @@
 from tzlocal import get_localzone
 from django.utils import timezone
-from django.template import RequestContext,Template,loader,TemplateDoesNotExist
+from django.template import RequestContext, Template, loader, TemplateDoesNotExist
 from django.http import HttpResponse
 
 class TimeZoneMiddleware(object):
@@ -16,7 +16,6 @@ class TimeZoneMiddleware(object):
             context = {"test":"test"}
 
             return HttpResponse(template.render(context))
-
 
         timezone.activate(timezone_string)
         response = self.get_response(request)

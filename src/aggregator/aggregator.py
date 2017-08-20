@@ -1,11 +1,11 @@
+import time
 from datetime import datetime, timedelta
-from core.models import Measurement, Statistic, Meter
-from core.services.messageservice import MessageService
 from django.db.models.functions import Trunc
 from django.db.models import Min, Max
+from core.models import Measurement, Statistic, Meter
+from core.services.messageservice import MessageService
 from pytz import timezone
 import pytz
-import time
 
 class Aggregator:
     """"Class responsible for aggregating the received messages"""
