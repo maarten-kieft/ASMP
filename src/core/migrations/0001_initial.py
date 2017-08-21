@@ -50,7 +50,7 @@ class Migration(migrations.Migration):
                 ('usage_end', models.DecimalField(decimal_places=3, max_digits=10)),
                 ('return_start', models.DecimalField(decimal_places=3, max_digits=10)),
                 ('return_end', models.DecimalField(decimal_places=3, max_digits=10)),
-                ('meter', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='web.Meter')),
+                ('meter', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='core.Meter')),
             ],
             options={
                 'db_table': 'Statistic',
@@ -59,6 +59,6 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='measurement',
             name='meter',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='web.Meter'),
+            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='core.Meter'),
         ),
     ]
