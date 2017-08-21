@@ -48,3 +48,12 @@ class Message(models.Model):
     class Meta:
         """Meta data class"""
         db_table = "Message"
+
+class Setting(models.Model):
+    """Settings of the application""" 
+    name = models.CharField(max_length=80, primary_key=True)
+    value = models.TextField()
+    
+    class Meta:
+        """Meta data class"""
+        db_table = "Setting"
