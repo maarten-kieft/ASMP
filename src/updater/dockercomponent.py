@@ -1,4 +1,5 @@
 import docker
+import re
 from core.services.messageservice import MessageService
 
 class DockerComponent:
@@ -49,3 +50,14 @@ class DockerComponent:
         for container in self.client.containers.list(filters={"status":"exited"}):
             if len(container.image.tags) > 0 and self.image_name in container.image.tags[0]:
                 container.remove()
+    
+    def get_version(self):
+        """Getting the version of the container"""
+        if(self.container is None):
+            return None
+
+        for tag in self.container.image.tags:
+            result = re.search(':([0-9\.]*)$', tag)
+            if(result != None):
+                return result.group[1]
+

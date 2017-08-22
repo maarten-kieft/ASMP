@@ -8,4 +8,4 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         """Handle for this command"""
         updater = Updater()
-        updater.requires_update()
+        updater.start()
