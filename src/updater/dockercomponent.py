@@ -59,5 +59,5 @@ class DockerComponent:
         for tag in self.container.image.tags:
             result = re.search(':([0-9\.]*)$', tag)
             if(result != None):
-                return result.group[1]
+                return result.group(1)
 

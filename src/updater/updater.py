@@ -47,7 +47,7 @@ class Updater:
         #self.updater.cleanup()
         MessageService.log_info("updater","Init web component")
         self.web.init()
-        MessageService.log_infor("updater","Init processor component")
+        MessageService.log_info("updater","Init processor component")
         self.processor.init()
         MessageService.log_info("updater","Init aggregator component")
         self.aggregator.init()
