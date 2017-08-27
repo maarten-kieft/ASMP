@@ -17,7 +17,31 @@ ASMP was started as a personal research project to learn new programming languag
 *The complete interface is fully responsive and will scale depending on the size of the display of your device*
 
 ## Getting started
-Will follow soon ...
+ASMP will use docker, to simplify the installation. This section describes the necessary steps to get started.
+
+### Docker quickstart
+When you have docker already running, you can execute the following commands:
+
+1. Create a data directory for asmp
+```
+mkdir /usr/bin/asmp/data
+```
+
+2. Run the docker container
+```
+Linux ARM
+docker run -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-updater-lin64:latest
+```
+```
+Linux 64BIT
+docker run -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-updater-linarm:latest
+```
+
+### Full installation 
+New to docker? These installation guides help you through the complete installation process.
+1. Full installation for raspberry pie using linux
+2. Full installation for ubuntu 64 bits
+3. FUll installation for windows 64 bits (will follow soon)
 
 ## Roadmap
 1. Create an update mechanism
