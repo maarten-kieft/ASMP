@@ -1,5 +1,12 @@
 ## Commands
 
+Todo
+1. Gebruik juiste platform (lin 64 / arm)
+2. poort voor web door geven
+
+
+
+
 Building a new image
 ```
 docker build -t blackhawkdesign/asmp-arm -f Dockerfile.arm .
@@ -21,6 +28,7 @@ docker run -p 81:81 --device=/dev/ttyUSB0 -v /usr/bin/asmp:/usr/bin/asmp/data -v
 ```
 ```
 docker run -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-updater-lin64:latest
+docker run -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-updater-linarm:latest
 ```
 Running with bash
 ```

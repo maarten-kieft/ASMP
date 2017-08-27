@@ -36,15 +36,17 @@ class Updater:
         return True
 
     def init_components(self):
+        """Init the docker components"""
         MessageService.log_error("updater","Init components")
         updater_container_id = os.environ['HOSTNAME']
         self.updater = DockerComponent(image_name = "blackhawkdesign/asmp-updater-lin64", container_id = updater_container_id)
         self.web = DockerComponent(image_name = "blackhawkdesign/asmp-web-lin64", ports={81:81},volumes_from=[updater_container_id])
-        self.processor = DockerComponent(image_name = "blackhawkdesign/asmp-processor-lin64",volumes_from=[updater_container_id])
+        self.processor = DockerComponent(image_name = "blackhawkdesign/asmp-processor-lin64",volumes_from=[updater_container_id], privileged=True)
         self.aggregator = DockerComponent(image_name = "blackhawkdesign/asmp-aggregator-lin64",volumes_from=[updater_container_id])
         
-        #self.updater.stop()
-        #self.updater.cleanup()
+        MessageService.log_info("updater","Stopping previous versions of the updater component")
+        self.updater.stop()
+        self.updater.cleanup()
         MessageService.log_info("updater","Init web component")
         self.web.init()
         MessageService.log_info("updater","Init processor component")

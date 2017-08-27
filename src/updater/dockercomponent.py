@@ -40,7 +40,7 @@ class DockerComponent:
         MessageService.log_info("updater", "Stopping running container: " + self.image_name)
         
         for container in self.client.containers.list(filters={"status":"running"}):
-            if len(container.image.tags) > 0 and self.image_name in container.image.tags[0] and (self.container_id is None or container.id != self.container_id):
+            if len(container.image.tags) > 0 and self.image_name in container.image.tags[0] and (self.container_id is None or self.container_id not in container.id):
                 container.stop()
 
     def cleanup(self):
