@@ -27,3 +27,11 @@ class DockerImageNameParser:
         result = DockerImageNameParser.parse(image_name)
 
         return result if result is None else result.group(3) 
+    
+    @staticmethod
+    def get_short_image_name(image_name):
+        """Get the image name without version"""
+
+        result = DockerImageNameParser.parse(image_name)
+
+        return "blackhawkdesign/asmp-"+ result.group(1) +"-"+result.groups(2)

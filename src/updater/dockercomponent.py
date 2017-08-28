@@ -16,6 +16,9 @@ class DockerComponent:
         if self.container_id is not None:
             self.container = self.client.containers.get(container_id)
 
+        if self.container is not None and self.image_name is None:
+            self.image_name = self.get_image_name()
+
     def init(self):
         """Initializes the component by pulling newest version stopping old containers and starting a new one"""
         self.pull()
@@ -49,6 +52,19 @@ class DockerComponent:
         for container in self.client.containers.list(filters={"status":"exited"}):
             if len(container.image.tags) > 0 and self.image_name in container.image.tags[0]:
                 container.remove()
+
+    def get_image_name(self):
+        """Getting the image name by the property or by the container"""
+        if self.image_name is not None:
+            return self.image_name
+
+        for tag in self.container.image.tags:
+            result = DockerImageNameParser.get_short_image_name(tag)
+            
+            if result is not None:
+                return result
+    
+        return None
 
     def get_version(self):
         """Getting the version of the container"""
