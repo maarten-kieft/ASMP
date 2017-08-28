@@ -68,3 +68,9 @@ class Updater:
         conn.close()
 
         return  data == "true"
+
+    def compose_image_name(self, component_name):
+        """Compose the image name of a docker component"""
+        architecture = self.updater.get_architecture()
+
+        return "blackhawkdesign/asmp-" + component_name + "-" + architecture
