@@ -40,9 +40,9 @@ class Updater:
         MessageService.log_info("updater","Init components")
         updater_container_id = os.environ['HOSTNAME']
         self.updater = DockerComponent(container_id = updater_container_id)
-        self.web = DockerComponent(image_name = self.compose_image_name("web"), ports={81:81},volumes_from=[updater_container_id])
-        self.processor = DockerComponent(image_name = self.compose_image_name("processor"),volumes_from=[updater_container_id], privileged=True)
-        self.aggregator = DockerComponent(image_name = self.compose_image_name("aggregator"),volumes_from=[updater_container_id])
+        self.web = DockerComponent(image_name = self.compose_image_name("web"), version = self.resolve_version(), ports={81:81}, volumes_from=[updater_container_id])
+        self.processor = DockerComponent(image_name = self.compose_image_name("processor"), , version = self.resolve_version(), volumes_from=[updater_container_id], privileged=True)
+        self.aggregator = DockerComponent(image_name = self.compose_image_name("aggregator"), version = self.resolve_version() ,volumes_from=[updater_container_id])
         
         self.updater.stop()
         self.updater.cleanup()
@@ -70,3 +70,6 @@ class Updater:
         architecture = self.updater.get_architecture()
 
         return "blackhawkdesign/asmp-" + component_name + "-" + architecture
+
+    def resolve_version(self):
+        return self.updater.get_version()

@@ -8,8 +8,9 @@ class DockerComponent:
     container_id = None
     container = None
 
-    def __init__(self, image_name = None, container_id=None, **startup_parameters):
+    def __init__(self, image_name = None, version = None, container_id=None, **startup_parameters):
         self.image_name = image_name
+        self.version = version
         self.container_id = container_id
         self.startup_parameters = startup_parameters
 
@@ -29,7 +30,7 @@ class DockerComponent:
     def pull(self):
         """Pulling a new version of the image"""
         MessageService.log_info("updater", "Pulling latest image: " + self.image_name)
-        self.client.images.pull(self.image_name, "latest")
+        self.client.images.pull(self.image_name, self.version)
 
     def start(self):
         """Starting a new container for the given image"""
@@ -68,6 +69,9 @@ class DockerComponent:
 
     def get_version(self):
         """Getting the version of the container"""
+        if self.version is not None:
+            return self.version
+        
         if self.container is None:
             return None
 
