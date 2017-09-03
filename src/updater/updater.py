@@ -17,7 +17,7 @@ class Updater:
         """Stats the updater"""
         MessageService.log_info("updater","Starting..")
         if not self.valid_update_container():
-            MessageService.log_error("updater","Stopping, container not started with the right parameters")
+            MessageService.log_info("updater","Stopping, container not started with the right parameters")
             return
 
         self.init_components()
@@ -37,7 +37,7 @@ class Updater:
 
     def init_components(self):
         """Init the docker components"""
-        MessageService.log_error("updater","Init components")
+        MessageService.log_info("updater","Init components")
         updater_container_id = os.environ['HOSTNAME']
         self.updater = DockerComponent(container_id = updater_container_id)
         self.web = DockerComponent(image_name = self.compose_image_name("web"), ports={81:81},volumes_from=[updater_container_id])
