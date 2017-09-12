@@ -26,8 +26,9 @@ class Updater:
             MessageService.log_info("updater","Sleeping for 60 minutes for the next update check")
             time.sleep(60)
 
-            if self.requires_update():
-                self.updater.pull()
+            update_result = self.requires_update() 
+            if update_result["update"]:
+                self.updater.pull(update_result["version"])
                 self.updater.start()
                 return
 
@@ -41,7 +42,7 @@ class Updater:
         updater_container_id = os.environ['HOSTNAME']
         self.updater = DockerComponent(container_id = updater_container_id)
         self.web = DockerComponent(image_name = self.compose_image_name("web"), version = self.resolve_version(), ports={81:81}, volumes_from=[updater_container_id])
-        self.processor = DockerComponent(image_name = self.compose_image_name("processor"), , version = self.resolve_version(), volumes_from=[updater_container_id], privileged=True)
+        self.processor = DockerComponent(image_name = self.compose_image_name("processor"), version = self.resolve_version(), volumes_from=[updater_container_id], privileged=True)
         self.aggregator = DockerComponent(image_name = self.compose_image_name("aggregator"), version = self.resolve_version() ,volumes_from=[updater_container_id])
         
         self.updater.stop()
@@ -63,7 +64,10 @@ class Updater:
         data = res.read()
         conn.close()
 
-        return  data == "true"
+        return  { 
+            "update" : data != "false", 
+            "version" : data if data != "false" else None
+        } 
 
     def compose_image_name(self, component_name):
         """Compose the image name of a docker component"""

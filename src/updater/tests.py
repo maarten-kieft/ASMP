@@ -2,6 +2,7 @@ from django.test import TestCase
 from collections import namedtuple
 from updater.updater import Updater
 from updater.dockercomponent import DockerComponent
+from updater.dockerimagenameparser import DockerImageNameParser
 
 class UpdaterTestCase(TestCase):
     #def setUp(self):
@@ -20,3 +21,8 @@ class UpdaterTestCase(TestCase):
         image_name = updater.compose_image_name("processor")
         
         self.assertEqual(image_name, "blackhawkdesign/asmp-processor-linarm")
+
+    def test_parse_image_name(self):
+        result = DockerImageNameParser.get_short_image_name("blackhawkdesign/asmp-processor-lin64:latest")
+
+        self.assertEqual(result, "blackhawkdesign/asmp-processor-lin64")

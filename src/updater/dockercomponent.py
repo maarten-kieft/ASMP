@@ -27,10 +27,13 @@ class DockerComponent:
         self.start()
         self.cleanup()
 
-    def pull(self):
+    def pull(self, version = None):
         """Pulling a new version of the image"""
-        MessageService.log_info("updater", "Pulling latest image: " + self.image_name)
-        self.client.images.pull(self.image_name, self.version)
+        if version is None:
+            version = self.version
+
+        MessageService.log_info("updater", "Pulling image: " + self.image_name + ", version: " + version)
+        self.client.images.pull(self.image_name, version)
 
     def start(self):
         """Starting a new container for the given image"""

@@ -33,5 +33,5 @@ class DockerImageNameParser:
         """Get the image name without version"""
 
         result = DockerImageNameParser.parse(image_name)
-
-        return "blackhawkdesign/asmp-"+ result.group(1) +"-"+result.groups(2)
+    
+        return "blackhawkdesign/asmp-"+ result.group(1) +"-"+result.group(2)
