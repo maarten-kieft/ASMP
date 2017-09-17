@@ -61,9 +61,9 @@ class Updater:
         conn = http.client.HTTPConnection("www.kieft.ws")
         conn.request("GET","/asmp/update-check.php?application_id="+application_id+"&version="+version)
         res = conn.getresponse()
-        data = res.read()
+        data = res.read().decode("utf-8")
         conn.close()
-
+        
         return  { 
             "update" : data != "false", 
             "version" : data if data != "false" else None

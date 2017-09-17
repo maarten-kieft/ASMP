@@ -1,5 +1,5 @@
 # ASMP
-**ASMP connects to your smart energy meter, provides insight and allows you to control your energy consumption. The collected data is stored locally to guarantee your privacy. ASMP is completely open source and runs on almost any platform.**
+**ASMP connects to your smart energy meter, provides insight and allows you to control your energy consumption. The collected data is stored locally to guarantee your privacy. ASMP is  open source and runs on almost any platform.**
 
 ASMP was started as a personal research project to learn new programming languages, frameworks and tools. However, it was also a chance to create a beautiful piece of software that allows users to get insight in their energy consumption without giving up their privacy. Hopefully you will enjoy using it as much as I did programming it. 
 
@@ -30,7 +30,7 @@ mkdir /usr/bin/asmp/data
 2. Run the docker container
 ```
 Linux ARM
-docker run -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-updater-lin64:latest
+docker run -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-updater-linarm:latest
 ```
 ```
 Linux 64BIT

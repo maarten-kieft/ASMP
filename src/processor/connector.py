@@ -10,7 +10,8 @@ class Connector:
         """Creating a connection to a serial port with a smart meter"""
 
         ports = self.get_serial_ports()
-
+        MessageService.log("processor","info","Number of ports found: "+str(len(ports)))
+        
         for port in ports:
             connecton = self.configure_connection(port)
 
@@ -45,7 +46,7 @@ class Connector:
 
     def configure_connection(self, port):
         """"Configures the connection with smart meter specific settings"""
-        MessageService.log("connector","info","Configuring connection through port: "+port)
+        MessageService.log("processor","info","Configuring connection through port: "+port)
         connection = serial.Serial()
         connection.baudrate = 115200
         connection.bytesize = serial.EIGHTBITS
@@ -61,5 +62,23 @@ class Connector:
 
     def test_connection(self, connection):
         """Tests if a smart meter is connected to this serial port"""
-        print("Info: Testing settings for port: "+connection.port)
-        return True
+        MessageService.log("processor","info","Testing settings for port: "+connection.port)
+        
+        i = 0
+        connection.open()
+        while i < 20:
+            i += 1
+            line = str(connection.readline().decode("utf-8")).strip()
+
+            if len(line) > 0:
+                MessageService.log("processor","info","Test ok!"+connection.port)
+                connection.close()
+                return True
+
+        connection.close()
+        MessageService.log("processor","info","Test failed"+connection.port)
+        return False        
+        
+        
+        
+       
