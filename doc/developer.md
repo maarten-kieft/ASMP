@@ -1,8 +1,9 @@
 ## Commands
 
 Todo
-1. Gebruik juiste platform (lin 64 / arm)
 2. poort voor web door geven
+3. Docker client in container kan andere api versie hebben dan host (requests.exceptions.HTTPError: 400 Client Error: Bad Request for url: http+docker://localunixsocket/v1.30/containers/4d0cdc8b2cc3/json
+)
 
 
 

@@ -63,22 +63,22 @@ class Connector:
     def test_connection(self, connection):
         """Tests if a smart meter is connected to this serial port"""
         MessageService.log("processor","info","Testing settings for port: "+connection.port)
-        
         i = 0
-        connection.open()
-        while i < 20:
-            i += 1
-            line = str(connection.readline().decode("utf-8")).strip()
+        
+        try:
+            connection.open()
+            while i < 20:
+                i += 1
+                line = str(connection.readline().decode("utf-8")).strip()
 
-            if len(line) > 0:
-                MessageService.log("processor","info","Test ok!"+connection.port)
-                connection.close()
-                return True
+                if len(line) > 0:
+                    MessageService.log("processor","info","Test ok!"+connection.port)
+                    return True
 
-        connection.close()
+        except:
+            print("swallow exception, conclusion is the same, testing failed")        
+        finally:
+            connection.close()  
+
         MessageService.log("processor","info","Test failed"+connection.port)
-        return False        
-        
-        
-        
-       
+        return False
