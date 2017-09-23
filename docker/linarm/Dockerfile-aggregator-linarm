@@ -1,0 +1,11 @@
+FROM resin/rpi-raspbian:jessie-20160831
+RUN apt-get update && apt-get install -y python3 python3-pip nginx nano curl && apt-get clean
+RUN mkdir -p /usr/bin/asmp
+
+COPY src/requirements.txt /usr/bin/asmp/requirements.txt
+RUN pip3 install -r /usr/bin/asmp/requirements.txt 
+
+COPY src /usr/bin/asmp/
+VOLUME /usr/bin/asmp/data
+
+CMD ["/usr/bin/asmp/aggregator/start.sh"]

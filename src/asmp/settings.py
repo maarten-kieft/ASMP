@@ -31,8 +31,12 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'core.apps.CoreConfig',
     'web.apps.WebConfig',
-    'worker.apps.WorkerConfig',
+    'aggregator.apps.AggregatorConfig',
+    'generator.apps.GeneratorConfig',
+    'processor.apps.ProcessorConfig',
+    'updater.apps.UpdaterConfig',
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
 ]
@@ -70,7 +74,10 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'data', 'db.sqlite3'),
-        'TIME_ZONE': 'UTC'
+        'TIME_ZONE': 'UTC',
+        'OPTIONS': {
+            'timeout': 10,
+        }
     }
 }
 

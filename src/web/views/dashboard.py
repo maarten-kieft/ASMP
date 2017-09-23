@@ -1,11 +1,7 @@
-import pytz
 from django.http import JsonResponse
 from django.shortcuts import render
-
-from web.models import Measurement
-from web.services.datetimeservice import DateTimeService
-from web.services.statisticservice import StatisticService
-from django.utils.timezone import get_current_timezone
+from core.models import Measurement
+from core.services.statisticservice import StatisticService
 
 def index(request):
     """Returns the dashboard"""
@@ -13,8 +9,7 @@ def index(request):
     model = {
         'day_stats' : StatisticService.get_summerized_statistics("day"),
         'month_stats' : StatisticService.get_summerized_statistics("month"),
-        'year_stats' : StatisticService.get_summerized_statistics("year"),
-        'bla':get_current_timezone()
+        'year_stats' : StatisticService.get_summerized_statistics("year")
     }
 
     return render(request, "dashboard.html", {'model' : model})
