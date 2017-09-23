@@ -55,7 +55,6 @@ class Connector:
         connection.xonxoff = 0
         connection.rtscts = 0
         connection.timeout = 1
-        #connection.port="/dev/ttyUSB0"
         connection.port = port
 
         return connection
@@ -74,7 +73,6 @@ class Connector:
                 if len(line) > 0:
                     MessageService.log("processor","info","Test ok!"+connection.port)
                     return True
-
         except:
             print("swallow exception, conclusion is the same, testing failed")        
         finally:

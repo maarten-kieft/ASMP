@@ -58,16 +58,20 @@ class Updater:
         application_id = ApplicationService.application_id()
         version = self.updater.get_version()
 
-        conn = http.client.HTTPConnection("www.kieft.ws")
-        conn.request("GET","/asmp/update-check.php?application_id="+application_id+"&version="+version)
-        res = conn.getresponse()
-        data = res.read().decode("utf-8")
-        conn.close()
-        
-        return  { 
-            "update" : data != "false", 
-            "version" : data if data != "false" else None
-        } 
+        try:
+            conn = http.client.HTTPConnection("www.kieft.ws")
+            conn.request("GET","/asmp/update-check.php?application_id="+application_id+"&version="+version)
+            res = conn.getresponse()
+            data = res.read().decode("utf-8")
+
+            return  { 
+                "update" : data != "false", 
+                "version" : data if data != "false" else None
+            }
+        except :
+            MessageService.log_error("updater","Unexpected exception:" + sys.exc_info()[0])
+        finally:
+            conn.close()
 
     def compose_image_name(self, component_name):
         """Compose the image name of a docker component"""
