@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'generator.apps.GeneratorConfig',
     'processor.apps.ProcessorConfig',
     'updater.apps.UpdaterConfig',
+    'test.apps.TestConfig',
     'django.contrib.contenttypes',
     'django.contrib.staticfiles',
 ]
