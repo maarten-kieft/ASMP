@@ -15,6 +15,8 @@ class Aggregator:
         while True:
             MessageService.log_info("aggregator","Creating statistics")
             self.create_statistics()
+            MessageService.log_info("aggregator","Cleaning up")
+            self.cleanup_measurements()
             MessageService.log_info("aggregator","Sleeping for 1 minute")
             time.sleep(60)
 
@@ -54,8 +56,12 @@ class Aggregator:
 
         Statistic.objects.bulk_create(statistics)
 
-    def clean_measurements(self):
+    def cleanup_measurements(self):
         """Cleaning up the measuments"""
+        last_archived = Statistic.objects.all().aggregate(timestamp=Max('timestamp_end'))
+        archive_threshold = datetime.now() - timedelta(hours=48)
 
-        cleanupQuery = "DELETE FROM measurement where timestamp < (SELECT max(timestamp_end) from statistic)"
+        if last_archived["timestamp"] is not None and last_archived["timestamp"] < archive_threshold:
+            archive_threshold = last_archived["timestamp"]
         
+        Measurement.objects.filter(timestamp__lt=archive_threshold).delete()
