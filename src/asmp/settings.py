@@ -77,7 +77,7 @@ DATABASES = {
         'NAME': os.path.join(BASE_DIR, 'data', 'db.sqlite3'),
         'TIME_ZONE': 'UTC',
         'OPTIONS': {
-            'timeout': 10,
+            'timeout': 30,
         }
     }
 }

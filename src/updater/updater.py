@@ -55,7 +55,7 @@ class Updater:
     def requires_update(self):
         """"Checks if an update is required"""
         MessageService.log_info("updater","Checking for updates")
-        application_id = ApplicationService.application_id()
+        application_id = ApplicationService.get_id()
         version = self.updater.get_version()
 
         try:

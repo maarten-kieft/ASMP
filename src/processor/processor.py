@@ -11,25 +11,19 @@ class Processor:
     running = True
     parser = Parser()
     connector = Connector()
-    i = 0
+    connection_initialized = False
 
     def start(self):
         """Starting the processor to listen for message, interpret and store them"""
 
         MessageService.log("processor","info","Connecting..")
-        connection = self.connector.create_connection()
-
-        while connection is None:
-            MessageService.log("processor","warning","Couldn't connect, sleeping 10 secs and retrying")
-            time.sleep(10)
-            connection = self.connector.create_connection()
-
+        connection = self.connector.acquire_connection()
         connection.open()
 
-        print("Processor: Listening")
+        MessageService.log("processor","info","Connected")
         self.listen(connection)
 
-        print("Processor: Clossing connection")
+        MessageService.log("processor","info","Closing connection")
         connection.close()
 
     def listen(self, connection):
@@ -51,12 +45,12 @@ class Processor:
     def process_message(self, message):
         """Processes a received message"""
         #skipping the first message, it seems to be competely broken
-        if self.i > 0:
+        if self.connection_initialized:
             parsed_message = self.parser.parse_message(message)
             measurement = self.interpret_message(parsed_message)
             measurement.save()
 
-        self.i += 1
+        self.connection_initialized = True
 
     def is_valid_message(self, parsed_message):
         """Checks if the parsed message is complete"""

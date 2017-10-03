@@ -1,10 +1,21 @@
 import sys
 import glob
 import serial
+import time;
 from core.services.messageservice import MessageService
 
 class Connector:
     """Creates a serial connection to a smart meter"""
+
+    def acquire_connection(self):
+        connection = None
+       
+        while connection is None:
+            MessageService.log("processor","warning","Couldn't connect, sleeping 10 secs and retrying")
+            time.sleep(10)
+            connection = self.create_connection()
+
+        return connection
 
     def create_connection(self):
         """Creating a connection to a serial port with a smart meter"""

@@ -3,7 +3,8 @@ from django.db.models.functions import Trunc
 from django.db.models import Min, Max
 from django.utils.timezone import get_current_timezone
 from core.models import Statistic
-from core.services.datetimeservice import DateTimeService
+from core.calculation import PeriodCalculator
+from core.parsing import DateTimeParser
 
 class StatisticService:
     """Service to perform actions around statistics"""
@@ -19,11 +20,11 @@ class StatisticService:
                 .annotate(usage=Max('usage_end')-Min('usage_start')))
 
     @staticmethod
-    def get_summerized_statistics(period):
+    def get_statistics_summary(period):
         """Calculates an end date based on a start date and period"""
 
-        current = DateTimeService.calculate_start_date(period)
-        previous = DateTimeService.calculate_end_date(current,period,True)
+        current = PeriodCalculator.calculate_start_date(period)
+        previous = PeriodCalculator.calculate_end_date(current,period,True)
         stats = StatisticService.get_aggregated_statistics(period)
         
         cur_stats = list(filter(lambda s: s["timestamp"] == current, stats))
@@ -43,9 +44,9 @@ class StatisticService:
     @staticmethod
     def get_filtered_aggregated_statistics(period,start_date):
         """Get aggregated statistics for a certain period"""
-        start = DateTimeService.calculate_start_date(period) if start_date is None else DateTimeService.parse(start_date)
-        end = DateTimeService.calculate_end_date(start, period)
-        stats = StatisticService.get_aggregated_statistics(DateTimeService.calculate_interval(period))
+        start = PeriodCalculator.calculate_start_date(period) if start_date is None else DateTimeParser.parse(start_date)
+        end = PeriodCalculator.calculate_end_date(start, period)
+        stats = StatisticService.get_aggregated_statistics(PeriodCalculator.calculate_interval(period))
 
         return list(filter(lambda s: end >= s["timestamp"] >= start, stats))
 
