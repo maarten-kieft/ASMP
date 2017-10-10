@@ -1,13 +1,28 @@
 from functools import reduce
+from datetime import timedelta
 from django.db.models.functions import Trunc
 from django.db.models import Min, Max
 from django.utils.timezone import get_current_timezone
-from core.models import Statistic
-from core.calculation import PeriodCalculator
-from core.parsing import DateTimeParser
+from core.models import Statistic, Meter
+from core.calculation.periodcalculator import PeriodCalculator
+from core.parsing.datetimeparser import DateTimeParser
 
 class StatisticService:
     """Service to perform actions around statistics"""
+
+    @staticmethod
+    def create_statistics(aggregated_measurements):
+        statistics = [Statistic(
+            meter= Meter.objects.filter(id=row["meter_id"]).first(),
+            timestamp_start=row["timestamp_start"],
+            timestamp_end=row["timestamp_start"] + timedelta(hours=1),
+            usage_start=row["usage_start"],
+            usage_end=row["usage_end"],
+            return_start=row["return_start"],
+            return_end=row["return_end"],
+        ) for row in aggregated_measurements]
+
+        Statistic.objects.bulk_create(statistics)
 
     @staticmethod
     def get_aggregated_statistics(period):

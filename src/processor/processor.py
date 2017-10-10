@@ -1,9 +1,5 @@
-import time
-from datetime import datetime
-import pytz
 from core.services.messageservice import MessageService
 from core.services.measurementservice import MeasurementService
-from core.models import Meter, Measurement
 from processor.parser import Parser
 from processor.connector import Connector
 
