@@ -2,6 +2,7 @@ import time
 from datetime import datetime
 import pytz
 from core.services.messageservice import MessageService
+from core.services.measurementservice import MeasurementService
 from core.models import Meter, Measurement
 from processor.parser import Parser
 from processor.connector import Connector
@@ -46,9 +47,8 @@ class Processor:
         """Processes a received message"""
         #skipping the first message, it seems to be competely broken
         if self.connection_initialized:
-            parsed_message = self.parser.parse_message(message)
-            measurement = self.interpret_message(parsed_message)
-            measurement.save()
+            parsed_message = self.parser.parse(message)
+            MeasurementService.save_measurement(parsed_message)
 
         self.connection_initialized = True
 
@@ -56,17 +56,6 @@ class Processor:
         """Checks if the parsed message is complete"""
 
         return "meter_name" in parsed_message
-
-    def interpret_message(self, parsed_message):
-        """Interpret the parsed message"""
-        meter = Meter.objects.get_or_create(name=parsed_message["meter_name"])[0]
-
-        del parsed_message["meter_name"]
-        measurement = Measurement(**parsed_message)
-        measurement.meter = meter
-        measurement.timestamp = datetime.now(pytz.utc)
-
-        return measurement
 
     def stop(self):
         """Stopping the processor"""

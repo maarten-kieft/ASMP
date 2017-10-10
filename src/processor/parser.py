@@ -4,7 +4,7 @@ from decimal import Decimal
 class Parser:
     """Interpetes messages coming from the meter"""
 
-    def parse_message(self, message):
+    def parse(self, message):
         """Inteprets the message from the meter into a readable format"""
         print("Interpreting message")
         parsed_message = {}
