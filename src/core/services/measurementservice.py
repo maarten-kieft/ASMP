@@ -1,14 +1,14 @@
 from datetime import datetime, timedelta
 from django.db.models import Min, Max
 from django.db.models.functions import Trunc
-from core.models import Measurement, Meter
+from core.models import Measurement, Meter, Statistic
 import pytz
 
 class MeasurementService:
     """"Class responsible for storing"""
 
     @staticmethod
-    def save_measurement(self, parsed_message_result):
+    def save_measurement(parsed_message_result):
         """Interpret the parsed message"""
         meter = Meter.objects.get_or_create(name=parsed_message_result["meter_name"])[0]
 
@@ -34,10 +34,10 @@ class MeasurementService:
         )
 
     @staticmethod
-    def cleanup_measurements(self):
+    def cleanup_measurements():
         """Cleaning up the measuments"""
         last_archived = Statistic.objects.all().aggregate(timestamp=Max('timestamp_end'))
-        archive_threshold = datetime.now() - timedelta(hours=48)
+        archive_threshold = pytz.utc.localize(datetime.now() - timedelta(hours=48))
 
         if last_archived["timestamp"] is not None and last_archived["timestamp"] < archive_threshold:
             archive_threshold = last_archived["timestamp"]
