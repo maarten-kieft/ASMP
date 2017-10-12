@@ -1,12 +1,17 @@
-import threading
-from updater.updater import Updater
+import sys
 from django.core.management.base import BaseCommand
-from core.services.applicationservice import ApplicationService
+from core.services.messageservice import MessageService
+from updater.updater import Updater
 
 class Command(BaseCommand):
     """Command for manage.py"""
 
     def handle(self, *args, **kwargs):
-        """Handle for this command"""
-        updater = Updater()
-        updater.start()
+        """Starting the updater"""
+
+        while True:
+            try:
+                updater = Updater()
+                updater.start()
+            except Exception:
+                MessageService.log_error("updater", "Exception thrown:"+sys.exc_info()[0])
