@@ -9,4 +9,4 @@ class AggregatorTestCase(TestCase):
      
         ag = Aggregator()
         ag.cleanup_measurements()
-        #self.assertEqual("a", "b")
+        #self.assertEqual("a", "")

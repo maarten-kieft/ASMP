@@ -25,9 +25,11 @@ class MessageService:
     def log(module, level, text):
         """Logs a message into the database"""
         print(module + " [" + level + "]: " + text)
-        message = {'timestamp' : datetime.now(pytz.utc), 'level': level}
+        timestamp = datetime.now(pytz.utc)
+        timestamp.replace(tzinfo=pytz.utc)
+        message = {'timestamp' : timestamp, 'level': level}
         Message.objects.update_or_create(module=module, text=text, defaults=message)
-        
+
         MessageService.log_count += 1
         if MessageService.log_count >= 50:
             MessageService.cleanup()
@@ -35,7 +37,9 @@ class MessageService:
     @staticmethod
     def cleanup():
         MessageService.log_count = 0
-        Message.objects.filter(timestamp__lt=(datetime.now() - timedelta(hours=1))).delete()
+        threshold_timestamp =  datetime.now(pytz.utc)
+        threshold_timestamp.replace(tzinfo=pytz.utc)
+        Message.objects.filter(timestamp__lt=(threshold_timestamp - timedelta(hours=1))).delete()
         
     @staticmethod
     def get_recent():

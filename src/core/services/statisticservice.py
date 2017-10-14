@@ -35,6 +35,15 @@ class StatisticService:
                 .annotate(usage=Max('usage_end')-Min('usage_start')))
 
     @staticmethod
+    def get_filtered_aggregated_statistics(period, start_date):
+        """Get aggregated statistics for a certain period"""
+        start = PeriodCalculator.calculate_start_date(period) if start_date is None else DateTimeParser.parse(start_date)
+        end = PeriodCalculator.calculate_end_date(start, period)
+        stats = StatisticService.get_aggregated_statistics(PeriodCalculator.calculate_interval(period))
+
+        return list(filter(lambda s: end >= s["timestamp"] >= start, stats))
+
+    @staticmethod
     def get_statistics_summary(period):
         """Calculates an end date based on a start date and period"""
 
@@ -56,12 +65,4 @@ class StatisticService:
             'avg' : avg_stats / len(stats) if len(stats) > 0 else {"usage" : 0}
         }
     
-    @staticmethod
-    def get_filtered_aggregated_statistics(period,start_date):
-        """Get aggregated statistics for a certain period"""
-        start = PeriodCalculator.calculate_start_date(period) if start_date is None else DateTimeParser.parse(start_date)
-        end = PeriodCalculator.calculate_end_date(start, period)
-        stats = StatisticService.get_aggregated_statistics(PeriodCalculator.calculate_interval(period))
-
-        return list(filter(lambda s: end >= s["timestamp"] >= start, stats))
 
