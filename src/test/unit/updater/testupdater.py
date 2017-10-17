@@ -1,8 +1,11 @@
-from django.test import TestCase
 from collections import namedtuple
-from updater.updater import Updater
+
+from django.test import TestCase
 from updater.dockercomponent import DockerComponent
-from updater.dockerimagenameparser import DockerImageNameParser
+
+from updater.containers.dockerimagenameparser import DockerImageNameParser
+from updater.updater import Updater
+
 
 class UpdaterTestCase(TestCase):
     #def setUp(self):

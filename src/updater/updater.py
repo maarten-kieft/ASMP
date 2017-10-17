@@ -1,9 +1,9 @@
+from core.services.applicationservice import ApplicationService
+from core.services.messageservice import MessageService
+from updater.containers.dockercomponent import DockerComponent
+import http.client
 import os
 import time
-import http.client 
-from core.services.messageservice import MessageService
-from core.services.applicationservice import ApplicationService
-from updater.dockercomponent import DockerComponent
 
 class Updater:
     """Class responsible for updating the whole docker container"""

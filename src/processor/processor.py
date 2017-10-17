@@ -1,7 +1,8 @@
-from core.services.messageservice import MessageService
 from core.services.measurementservice import MeasurementService
-from processor.parser import Parser
-from processor.connector import Connector
+from core.services.messageservice import MessageService
+from processor.io.connector import Connector
+from processor.parsing.parser import Parser
+
 
 class Processor:
     """"Class responsible for listening for serial messages, interpreting and storing them"""

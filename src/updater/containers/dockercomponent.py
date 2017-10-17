@@ -1,6 +1,8 @@
 import docker
+
 from core.services.messageservice import MessageService
-from updater.dockerimagenameparser import DockerImageNameParser
+from updater.containers.dockerimagenameparser import DockerImageNameParser
+
 
 class DockerComponent:
     """A docker component which run individually"""
