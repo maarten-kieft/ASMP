@@ -1,6 +1,8 @@
+import traceback
 from django.core.management.base import BaseCommand
 from core.services.messageservice import  MessageService
 from processor.processor import Processor
+
 
 class Command(BaseCommand):
     """Command for manage.py"""
@@ -13,4 +15,5 @@ class Command(BaseCommand):
                 processor = Processor()
                 processor.start()
             except Exception:
-                MessageService.log_error("updater", "Exception thrown:"+sys.exc_info()[0])
+                MessageService.log_error("processor", "Exception thrown:" + traceback.format_exc())
+

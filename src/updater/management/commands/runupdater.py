@@ -1,4 +1,5 @@
 import sys
+import traceback
 from django.core.management.base import BaseCommand
 from core.services.messageservice import MessageService
 from updater.updater import Updater
@@ -14,4 +15,4 @@ class Command(BaseCommand):
                 updater = Updater()
                 updater.start()
             except Exception:
-                MessageService.log_error("updater", "Exception thrown:"+sys.exc_info()[0])
+                MessageService.log_error("updater", "Exception thrown:"+traceback.format_exc())
