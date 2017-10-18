@@ -4,6 +4,7 @@ from django.db.models import Max
 from core.models import Statistic
 from core.services.messageservice import MessageService
 from core.services.measurementservice import MeasurementService
+from core.services.statisticservice import StatisticService
 from pytz import timezone
 import pytz
 
@@ -30,7 +31,7 @@ class Aggregator:
             min_timestamp = datetime(2000, 1, 1, tzinfo=timezone('UTC'))
 
         aggregated_measurements = MeasurementService.get_aggregate_measurements(min_timestamp,max_timestamp)
-
+        StatisticService.create_statistics(aggregated_measurements)
 
     def cleanup_measurements(self):
         MeasurementService.cleanup_measurements()
