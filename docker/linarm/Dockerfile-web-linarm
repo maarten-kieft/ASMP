@@ -9,4 +9,6 @@ COPY src /usr/bin/asmp/
 COPY src/nginx.conf /etc/nginx/nginx.conf
 VOLUME /usr/bin/asmp/data
 
+LABEL application=asmp component=web environment=arm
+
 CMD ["/usr/bin/asmp/web/start.sh"]
