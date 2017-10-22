@@ -9,6 +9,7 @@ RUN pip3 install -r /usr/bin/asmp/requirements.txt
 COPY src/ /usr/bin/asmp/
 VOLUME /usr/bin/asmp/data
 
-LABEL application=asmp component=web environment=lin64
+ARG VERSION=unkown
+LABEL application=asmp component=web environment=lin64 version=$VERSION
 
 CMD ["/usr/bin/asmp/web/start.sh"]
