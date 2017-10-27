@@ -4,9 +4,12 @@ from updater.containers.dockercomponent import DockerComponent
 import http.client
 import os
 import time
+import docker;
 
 class Updater:
     """Class responsible for updating the whole docker container"""
+
+    client = docker.from_env()
 
     updater = None
     web = None
