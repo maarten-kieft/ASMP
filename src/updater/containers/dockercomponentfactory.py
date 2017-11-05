@@ -9,7 +9,7 @@ class DockerComponentFactory:
     def resolve_component_by_details(self, name,architecture, version):
         """Picks already running container or creates a new one"""
         containers = self.client.containers.list(all=True)
-        import pdb;pdb.set_trace()
+
         for container in containers:
             component = DockerComponent(container)
 

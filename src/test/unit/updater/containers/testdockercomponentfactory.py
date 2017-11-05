@@ -1,39 +1,52 @@
 from django.test import TestCase
-from unittest.mock import MagicMock, PropertyMock
+from unittest.mock import MagicMock, PropertyMock, patch
 from docker.client import DockerClient
 from docker.models.containers import Container, ContainerCollection
 from updater.containers.dockercomponentfactory import DockerComponentFactory
 import docker
 
-class DockerComponentFactoryTestCase(TestCase):
-    client = None
-    factory = None
+class MyClass:
+    @property
+    def last_transaction(self):
+        # an expensive and complicated DB query here
+        return "hello!"
 
-    def setUp(self):
-        self.client = docker.from_env()
+    def simpleMethod(self):
+        return "hi!"
+
+class DockerComponentFactoryTestCase(TestCase):
+    def test_lasttry(self):
+        mock = MagicMock()
+
+        with patch.object(MyClass, 'last_transaction', new_callable=PropertyMock) as mock_labels:
+            mock_labels.return_value = "goodby"
+
+            instance = MyClass()
+            print(instance.last_transaction)
 
     def test_resolve_component_by_details(self):
         """Test if get name returns the correct name"""
         mock = MagicMock()
 
-        with mock.patch(Container,'labels', new_callable=PropertyMock) as mock_container:
-            mock_container.return_value = {
+        with patch.object(docker.models.containers.Container,'labels', new_callable=PropertyMock) as mock_labels:
+            mock_labels.return_value = {
                 "component" : "test-component",
                 "environment": "lin64",
                 "version": "1.0"
             }
 
             container = Container()
-            import pdb;
-            pdb.set_trace()
-            with mock.patch('ContainerCollection.list', new_callable=PropertyMock) as mock_container_collection:
-                mock_container_collection.return_value = [container]
+
+            with patch.object(docker.models.containers.ContainerCollection,'list',return_value=[container]) as mock_container_collection:
                 collection = ContainerCollection()
-
-                with mock.patch('DockerClient.containers', new_callable=PropertyMock) as mock_client:
-                    mock_client.return_value = collection
-                    client = DockerClient()
-
-                    factory = DockerComponentFactory(client)
-                    result = factory.resolve_component_by_details("test-component","lin64","1.0")
-                    self.assertEqual(result.get_name() , "test-component")
+                result = collection.list()
+                import pdb;pdb.set_trace()
+                a = ""
+            #
+            #     with mock.patch('DockerClient.containers', new_callable=PropertyMock) as mock_client:
+            #         mock_client.return_value = collection
+            #         client = DockerClient()
+            #
+            #         factory = DockerComponentFactory(client)
+            #         result = factory.resolve_component_by_details("test-component","lin64","1.0")
+            #         self.assertEqual(result.get_name() , "test-component")
