@@ -14,6 +14,9 @@ class DockerComponent:
         """Stopping al running containers for the given image"""
         self.container.stop()
 
+    def get_id(self):
+        return self.container.id
+
     def get_name(self):
         """Getting the name of the container"""
         return self.get_label_value("component")
@@ -34,3 +37,8 @@ class DockerComponent:
                 return value
 
         return None
+
+    def cleanup(self):
+        self.container.stop()
+        self.container.remove()
+        self.container.image.remove()

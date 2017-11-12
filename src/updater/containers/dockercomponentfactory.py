@@ -2,15 +2,29 @@ from updater.containers.dockercomponent import DockerComponent
 
 class DockerComponentFactory:
     """Factory class to generate docker component"""
+    client = None
+    updater_component = None
 
-    def __init__(self, client):
+    def __init__(self, client,updater_container_id):
         self.client= client
+        self.updater_component = self.resolve_component_by_id(updater_container_id)
 
-    def resolve_component_by_details(self, name,architecture, version):
+    def resolve_component_by_id(self, id):
+        container = self.get_containers(id)
+
+        if container is None:
+            return None
+
+        return DockerComponent(container)
+
+    def resolve_component_by_details(self, name, version = None):
         """Picks already running container or creates a new one"""
-        containers = self.client.containers.list(all=True)
+        architecture = self.updater_component.get_architecture()
 
-        for container in containers:
+        if version is None:
+            version = self.updater_component.get_version()
+
+        for container in self.get_containers():
             component = DockerComponent(container)
 
             if(component.get_name() == name and component.get_architecture() == architecture and component.get_version() == version):
@@ -18,54 +32,43 @@ class DockerComponentFactory:
 
         return self.create_component(name,architecture,version)
 
-    def resolve_component_by_id(id):
-        """Picks already running container or creates a new one"""
-        raise Exception("implement")
-        #loop through all images
-        #if is the same component as I want, check version, if the same just pick it.
-        #pull new images
-        #create new container
-        #pass it to component
-
-
     def create_component(self,name,architecture,version):
-        raise Exception("implement")
+        image_name = "BlackHawkDesign/asmp-{0}-{1}:{2}".format(name,architecture,version)
+        startup_parameters = self.compose_startup_parameters()
 
-        self.client.images.pull(self.image_name, version)
-        #pull new images
-        #create new container
-        #pass it to component
+        self.client.images.pull(name, version)
+        container = self.client.containers.create(image = image_name,detach=True,**startup_parameters)
+        component = DockerComponent(container)
 
+        return component
 
+    def get_containers(self, id = None):
+        if self.client is None:
+            return None
 
+        if id is None:
+            return self.client.containers.list(all=True)
 
-#     def pull(self, version = None):
-#         """Pulling a new version of the image"""
-#         if version is None:
-#             version = self.version
-#
-#         MessageService.log_info("updater", "Pulling image: " + self.image_name + ", version: " + version)
-#         self.client.images.pull(self.image_name, version)
-# #self.container = self.container.run(self.image_name, None, detach=True, **self.startup_parameters)
-#
-#     def cleanup(self):
-#         """Removing old stopped containers for the given image"""
-#         MessageService.log_info("updater", "Cleaning up: " + self.image_name)
-#
-#         for container in self.client.containers.list(filters={"status": "exited"}):
-#             if len(container.image.tags) > 0 and self.image_name in container.image.tags[0]:
-#                 container.remove()
-#
-#     def get_image_name(self):
-#         """Getting the image name by the property or by the container"""
-#         if self.image_name is not None:
-#             return self.image_name
-#
-#         for tag in self.container.image.tags:
-#             result = DockerImageNameParser.get_short_image_name(tag)
-#
-#             if result is not None:
-#                 return result
-#
-#         return None
-#
+        return self.client.containers.get(id)
+
+    def compose_startup_parameters(self, name):
+        args = {"volumes_from" : [self.updater_component.get_id()]}
+
+        if name == "processor":
+            args["privileged"] = True
+
+        if name == "web":
+            args["ports"] = {81: 81}
+
+        return args
+
+    def cleanup_component(self, name):
+        """Picks already running container or creates a new one"""
+        architecture = self.updater_component.get_architecture()
+        version = self.updater_component.get_version()
+
+        for container in self.get_containers():
+            component = DockerComponent(container)
+
+            if (component.get_name() == name and (component.get_architecture() != architecture or component.get_version() != version)):
+                component.cleanup()
