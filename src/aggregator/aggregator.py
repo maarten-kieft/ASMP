@@ -18,8 +18,8 @@ class Aggregator:
             self.create_statistics()
             MessageService.log_info("aggregator","Cleaning up")
             self.cleanup_measurements()
-            MessageService.log_info("aggregator","Sleeping for 1 minute")
-            time.sleep(60)
+            MessageService.log_info("aggregator","Sleeping for 60 minutes")
+            time.sleep(60*60)
 
     def create_statistics(self):
         """Aggregates the measurements into statistics"""

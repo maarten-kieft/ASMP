@@ -33,10 +33,10 @@ class DockerComponentFactory:
         return self.create_component(name,architecture,version)
 
     def create_component(self,name,architecture,version):
-        image_name = "BlackHawkDesign/asmp-{0}-{1}:{2}".format(name,architecture,version)
-        startup_parameters = self.compose_startup_parameters()
+        image_name = "blackhawkdesign/asmp-{0}-{1}:{2}".format(name,architecture,version)
+        startup_parameters = self.compose_startup_parameters(name)
+        self.client.images.pull(image_name)
 
-        self.client.images.pull(name, version)
         container = self.client.containers.create(image = image_name,detach=True,**startup_parameters)
         component = DockerComponent(container)
 

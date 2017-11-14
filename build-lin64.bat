@@ -12,6 +12,6 @@ docker push blackhawkdesign/asmp-aggregator-lin64:latest
 docker push blackhawkdesign/asmp-updater-lin64:latest
 
 docker push blackhawkdesign/asmp-web-lin64:%version%
-docker push blackhawkdesign/asmp-processor-lin64::%version%
-docker push blackhawkdesign/asmp-aggregator-lin64::%version%
-docker push blackhawkdesign/asmp-updater-lin64::%version%
+docker push blackhawkdesign/asmp-processor-lin64:%version%
+docker push blackhawkdesign/asmp-aggregator-lin64:%version%
+docker push blackhawkdesign/asmp-updater-lin64:%version%

@@ -1,3 +1,4 @@
+import time
 import traceback
 from django.core.management.base import BaseCommand
 from core.services.messageservice import MessageService
@@ -15,5 +16,5 @@ class Command(BaseCommand):
                 aggregator.start()
             except Exception:
                 MessageService.log_error("aggregator", "Exception thrown:" + traceback.format_exc())
-
+                time.sleep(20)
 

@@ -1,3 +1,4 @@
+import time
 import sys
 import traceback
 from django.core.management.base import BaseCommand
@@ -16,3 +17,4 @@ class Command(BaseCommand):
                 updater.start()
             except Exception:
                 MessageService.log_error("updater", "Exception thrown:"+traceback.format_exc())
+                time.sleep(20)
