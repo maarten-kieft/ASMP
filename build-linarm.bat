@@ -2,9 +2,9 @@
 set /p version="Enter version: "
 
 docker build -t blackhawkdesign/asmp-web-linarm:latest -t blackhawkdesign/asmp-web-linarm:%version% -f docker/linarm/Dockerfile-web-linarm --build-arg VERSION=%version% .
-docker build -t blackhawkdesign/asmp-processor-linarm:latest -t blackhawkdesign/asmp-web-linarm:%version% -f docker/linarm/Dockerfile-processor-linarm --build-arg VERSION=%version% .
-docker build -t blackhawkdesign/asmp-aggregator-linarm:latest -t blackhawkdesign/asmp-web-linarm:%version% -f docker/linarm/Dockerfile-aggregator-linarm --build-arg VERSION=%version% .
-docker build -t blackhawkdesign/asmp-updater-linarm:latest -t blackhawkdesign/asmp-web-linarm:%version% -f docker/linarm/Dockerfile-updater-linarm --build-arg VERSION=%version% .
+docker build -t blackhawkdesign/asmp-processor-linarm:latest -t blackhawkdesign/asmp-processor-linarm:%version% -f docker/linarm/Dockerfile-processor-linarm --build-arg VERSION=%version% .
+docker build -t blackhawkdesign/asmp-aggregator-linarm:latest -t blackhawkdesign/asmp-aggregator-linarm:%version% -f docker/linarm/Dockerfile-aggregator-linarm --build-arg VERSION=%version% .
+docker build -t blackhawkdesign/asmp-updater-linarm:latest -t blackhawkdesign/asmp-updater-linarm:%version% -f docker/linarm/Dockerfile-updater-linarm --build-arg VERSION=%version% .
 
 docker push blackhawkdesign/asmp-web-linarm:latest
 docker push blackhawkdesign/asmp-processor-linarm:latest
