@@ -8,4 +8,7 @@ RUN pip3 install -r /usr/bin/asmp/requirements.txt
 COPY src /usr/bin/asmp/
 VOLUME /usr/bin/asmp/data
 
+ARG VERSION=unkown
+LABEL application=asmp component=aggregator environment=lin64 version=$VERSION
+
 CMD ["/usr/bin/asmp/aggregator/start.sh"]

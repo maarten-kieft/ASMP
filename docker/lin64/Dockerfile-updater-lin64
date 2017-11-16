@@ -10,4 +10,7 @@ COPY src /usr/bin/asmp/
 COPY src/data/db_clean.sqlite3 /usr/bin/asmp/db.sqlite3
 VOLUME /usr/bin/asmp/data
 
+ARG VERSION=unkown
+LABEL application=asmp component=updater environment=lin64 version=$VERSION
+
 CMD ["/usr/bin/asmp/updater/start.sh"]

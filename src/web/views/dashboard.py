@@ -7,9 +7,9 @@ def index(request):
     """Returns the dashboard"""
 
     model = {
-        'day_stats' : StatisticService.get_summerized_statistics("day"),
-        'month_stats' : StatisticService.get_summerized_statistics("month"),
-        'year_stats' : StatisticService.get_summerized_statistics("year")
+        'day_stats' : StatisticService.get_statistics_summary("day"),
+        'month_stats' : StatisticService.get_statistics_summary("month"),
+        'year_stats' : StatisticService.get_statistics_summary("year")
     }
 
     return render(request, "dashboard.html", {'model' : model})

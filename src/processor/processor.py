@@ -1,35 +1,27 @@
-import time
-from datetime import datetime
-import pytz
+from core.services.measurementservice import MeasurementService
 from core.services.messageservice import MessageService
-from core.models import Meter, Measurement
-from processor.parser import Parser
-from processor.connector import Connector
+from processor.io.connector import Connector
+from processor.parsing.parser import Parser
+
 
 class Processor:
     """"Class responsible for listening for serial messages, interpreting and storing them"""
     running = True
     parser = Parser()
     connector = Connector()
-    i = 0
+    connection_initialized = False
 
     def start(self):
         """Starting the processor to listen for message, interpret and store them"""
 
         MessageService.log("processor","info","Connecting..")
-        connection = self.connector.create_connection()
-
-        while connection is None:
-            MessageService.log("processor","warning","Couldn't connect, sleeping 10 secs and retrying")
-            time.sleep(10)
-            connection = self.connector.create_connection()
-
+        connection = self.connector.acquire_connection()
         connection.open()
 
-        print("Processor: Listening")
+        MessageService.log("processor","info","Connected")
         self.listen(connection)
 
-        print("Processor: Clossing connection")
+        MessageService.log("processor","info","Closing connection")
         connection.close()
 
     def listen(self, connection):
@@ -51,28 +43,16 @@ class Processor:
     def process_message(self, message):
         """Processes a received message"""
         #skipping the first message, it seems to be competely broken
-        if self.i > 0:
-            parsed_message = self.parser.parse_message(message)
-            measurement = self.interpret_message(parsed_message)
-            measurement.save()
+        if self.connection_initialized:
+            parsed_message = self.parser.parse(message)
+            MeasurementService.save_measurement(parsed_message)
 
-        self.i += 1
+        self.connection_initialized = True
 
     def is_valid_message(self, parsed_message):
         """Checks if the parsed message is complete"""
 
         return "meter_name" in parsed_message
-
-    def interpret_message(self, parsed_message):
-        """Interpret the parsed message"""
-        meter = Meter.objects.get_or_create(name=parsed_message["meter_name"])[0]
-
-        del parsed_message["meter_name"]
-        measurement = Measurement(**parsed_message)
-        measurement.meter = meter
-        measurement.timestamp = datetime.now(pytz.utc)
-
-        return measurement
 
     def stop(self):
         """Stopping the processor"""

@@ -1,0 +1,12 @@
+- Create integration testss
+    - Core
+        - Services
+            Message service
+                Log each message type
+                Clean up messages
+           Application service
+                Create new id
+                Create existing id
+           Measurement service
+            
+- Create unit tests

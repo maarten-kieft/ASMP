@@ -25,34 +25,22 @@ class MessageService:
     def log(module, level, text):
         """Logs a message into the database"""
         print(module + " [" + level + "]: " + text)
-        message = Message()
-        message.module = module
-        message.level = level
-        message.text = text
-        message.timestamp = datetime.now(pytz.utc)
-        message.save()
+        timestamp = datetime.now(pytz.utc)
+        timestamp.replace(tzinfo=pytz.utc)
+        message = {'timestamp' : timestamp, 'level': level}
+        Message.objects.update_or_create(module=module, text=text, defaults=message)
 
         MessageService.log_count += 1
-
         if MessageService.log_count >= 50:
             MessageService.cleanup()
 
     @staticmethod
     def cleanup():
         MessageService.log_count = 0
-
-        #Delete messages older than 1 hour
-        Message.objects.filter(timestamp__lt=(datetime.now() - timedelta(hours=1))).delete()
+        threshold_timestamp =  datetime.now(pytz.utc)
+        threshold_timestamp.replace(tzinfo=pytz.utc)
+        Message.objects.filter(timestamp__lt=(threshold_timestamp - timedelta(hours=1))).delete()
         
-        #Delete duplicate messages
-        unique_messages = Message.objects.values('module','text')
-        import pdb;pdb.set_trace()
-        #Delete message from each module which don't belong to the first 50
-        
-        # elke module mag er max 50 hebben
-        # dubbele eruit
-
-
     @staticmethod
     def get_recent():
         """Get log messages ordered by timestamp"""
