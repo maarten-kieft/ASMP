@@ -16,7 +16,7 @@
             <div class="console">
                             {% for message in message_group.list %}            
                                 <span class="message">         
-                                {{ message.timestamp|date:"H:i" }} <span class="label label-{{label_types|get_item:message.level}}"> {{message.level}}</span> : {{ message.text }}
+                                {{ message.timestamp|date:"d M H:i" }} <span class="label label-{{label_types|get_item:message.level}}"> {{message.level}}</span> : {{ message.text }}
                                 </span>
                                 
                             {% endfor %}
