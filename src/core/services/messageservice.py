@@ -32,8 +32,13 @@ class MessageService:
         print(module + " [" + level + "]: " + text)
         timestamp = datetime.now(pytz.utc)
         timestamp.replace(tzinfo=pytz.utc)
-        message = {'timestamp' : timestamp, 'level': level}
-        Message.objects.update_or_create(module=module, text=text, defaults=message)
+
+        message = Message()
+        message.module = module
+        message.level = level
+        message.text = text
+        message.timestamp = timestamp
+        message.save()
 
         MessageService.log_count += 1
         if MessageService.log_count >= 50:
@@ -42,10 +47,9 @@ class MessageService:
     @staticmethod
     def cleanup():
         MessageService.log_count = 0
-        threshold_timestamp =  datetime.now(pytz.utc)
-        threshold_timestamp.replace(tzinfo=pytz.utc)
-        Message.objects.filter(timestamp__lt=(threshold_timestamp - timedelta(hours=1))).delete()
-        
+        messages = Message.objects.all().order_by('-timestamp')[:250]
+        Message.objects.exclude(pk__in=messages).delete()
+
     @staticmethod
     def get_recent():
         """Get log messages ordered by timestamp"""

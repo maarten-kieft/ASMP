@@ -1,10 +1,7 @@
 from core.services.applicationservice import ApplicationService
 from core.services.messageservice import MessageService
 from updater.containers.dockercontainerfactory import DockerContainerFactory
-import http.client
-import os
-import time
-import docker;
+import http.client, os, sys, time, docker;
 
 class Updater:
     """Class responsible for updating the whole docker container"""
@@ -30,11 +27,12 @@ class Updater:
 
     def run_update_loop(self):
         while True:
-            MessageService.log_info("updater","Sleeping for 60 minutes for the next update check")
-            time.sleep(60)
+            MessageService.log_info("updater","Sleeping for 15 minutes for the next update check")
+            time.sleep(60 * 15)
 
             update_result = self.requires_update()
             if update_result["update"]:
+                MessageService.log_info("updater", "Updating to version " + update_result["version"])
                 updater_component = self.factory.resolve_component_by_details("updater",update_result["version"])
                 updater_component.start()
 

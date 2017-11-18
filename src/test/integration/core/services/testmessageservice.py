@@ -29,9 +29,18 @@ class MessageServiceTestCase(TestCase):
         self.assertEqual(1, len(messages))
         self.assertEqual("info", messages[0].level)
 
-    def test_cleanup(self):
+    def test_cleanup_singlemessage_remains(self):
         MessageService.log_warning("integration-test", "sample-warning")
         MessageService.cleanup()
         messages = MessageService.get_recent()
 
         self.assertEqual(1, len(messages))
+
+    def test_cleanup_toomany_max(self):
+        for x in range(0, 251):
+            MessageService.log_warning("integration-test", "sample-warning")
+
+        MessageService.cleanup()
+        messages = MessageService.get_recent()
+
+        self.assertEqual(250, len(messages))
