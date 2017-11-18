@@ -1,6 +1,6 @@
-from updater.containers.dockercomponent import DockerComponent
+from updater.containers.dockercontainer import DockerContainer
 
-class DockerComponentFactory:
+class DockerContainerFactory:
     """Factory class to generate docker component"""
     client = None
     updater_component = None
@@ -15,7 +15,7 @@ class DockerComponentFactory:
         if container is None:
             return None
 
-        return DockerComponent(container)
+        return DockerContainer(container)
 
     def resolve_component_by_details(self, name, version = None):
         """Picks already running container or creates a new one"""
@@ -25,7 +25,7 @@ class DockerComponentFactory:
             version = self.updater_component.get_version()
 
         for container in self.get_containers():
-            component = DockerComponent(container)
+            component = DockerContainer(container)
 
             if(component.get_name() == name and component.get_architecture() == architecture and component.get_version() == version):
                 return component
@@ -38,7 +38,7 @@ class DockerComponentFactory:
         self.client.images.pull(image_name)
 
         container = self.client.containers.create(image = image_name,detach=True,**startup_parameters)
-        component = DockerComponent(container)
+        component = DockerContainer(container)
 
         return component
 
@@ -68,7 +68,7 @@ class DockerComponentFactory:
         version = self.updater_component.get_version()
 
         for container in self.get_containers():
-            component = DockerComponent(container)
+            component = DockerContainer(container)
 
             if (component.get_name() == name and (component.get_architecture() != architecture or component.get_version() != version)):
                 component.cleanup()

@@ -1,6 +1,6 @@
 from core.services.applicationservice import ApplicationService
 from core.services.messageservice import MessageService
-from updater.containers.dockercomponentfactory import DockerComponentFactory
+from updater.containers.dockercontainerfactory import DockerContainerFactory
 import http.client
 import os
 import time
@@ -19,7 +19,7 @@ class Updater:
 
     def init_components(self):
         """Init the docker components"""
-        self.factory = DockerComponentFactory(docker.from_env(),os.environ['HOSTNAME'])
+        self.factory = DockerContainerFactory(docker.from_env(),os.environ['HOSTNAME'])
 
         for name in ["web", "processor", "aggregator"]:
             self.factory.cleanup_component(name)

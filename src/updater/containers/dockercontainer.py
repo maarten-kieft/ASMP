@@ -1,5 +1,5 @@
 
-class DockerComponent:
+class DockerContainer:
     """A docker component which run individually"""
     container = None
 
@@ -41,4 +41,3 @@ class DockerComponent:
     def cleanup(self):
         self.container.stop()
         self.container.remove()
-        self.container.image.remove()

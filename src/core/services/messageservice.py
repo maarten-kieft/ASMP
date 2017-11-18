@@ -7,6 +7,11 @@ class MessageService:
     log_count = 0
 
     @staticmethod
+    def log_debug(module, text):
+        """Logs a debug message into the database"""
+        MessageService.log(module, "debug", text)
+
+    @staticmethod
     def log_info(module, text):
         """Logs a info message into the database"""
         MessageService.log(module, "info", text)
