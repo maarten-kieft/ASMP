@@ -14,14 +14,11 @@
             <h3>{{ message_group.grouper|title }}</h4>
 
             <div class="console">
-                            {% for message in message_group.list %}            
-                                <span class="message">         
-                                {{ message.timestamp|date:"d M H:i" }} <span class="label label-{{label_types|get_item:message.level}}"> {{message.level}}</span> : {{ message.text }}
-                                </span>
-                                
-                            {% endfor %}
-                        </span>
-                    
+                {% for message in message_group.list %}
+                    <span class="message">
+                    {{ message.timestamp|date:"d M H:i" }}<span class="label label-{{label_types|get_item:message.level}}"> {{message.level}}</span> : {{ message.text }}
+                    </span>
+                {% endfor %}
             </div>
         </div>
     {%endfor%}
