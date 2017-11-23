@@ -2,10 +2,11 @@ from functools import reduce
 from datetime import timedelta
 from django.db.models.functions import Trunc
 from django.db.models import Min, Max
-from django.utils.timezone import get_current_timezone
+from django.utils.timezone import get_current_timezone, make_aware
 from core.models import Statistic, Meter
 from core.calculation.periodcalculator import PeriodCalculator
 from core.parsing.datetimeparser import DateTimeParser
+import pytz
 
 class StatisticService:
     """Service to perform actions around statistics"""
@@ -25,11 +26,14 @@ class StatisticService:
         Statistic.objects.bulk_create(statistics)
 
     @staticmethod
-    def get_aggregated_statistics(period):
+    def get_aggregated_statistics(period, start = None, end = None):
         """Calculates an end date based on a start date and period"""
+        resultSet = Statistic.objects.all()
 
-        return (Statistic
-                .objects
+        if start is not None and end is not None:
+            resultSet = Statistic.objects.filter(timestamp_start__range=(start, end))
+
+        return (resultSet
                 .annotate(timestamp=Trunc('timestamp_start', period,tzinfo=get_current_timezone()))
                 .values('timestamp')
                 .annotate(usage=Max('usage_end')-Min('usage_start')))
@@ -39,9 +43,9 @@ class StatisticService:
         """Get aggregated statistics for a certain period"""
         start = PeriodCalculator.calculate_start_date(period) if start_date is None else DateTimeParser.parse(start_date)
         end = PeriodCalculator.calculate_end_date(start, period)
-        stats = StatisticService.get_aggregated_statistics(PeriodCalculator.calculate_interval(period))
+        stats = StatisticService.get_aggregated_statistics(PeriodCalculator.calculate_interval(period),start,end)
 
-        return list(filter(lambda s: end >= s["timestamp"] >= start, stats))
+        return list(filter(lambda s: end >= s["timestamp"] >= start , stats))
 
     @staticmethod
     def get_statistics_summary(period):
