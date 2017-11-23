@@ -8,4 +8,4 @@ def index(request):
     label_types = {'info' : 'info', 'warning' : 'warning', 'success' : 'success', 'error' : 'danger'}
     model = {'messages' : recent_messages, 'label_types' : label_types}
 
-    return render(request, "status.html", model)
+    return render(request, "log.html", model)
