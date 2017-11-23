@@ -140,3 +140,28 @@ body {
     width: 60px;
     display: inline-block;
 }
+
+.detailed-header {
+    padding-top:20px;
+}
+
+.detailed-header h3 {
+    display:inline;
+}
+
+.detailed-header .updateinfo-container{
+    display:inline;
+    font-size:11px;
+}
+
+.navbar-toggler {
+    padding-top:15px;
+    text-transform:uppercase;
+    font-size:22px;
+    font-weight:700;
+    margin-right:-10px;
+}
+
+.navbar-toggler-right {
+   float:right;
+}

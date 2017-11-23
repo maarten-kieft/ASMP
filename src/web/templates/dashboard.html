@@ -5,14 +5,21 @@
 
 
 {% block headernotification %}
-<span id="js-loader" class="fa fa-spinner fa-spin hide"></span>
-<span id="js-last-update-label">-</span>
+
 {% endblock %}
 
 {% block body %}
+
 <div class="row">
     <div class="col-xs-12 col-sm-4">
-        <h3>Now</h3>
+        <div class="detailed-header">
+            <h3>Now</h3>
+            <div class="updateinfo-container">
+                <span id="js-loader" class="fa fa-spinner fa-spin hide"></span>
+                <span id="js-last-update-label">-</span>
+            </div>
+        </div>
+
         <div id="js-current-chart" style="width: 100%; height: 100%; margin: 0 auto">
 
         </div>
