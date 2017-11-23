@@ -15,6 +15,7 @@ class Command(BaseCommand):
             try:
                 updater = Updater()
                 updater.start()
+                return
             except Exception:
                 MessageService.log_error("updater", "Exception thrown:"+traceback.format_exc())
                 time.sleep(20)
