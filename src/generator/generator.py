@@ -30,4 +30,9 @@ class Generator:
         measurement.return_total_normal = 0
         measurement.timestamp = datetime.now(pytz.utc)
 
+        if(measurement.usage_current < measurement.return_current):
+            measurement.usage_current = 0
+        else :
+            measurement.return_current = 0
+
         return measurement

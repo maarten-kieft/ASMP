@@ -45,7 +45,7 @@ var dashboardAreaChartDefaults =  {
     },
     tooltip: {
         shared: true,
-        valueSuffix: ' KwH'
+        valueSuffix: ' Kw'
     },
     credits: {
         enabled: false

@@ -1,4 +1,4 @@
-var Dashboard = {
+    var Dashboard = {
     State : {
         MaxCurrentUsage : null,
         CurrentUsageChart : null,
