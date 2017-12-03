@@ -18,6 +18,11 @@ var OverviewChart = {
                 name: "Usage",
                 cursor: "pointer",
                 point: { events: { click: function() {OverviewChart.handleBarClick(this);}  }} 
+            },
+            {
+                name: "Return",
+                cursor: "pointer",
+                point: { events: { click: function() {OverviewChart.handleBarClick(this);}  }}
             }
         ]
     },
@@ -54,16 +59,18 @@ var OverviewChart = {
     },
 
     update :  function (graphData) {
-        var data = [];
+        var usageData = [];
+        var returnData = []
         var chart = OverviewChart.chart;
-        
+
         for(var i=0;i<graphData["data"].length;i++){
             if(i > 23 && OverviewChart.currentPeriod.period == "day"){
                 break;
             }
 
             var record = graphData["data"][i];
-            data.push([Date.parse(record.timestamp),parseFloat(record.usage)])
+            usageData.push([Date.parse(record.timestamp),parseFloat(record.total_usage)]);
+            returnData.push([Date.parse(record.timestamp),-parseFloat(record.total_return)]);
         }
 
         var min = OverviewChart.startDate.toDate();
@@ -72,7 +79,8 @@ var OverviewChart = {
         chart.xAxis[0].isDirty = true;
 
         chart.yAxis[0].isDirty = true;
-        chart.series[0].setData(data, false);
+        chart.series[0].setData(usageData, false);
+        chart.series[1].setData(returnData, false);
         chart.redraw();
         $("#js-overview-chart-loader-overlay").addClass("hidden");
     },

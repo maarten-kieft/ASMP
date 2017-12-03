@@ -36,7 +36,10 @@ class StatisticService:
         return (resultSet
                 .annotate(timestamp=Trunc('timestamp_start', period,tzinfo=get_current_timezone()))
                 .values('timestamp')
-                .annotate(usage=Max('usage_end')-Min('usage_start')))
+                .annotate(
+                    total_usage=Max('usage_end')-Min('usage_start'),
+                    total_return=Max('return_end')-Min('return_start')
+                ))
 
     @staticmethod
     def get_filtered_aggregated_statistics(period, start_date):
@@ -57,9 +60,9 @@ class StatisticService:
         
         cur_stats = list(filter(lambda s: s["timestamp"] == current, stats))
         prev_stats = list(filter(lambda s: s["timestamp"] == previous, stats))
-        min_stats = list(sorted(stats, key=lambda s: s["usage"]))
-        max_stats = list(sorted(stats, key=lambda s: s["usage"], reverse=True))
-        avg_stats = reduce(lambda x,s: x + s, (s["usage"] for s in stats)) if len(stats) > 0 else 0
+        min_stats = list(sorted(stats, key=lambda s: s["total_usage"]))
+        max_stats = list(sorted(stats, key=lambda s: s["total_usage"], reverse=True))
+        avg_stats = reduce(lambda x,s: x + s, (s["total_usage"] for s in stats)) if len(stats) > 0 else 0
         
         return {
             'current' : cur_stats[0] if len(cur_stats) > 0 else {"usage" : 0},
