@@ -34,7 +34,6 @@ INSTALLED_APPS = [
     'core.apps.CoreConfig',
     'web.apps.WebConfig',
     'aggregator.apps.AggregatorConfig',
-    'generator.apps.GeneratorConfig',
     'processor.apps.ProcessorConfig',
     'updater.apps.UpdaterConfig',
     'test.apps.TestConfig',

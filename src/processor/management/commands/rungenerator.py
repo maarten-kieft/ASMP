@@ -1,5 +1,5 @@
 import threading
-from generator.generator import Generator
+from processor.generator import Generator
 from django.core.management.base import BaseCommand
 
 class Command(BaseCommand):
