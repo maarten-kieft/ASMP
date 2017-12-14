@@ -1,10 +1,13 @@
+from updater.containers.dockerimage import DockerImage
 
 class DockerContainer:
     """A docker component which run individually"""
     container = None
+    docker_image = None
 
     def __init__(self, container):
         self.container = container
+        self.docker_image = DockerImage(container.image)
 
     def start(self):
         """Starting a new container for the given image"""
@@ -19,24 +22,15 @@ class DockerContainer:
 
     def get_name(self):
         """Getting the name of the container"""
-        return self.get_label_value("component")
+        return self.docker_image.get_name()
 
     def get_version(self):
         """Getting the version of the container"""
-        return self.get_label_value("version")
+        return self.docker_image.get_version()
 
     def get_architecture(self):
         """Getting the architecture of the container"""
-        return self.get_label_value("environment")
-
-    def get_label_value(self, label_key):
-        """Getting the label value of the container"""
-        for key, value in self.container.image.labels.items():
-            if key == label_key:
-
-                return value
-
-        return None
+        return self.docker_image.get_architecture()
 
     def cleanup(self):
         self.container.stop()

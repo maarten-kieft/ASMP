@@ -1,4 +1,5 @@
 from updater.containers.dockercontainer import DockerContainer
+from updater.containers.dockerimage import DockerImage
 
 class DockerContainerFactory:
     """Factory class to generate docker component"""
@@ -51,6 +52,9 @@ class DockerContainerFactory:
 
         return self.client.containers.get(id)
 
+    def get_images(self):
+        return self.client.images.list(all=True)
+
     def compose_startup_parameters(self, name):
         args = {"volumes_from" : [self.updater_component.get_id()]}
 
@@ -62,13 +66,23 @@ class DockerContainerFactory:
 
         return args
 
-    def cleanup_component(self, name):
+    def cleanup_containers(self, name):
         """Picks already running container or creates a new one"""
         architecture = self.updater_component.get_architecture()
         version = self.updater_component.get_version()
 
         for container in self.get_containers():
-            component = DockerContainer(container)
+            dockerComponent = DockerContainer(container)
 
-            if (component.get_name() == name and (component.get_architecture() != architecture or component.get_version() != version)):
-                component.cleanup()
+            if (dockerComponent.get_name() == name and (dockerComponent.get_architecture() != architecture or dockerComponent.get_version() != version)):
+                dockerComponent.cleanup()
+
+    def cleanup_images(self,name):
+        architecture = self.updater_component.get_architecture()
+        version = self.updater_component.get_version()
+
+        for image in self.get_images():
+            dockerImage = DockerImage(image)
+
+            if (dockerImage.get_name() == name and (dockerImage.get_architecture() != architecture or dockerImage.get_version() != version)):
+                self.client.images.remove(image)
