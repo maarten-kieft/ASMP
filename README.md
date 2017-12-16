@@ -34,7 +34,7 @@ docker run -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/asmp:/usr/bi
 ```
 ```
 Linux 64BIT
-docker run -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-updater-linarm:latest
+docker run -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-updater-lin64:latest
 ```
 
 ### Full installation 
