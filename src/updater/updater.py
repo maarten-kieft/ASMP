@@ -1,7 +1,7 @@
 from core.services.applicationservice import ApplicationService
 from core.services.messageservice import MessageService
 from updater.containers.dockercontainerfactory import DockerContainerFactory
-import http.client, os, sys, time, docker;
+import http.client, os, sys, time, docker, traceback;
 
 class Updater:
     """Class responsible for updating the whole docker container"""
@@ -19,7 +19,12 @@ class Updater:
         self.factory = DockerContainerFactory(docker.from_env(),os.environ['HOSTNAME'])
 
         for name in ["web", "processor", "aggregator"]:
-            self.factory.cleanup_component(name)
+            try:
+                self.factory.cleanup_containers(name)
+                self.factory.cleanup_images(name)
+            except:
+                MessageService.log_error("updater", "Unexpected exception:" + traceback.format_exc())
+
             component = self.factory.resolve_component_by_details(name)
             component.start()
 
@@ -55,6 +60,6 @@ class Updater:
                 "version" : data if data != "false" else None
             }
         except :
-            MessageService.log_error("updater","Unexpected exception:" + sys.exc_info()[0])
+            MessageService.log_error("updater","Unexpected exception:" + traceback.format_exc())
         finally:
             conn.close()

@@ -85,4 +85,4 @@ class DockerContainerFactory:
             dockerImage = DockerImage(image)
 
             if (dockerImage.get_name() == name and (dockerImage.get_architecture() != architecture or dockerImage.get_version() != version)):
-                self.client.images.remove(image)
+                self.client.images.remove(image=image.id,force=True)
