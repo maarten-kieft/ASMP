@@ -11,12 +11,20 @@ class Updater:
     def start(self):
         """Stats the updater"""
         MessageService.log_info("updater","Starting..")
+        self.init_factory()
+        self.cleanup_previous_updaters()
         self.init_components()
         self.run_update_loop()
 
+    def init_factory(self):
+        self.factory = DockerContainerFactory(docker.from_env(), os.environ['HOSTNAME'])
+
+    def cleanup_previous_updaters(self):
+        self.factory.cleanup_containers("updater")
+        self.factory.cleanup_images("updater")
+
     def init_components(self):
         """Init the docker components"""
-        self.factory = DockerContainerFactory(docker.from_env(),os.environ['HOSTNAME'])
 
         for name in ["web", "processor", "aggregator"]:
             try:

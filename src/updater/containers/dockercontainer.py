@@ -7,7 +7,9 @@ class DockerContainer:
 
     def __init__(self, container):
         self.container = container
-        self.docker_image = DockerImage(container.image)
+
+        if container is not None:
+            self.docker_image = DockerImage(container.image)
 
     def start(self):
         """Starting a new container for the given image"""

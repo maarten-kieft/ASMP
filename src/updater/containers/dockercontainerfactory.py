@@ -53,7 +53,7 @@ class DockerContainerFactory:
         return self.client.containers.get(id)
 
     def get_images(self):
-        return self.client.images.list(all=True)
+        return self.client.images.list()
 
     def compose_startup_parameters(self, name):
         args = {"volumes_from" : [self.updater_component.get_id()]}
@@ -86,3 +86,5 @@ class DockerContainerFactory:
 
             if (dockerImage.get_name() == name and (dockerImage.get_architecture() != architecture or dockerImage.get_version() != version)):
                 self.client.images.remove(image=image.id,force=True)
+                self.cleanup_images(name)
+                return

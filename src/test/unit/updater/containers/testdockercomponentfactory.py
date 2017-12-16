@@ -32,4 +32,3 @@ class DockerContainerFactoryTestCase(TestCase):
         self.factory.create_component = MagicMock(return_value=None)
         self.factory.resolve_component_by_details("test-component")
         self.factory.create_component.assert_called_with("test-component","lin64","1.0")
-
