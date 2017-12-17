@@ -1,7 +1,7 @@
 import traceback
 import time
 from django.core.management.base import BaseCommand
-from core.services.messageservice import  MessageService
+from core.services.logservice import  LogService
 from processor.processor import Processor
 
 
@@ -16,5 +16,5 @@ class Command(BaseCommand):
                 processor = Processor()
                 processor.start()
             except Exception:
-                MessageService.log_error("processor", "Exception thrown:" + traceback.format_exc())
+                LogService.log_error("processor", "Exception thrown:" + traceback.format_exc())
                 time.sleep(20)

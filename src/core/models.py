@@ -38,7 +38,7 @@ class Statistic(models.Model):
         """Meta data class"""
         db_table = "Statistic"
 
-class Message(models.Model):
+class LogMessage(models.Model):
     """Log messages coming from the application""" 
     module = models.CharField(max_length=80)
     text = models.TextField()
@@ -47,7 +47,7 @@ class Message(models.Model):
 
     class Meta:
         """Meta data class"""
-        db_table = "Message"
+        db_table = "LogMessage"
 
 class Setting(models.Model):
     """Settings of the application""" 

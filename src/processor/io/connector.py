@@ -2,7 +2,7 @@ import sys
 import glob
 import serial
 import time;
-from core.services.messageservice import MessageService
+from core.services.logservice import LogService
 
 class Connector:
     """Creates a serial connection to a smart meter"""
@@ -11,7 +11,7 @@ class Connector:
         connection = None
        
         while connection is None:
-            MessageService.log("processor","warning","Couldn't connect, sleeping 10 secs and retrying")
+            LogService.log("processor", "warning", "Couldn't connect, sleeping 10 secs and retrying")
             time.sleep(10)
             connection = self.create_connection()
 
@@ -21,7 +21,7 @@ class Connector:
         """Creating a connection to a serial port with a smart meter"""
 
         ports = self.get_serial_ports()
-        MessageService.log("processor","info","Number of ports found: "+str(len(ports)))
+        LogService.log("processor", "info", "Number of ports found: " + str(len(ports)))
         
         for port in ports:
             connecton = self.configure_connection(port)
@@ -57,7 +57,7 @@ class Connector:
 
     def configure_connection(self, port):
         """"Configures the connection with smart meter specific settings"""
-        MessageService.log("processor","info","Configuring connection through port: "+port)
+        LogService.log("processor", "info", "Configuring connection through port: " + port)
         connection = serial.Serial()
         connection.baudrate = 115200
         connection.bytesize = serial.EIGHTBITS
@@ -72,7 +72,7 @@ class Connector:
 
     def test_connection(self, connection):
         """Tests if a smart meter is connected to this serial port"""
-        MessageService.log("processor","info","Testing settings for port: "+connection.port)
+        LogService.log("processor", "info", "Testing settings for port: " + connection.port)
         i = 0
         
         try:
@@ -82,12 +82,12 @@ class Connector:
                 line = str(connection.readline().decode("utf-8")).strip()
 
                 if len(line) > 0:
-                    MessageService.log("processor","info","Test ok!"+connection.port)
+                    LogService.log("processor", "info", "Test ok!" + connection.port)
                     return True
         except:
             print("swallow exception, conclusion is the same, testing failed")        
         finally:
             connection.close()  
 
-        MessageService.log("processor","info","Test failed"+connection.port)
+        LogService.log("processor", "info", "Test failed" + connection.port)
         return False

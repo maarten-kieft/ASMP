@@ -1,5 +1,5 @@
 from core.services.measurementservice import MeasurementService
-from core.services.messageservice import MessageService
+from core.services.logservice import LogService
 from processor.io.connector import Connector
 from processor.parsing.parser import Parser
 
@@ -14,14 +14,14 @@ class Processor:
     def start(self):
         """Starting the processor to listen for message, interpret and store them"""
 
-        MessageService.log("processor","info","Connecting..")
+        LogService.log("processor", "info", "Connecting..")
         connection = self.connector.acquire_connection()
         connection.open()
 
-        MessageService.log("processor","info","Connected")
+        LogService.log("processor", "info", "Connected")
         self.listen(connection)
 
-        MessageService.log("processor","info","Closing connection")
+        LogService.log("processor", "info", "Closing connection")
         connection.close()
 
     def listen(self, connection):

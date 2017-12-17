@@ -165,3 +165,19 @@ body {
 .navbar-toggler-right {
    float:right;
 }
+.navbar-toggler {
+            display:none;
+        }
+
+        .navigation-big {
+            display: none;
+            margin-top:20px;
+            margin-right: 50px;
+
+        }
+
+        .navigation-big li{
+            display:inline;
+            margin-right: 20px;
+            font-size: 20px;
+        }
