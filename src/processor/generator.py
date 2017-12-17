@@ -22,17 +22,17 @@ class Generator:
 
         measurement = Measurement()
         measurement.meter = meter
-        measurement.usage_current = random.randint(300,400) / 1000
-        measurement.usage_total_low = 0
-        measurement.usage_total_normal = 0
-        measurement.return_current = random.randint(300,400) / 1000
-        measurement.return_total_low = 0
-        measurement.return_total_normal = 0
+        measurement.power_usage_current = random.randint(300,400) / 1000
+        measurement.power_usage_total_low = 0
+        measurement.power_usage_total_normal = 0
+        measurement.power_supply_current = random.randint(300,400) / 1000
+        measurement.power_supply_total_low = 0
+        measurement.power_supply_total_normal = 0
         measurement.timestamp = datetime.now(pytz.utc)
 
-        if(measurement.usage_current < measurement.return_current):
-            measurement.usage_current = 0
+        if(measurement.power_usage_current < measurement.power_supply_current):
+            measurement.power_usage_current = 0
         else :
-            measurement.return_current = 0
+            measurement.power_supply_current = 0
 
         return measurement
