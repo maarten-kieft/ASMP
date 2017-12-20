@@ -44,6 +44,11 @@ class Processor:
         """Processes a received message"""
         #skipping the first message, it seems to be competely broken
         if self.connection_initialized:
+            LogService.log_debug("processor","received new message:")
+
+            for line in message:
+                LogService.log_debug("Processor",line)
+
             parsed_message = self.parser.parse(message)
             MeasurementService.save_measurement(parsed_message)
 
