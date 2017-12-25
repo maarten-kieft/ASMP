@@ -1,6 +1,6 @@
-from django.test import TestCase
 from processor.parsing.parser import Parser
 from decimal import Decimal
+from unittest import TestCase
 
 class ParserTestCase(TestCase):
 
@@ -34,5 +34,5 @@ class ParserTestCase(TestCase):
         parser = Parser()
         measurement = parser.parse(message)
 
-        self.assertEqual(Decimal(1602.853),measurement["power_usage_total_low"])
+        self.assertEqual(Decimal("1602.853"),measurement["power_usage_total_low"])
 

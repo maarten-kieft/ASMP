@@ -1,5 +1,5 @@
 from collections import namedtuple
-from django.test import TestCase
+from unittest import TestCase
 from updater.containers.dockercontainer import DockerContainer
 from docker.models.containers import Container
 from unittest.mock import MagicMock, PropertyMock, patch

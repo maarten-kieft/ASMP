@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
-from django.test import TestCase
 from core.services.statisticservice import StatisticService
 from core.models import Statistic, Meter
+from unittest import TestCase
 import pytz
 
 class StatisticServiceTestCase(TestCase):

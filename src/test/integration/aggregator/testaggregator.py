@@ -1,6 +1,6 @@
-from django.test import TestCase
 from collections import namedtuple
 from aggregator.aggregator import Aggregator
+from unittest import TestCase
 
 class AggregatorTestCase(TestCase):
 

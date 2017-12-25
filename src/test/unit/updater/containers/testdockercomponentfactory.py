@@ -1,4 +1,4 @@
-from django.test import TestCase
+from unittest import TestCase
 from unittest.mock import MagicMock, PropertyMock, patch
 from docker.models.containers import Container
 from updater.containers.dockercontainerfactory import DockerContainerFactory

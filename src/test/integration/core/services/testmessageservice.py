@@ -1,6 +1,6 @@
-from django.test import TestCase
 from core.services.logservice import LogService
 from core.models import LogMessage
+from unittest import TestCase
 
 class MessageServiceTestCase(TestCase):
     def setUp(self):

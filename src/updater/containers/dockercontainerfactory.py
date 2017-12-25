@@ -62,7 +62,7 @@ class DockerContainerFactory:
             args["privileged"] = True
 
         if name == "web":
-            args["ports"] = {81: 81}
+            args["ports"] = {80: 80}
 
         return args
 
