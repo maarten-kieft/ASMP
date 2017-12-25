@@ -1,43 +1,25 @@
+The following guide walk you through the steps to get a raspberry pi up and running for asmp:
 
-Downloads pagina : https://www.raspberrypi.org/downloads/
-
-Ubuntu mate download pagina: https://ubuntu-mate.org/raspberry-pi/
-https://ubuntu-mate.org/download/
-
-download https://etcher.io/
-
-download image
-download etcher en burn het op de image
-sluit shit en image aan in pi, installatie starten
-vul taal, timezone in, username en comp name
-
-daarna 
-apt-get update
-apt-get install ssh
-
-sudo service ssh restart
-
------------------------
-
-docker:
-https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#install-using-the-repository
-
-
-depedencies for adding repo
-sudo apt-get install apt-transport-https ca-certificates curl software-properties-common
-
-add the repo key ? 
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
-
-
-sudo add-apt-repository "deb [arch=armhf] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
-
-sudo apt-get update
-
-sudo apt-get install docker-ce
-
-mkdir /usr/bin/asmp/data
-
-sudo docker run -p 81:81 --device=/dev/ttyUSB0 -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-arm:latest
-
-sudo mkdir /p /usr/bin/asmp/data
+1. Insert your sd cart into your computer 
+* Navigate to https://ubuntu-mate.org/download/ to get a copy of ubuntu mate for raspberry pi 2 or 3
+* Download the program etcher https://etcher.io/ to write the image to the sd card
+* Install etcher and start it
+* In etcher select the ubuntu mate image, select the sd card and click on `Flash!`
+* Insert the sd card in the raspberry pi and boot it
+* Follow the installation instructions, remember your username and password you need it later
+ 
+ After installation of ubuntu we can install docker. The instructions are copied from the offical docker docs: https://docs.docker.com/engine/installation/linux/docker-ce/ubuntu/#install-using-the-repository
+ 
+* Open a terminal: applications > system tools > MATE terminal
+* First update apt package index
+  `sudo apt-get update`
+* Install the required tools
+  `sudo apt-get install apt-transport-https ca-certificates curl software-properties-common`
+* Add the GPG key for the official Docker repository to the system:
+  `curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -`
+* Add the docker repository
+  `sudo add-apt-repository "deb [arch=armhf] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+* Update the apt package index with the new repository
+  `sudo apt-get update`
+* Install docker
+  `sudo apt-get install docker-ce`
