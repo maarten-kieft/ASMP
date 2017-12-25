@@ -1,2 +1,5 @@
 *.pyc
 /.idea
+/src/obj/Debug
+/src/*.user
+/src/.vs/asmp/v15/.suo
