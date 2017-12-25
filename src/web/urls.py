@@ -1,5 +1,5 @@
 from web.views import dashboard
-from web.views import status
+from web.views import log
 from django.conf.urls import url
 
 urlpatterns = [
@@ -24,8 +24,8 @@ urlpatterns = [
         , name='get_overview_graph_data'
     ),
     url(
-        r'^status$'
-        , status.index
+        r'^log'
+        , log.index
         , name='status'
     ),
     url(

@@ -1,17 +1,17 @@
-from django.test import TestCase
+from unittest import TestCase
 from unittest.mock import MagicMock, PropertyMock, patch
 from docker.models.containers import Container
-from updater.containers.dockercomponentfactory import DockerComponentFactory
-from updater.containers.dockercomponent import DockerComponent
+from updater.containers.dockercontainerfactory import DockerContainerFactory
+from updater.containers.dockercontainer import DockerContainer
 
-class DockerComponentFactoryTestCase(TestCase):
+class DockerContainerFactoryTestCase(TestCase):
     factory = None
 
     def setUp(self):
-        updater = DockerComponent(None)
+        updater = DockerContainer(None)
         updater.get_version = MagicMock(return_value="1.0")
         updater.get_architecture = MagicMock(return_value="lin64")
-        self.factory = DockerComponentFactory(None, None)
+        self.factory = DockerContainerFactory(None, None)
         self.factory.updater_component = updater
 
     def test_resolve_component_by_details_existing(self):
@@ -32,4 +32,3 @@ class DockerComponentFactoryTestCase(TestCase):
         self.factory.create_component = MagicMock(return_value=None)
         self.factory.resolve_component_by_details("test-component")
         self.factory.create_component.assert_called_with("test-component","lin64","1.0")
-

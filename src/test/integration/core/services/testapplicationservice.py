@@ -1,4 +1,4 @@
-from django.test import TestCase
+from unittest import TestCase
 from core.services.applicationservice import ApplicationService
 from core.models import Setting
 

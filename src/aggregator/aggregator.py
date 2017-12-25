@@ -2,7 +2,7 @@ import time
 from datetime import datetime, timedelta
 from django.db.models import Max
 from core.models import Statistic
-from core.services.messageservice import MessageService
+from core.services.logservice import LogService
 from core.services.measurementservice import MeasurementService
 from core.services.statisticservice import StatisticService
 from pytz import timezone
@@ -14,11 +14,11 @@ class Aggregator:
     def start(self):
         """Execute aggregation and cleanup of the measurements"""
         while True:
-            MessageService.log_info("aggregator","Creating statistics")
+            LogService.log_info("aggregator", "Creating statistics")
             self.create_statistics()
-            MessageService.log_info("aggregator","Cleaning up")
+            LogService.log_info("aggregator", "Cleaning up")
             self.cleanup_measurements()
-            MessageService.log_info("aggregator","Sleeping for 60 minutes")
+            LogService.log_info("aggregator", "Sleeping for 60 minutes")
             time.sleep(60*60)
 
     def create_statistics(self):

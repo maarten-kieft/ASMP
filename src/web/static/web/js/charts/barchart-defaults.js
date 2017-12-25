@@ -31,7 +31,14 @@ var dashboardBarChartDefaults =  {
     yAxis: {
         title: {
             text: 'KwH'
-        }
+        },
+        plotLines: [{
+            color: '#a5a5a5',
+            value: 0,
+            width: 2,
+            zIndex: 5
+          }
+        ]
     },
     tooltip: {
         shared: true,
@@ -41,6 +48,8 @@ var dashboardBarChartDefaults =  {
         enabled: false
     },
     plotOptions: {
-       
+        series: {
+            stacking: 'normal'
+        }
     }
 };

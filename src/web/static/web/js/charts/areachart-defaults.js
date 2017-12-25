@@ -25,7 +25,7 @@ var dashboardAreaChartDefaults =  {
         title : {
             text: 'Time'
         },
- labels: {
+    labels: {
         },
         type: 'datetime',
         dateTimeLabelFormats: {
@@ -41,11 +41,16 @@ var dashboardAreaChartDefaults =  {
     yAxis: {
         title: {
             text: 'KwH'
-        }
+        },
+         plotLines: [{
+            color: '#a5a5a5', // Color value
+            value: 0, // Value of where the line will appear
+            width: 2 // Width of the line
+          }]
     },
     tooltip: {
         shared: true,
-        valueSuffix: ' KwH'
+        valueSuffix: ' Kw'
     },
     credits: {
         enabled: false
@@ -57,5 +62,19 @@ var dashboardAreaChartDefaults =  {
              },
             fillOpacity: 0.5
         }
-    }
+    },
+    series : [
+        {
+            name: "usage",
+            zones: [
+                {
+                    value: 0,
+                    color: '#4DA707'
+                },
+                {
+                    color: '#2677B5'
+                }
+            ]
+        }
+   ]
 };

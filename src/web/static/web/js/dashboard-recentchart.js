@@ -1,18 +1,9 @@
 var RecentChart = { 
     chart: null,
     lastPoint: null,
-    settings : { 
-        series: [ 
-            { 
-                name: "Usage"
-            }
-        ]
-    },
         
     init : function(initializedCallback) {
-        $.extend(RecentChart.settings,dashboardAreaChartDefaults);
-
-        RecentChart.chart = Highcharts.chart('js-recent-chart',RecentChart.settings);
+        RecentChart.chart = Highcharts.chart('js-recent-chart',dashboardAreaChartDefaults);
         RecentChart.load();
         initializedCallback("overviewChart");
     },
@@ -23,16 +14,17 @@ var RecentChart = {
         $.ajax({
             url: url,
             success: function(lastMeasurements){
-                 var data = [];
+                var usageData = [];
                 var chart = RecentChart.chart;
         
                 for(var i=0;i<lastMeasurements.length;i++){
                     var record = lastMeasurements[i];
-                    data.push([Date.parse(record.timestamp),parseFloat(record.currentUsage)])
+                    var amount = parseFloat(record.currentUsage)-parseFloat(record.currentReturn);
+                    usageData.push([Date.parse(record.timestamp),amount]);
                 }
 
                 chart.yAxis[0].isDirty = true;
-                chart.series[0].setData(data, false);
+                chart.series[0].setData(usageData, false);
                 chart.redraw();
             }
         });
@@ -43,7 +35,7 @@ var RecentChart = {
 
         for(var i =0; i< lastMeasurements.length;i++){
             var lastMeasurement = lastMeasurements[i];
-            var currentUsage = parseFloat(lastMeasurement.currentUsage);
+            var amount = parseFloat(lastMeasurement.currentUsage) - parseFloat(lastMeasurement.currentReturn);
             var timestamp = new Date(lastMeasurement.timestamp);
 
             if(timestamp <= RecentChart.lastPoint){
@@ -52,7 +44,7 @@ var RecentChart = {
 
             var shift = RecentChart.chart.series[0].points.length >= 30;
             RecentChart.lastPoint = timestamp;
-            chart.series[0].addPoint({x:timestamp, y:currentUsage}, false, shift);
+            chart.series[0].addPoint({x:timestamp, y:amount}, false, shift);
         }
             
         chart.yAxis[0].isDirty = true;

@@ -26,7 +26,8 @@ def get_last_measurements(request, amount="1"):
     for measurement in reversed(last_measurements):
         model.append({
             'timestamp':measurement.timestamp,
-            'currentUsage':measurement.usage_current
+            'currentUsage':measurement.power_usage_current,
+            'currentReturn':measurement.power_supply_current
         })
 
     return JsonResponse(model, safe=False)

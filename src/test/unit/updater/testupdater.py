@@ -1,7 +1,7 @@
 # from collections import namedtuple
 #
 # from django.test import TestCase
-# from updater.dockercomponent import DockerComponent
+# from updater.DockerContainer import DockerContainer
 #
 # from updater.containers.dockerimagenameparser import DockerImageNameParser
 # from updater.updater import Updater
@@ -16,7 +16,7 @@
 #         Container = namedtuple('FakeDockerContainer', 'image')
 #         Image = namedtuple('FakeDockerImage', 'tags')
 #         updater = Updater()
-#         updater.updater = DockerComponent();
+#         updater.updater = DockerContainer();
 #         updater.updater.container = Container(Image(["blackhawkdesign/asmp-updater-linarm:latest"]))
 #
 #         return updater

@@ -1,7 +1,7 @@
 from datetime import datetime, timedelta
-from django.test import TestCase
 from core.services.statisticservice import StatisticService
 from core.models import Statistic, Meter
+from unittest import TestCase
 import pytz
 
 class StatisticServiceTestCase(TestCase):
@@ -16,18 +16,18 @@ class StatisticServiceTestCase(TestCase):
             {
                 "meter_id" : meter.id,
                 "timestamp_start" :datetime.now(pytz.utc).replace(tzinfo=pytz.utc),
-                "usage_start" : 500,
-                "usage_end" : 1000,
-                "return_start" : 400,
-                "return_end": 800
+                "power_usage_start" : 500,
+                "power_usage_end" : 1000,
+                "power_supply_start" : 400,
+                "power_supply_end": 800
             }
         ]
 
         StatisticService.create_statistics(aggregated_measurements)
         statistics = Statistic.objects.all()
         self.assertEqual(1,len(statistics))
-        self.assertEqual(500,statistics[0].usage_start)
-        self.assertEqual(1000,statistics[0].usage_end)
-        self.assertEqual(400,statistics[0].return_start)
-        self.assertEqual(800,statistics[0].return_end)
+        self.assertEqual(500,statistics[0].power_usage_start)
+        self.assertEqual(1000,statistics[0].power_usage_end)
+        self.assertEqual(400,statistics[0].power_supply_start)
+        self.assertEqual(800,statistics[0].power_supply_end)
 

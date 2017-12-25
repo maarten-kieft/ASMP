@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>ASMP - Dashboard</title>
+    <title>ASMP - {% block title%} {% endblock%}</title>
 
     <link href={% static 'web/libs/bootstrap/css/bootstrap.min.css'%} rel="stylesheet">
     <link href={% static 'web/libs/font-awesome/css/font-awesome.min.css'%} rel="stylesheet">
@@ -19,15 +19,20 @@
 <body>
     <div class="header">
         <div class="row">
-            <div class="col-xs-4">
+            <div class="col-xs-1">
                 <h1>ASMP</h1>
             </div>
-            <div class="col-xs-8">
-                    <p class="text-right">
-                        {% block headernotification %}
-                        {% endblock %}
-                    </p>
-            </div> 
+            <div class="col-xs-11">
+                <ul class="navigation-big">
+                    <li><a href="/">Dashboard</a></li>
+                    <li><a href="/logs">Log</a></li>
+                </ul>
+
+                <a class="navbar-toggler navbar-toggler-right" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="true" aria-label="Toggle navigation">
+                    <i class="fa fa-bars"></i>
+                </a>
+
+            </div>
         </div>
     </div>
     <div id="wrapper">
@@ -36,7 +41,7 @@
         </div>
         <div id="page-wrapper">
             {% block body %}
-            {% endblock %}            
+            {% endblock %}
         </div>
     </div>
     <div class="footer">

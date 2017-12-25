@@ -34,7 +34,7 @@ docker run -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/asmp:/usr/bi
 ```
 ```
 Linux 64BIT
-docker run -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-updater-linarm:latest
+docker run -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/asmp:/usr/bin/asmp/data  blackhawkdesign/asmp-updater-lin64:latest
 ```
 
 ### Full installation 
@@ -44,14 +44,13 @@ New to docker? These installation guides help you through the complete installat
 3. FUll installation for windows 64 bits (will follow soon)
 
 ## Roadmap
-1. Create an update mechanism
-2. Showing only recent measurements in recent chart / current chart. So only last 5 mins. Otherwise gray out
-3. Create docs for getting started on a pie
-4. Create docs for getting started on linux docker
-5. Creating a heartbeat local and remote
-6. Implement return charts
-7. Implement gas database changes
-8. Implement gas ui changes
+1. Showing only recent measurements in recent chart / current chart. So only last 5 mins. Otherwise gray out
+* Create docs for getting started on a pie
+* Implement gas database changes
+* Implement gas ui changes
+* Finish menu
+* Adding debugging log
+* Add feature check (has gas, power supply)
 
 ## FAQ
 Will follow soon ...

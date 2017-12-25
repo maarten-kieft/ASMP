@@ -26,10 +26,10 @@ class MeasurementService:
             .annotate(timestamp_start=Trunc('timestamp', 'hour'))
             .values('timestamp_start', 'meter_id')
             .annotate(
-                usage_start=Min('usage_total_low') + Min('usage_total_normal'),
-                usage_end=Max('usage_total_low') + Max('usage_total_normal'),
-                return_start=Min('return_total_low') + Min('return_total_normal'),
-                return_end=Max('return_total_low') + Max('return_total_normal')
+                power_usage_start=Min('power_usage_total_low') + Min('power_usage_total_normal'),
+                power_usage_end=Max('power_usage_total_low') + Max('power_usage_total_normal'),
+                power_supply_start=Min('power_supply_total_low') + Min('power_supply_total_normal'),
+                power_supply_end=Max('power_supply_total_low') + Max('power_supply_total_normal')
             )
         )
 
