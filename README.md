@@ -22,7 +22,7 @@ ASMP will use docker, to simplify the installation. This section describes the n
 ### Getting the hardware
 1. You need a serial cable to connect your device to the smart meter. You can create one yourself or buy one here:       
   https://www.sossolutions.nl/slimme-meter-kabel
-* Asmp needs to run on a pc capable of running docker. A Raspberry pi is 3 ideal for this. You can order one here:
+2, Asmp needs to run on a pc capable of running docker. A Raspberry pi is 3 ideal for this. You can order one here:
   https://www.sossolutions.nl/raspberry-pi-3b-starterkit?gclid=EAIaIQobChMIzbzskZ2l2AIVIgvTCh1akQKVEAQYASABEgI1vPD_BwE
 
 ### Docker quickstart
@@ -44,8 +44,8 @@ docker run -v /var/run/docker.sock:/var/run/docker.sock -v /usr/bin/asmp:/usr/bi
 
 ### Full installation raspberry pi
 New to docker? These installation guides help you through the complete installation process.
-1. [Setting up a raspberry pi](docs/install-pi.md)
-* [Installing ASMP](docs/install-asmp.md)
+1. [Setting up a raspberry pi](doc/install-pi.md)
+2. [Installing ASMP](doc/install-asmp.md)
 
 ## Roadmap
 1. Showing only recent measurements in recent chart / current chart. So only last 5 mins. Otherwise gray out
