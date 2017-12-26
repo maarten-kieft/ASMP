@@ -21,6 +21,8 @@ class StatisticService:
             power_usage_end=row["power_usage_end"],
             power_supply_start=row["power_supply_start"],
             power_supply_end=row["power_supply_end"],
+            gas_usage_start=row["gas_usage_start"],
+            gas_usage_end=row["gas_usage_end"]
         ) for row in aggregated_measurements]
 
         Statistic.objects.bulk_create(statistics)

@@ -25,13 +25,13 @@ class Parser:
 
     def parse_line(self, line):
         """Parses the line into a key and value"""
-        pattern = re.compile("^([^\(]*)\(([^\)]*)\)$")
+        pattern = re.compile("^([^\(]*)(\([^\)]*\))*\(([^\)]*)\)$")
         match = pattern.match(line)
-
+       
         if match is None:
             return None
 
-        return (match.group(1), match.group(2))
+        return (match.group(1), match.group(len(match.groups())))
 
     def parse_line_key(self, key_node):
         """Interprets the key of the line"""
@@ -42,16 +42,17 @@ class Parser:
             "1-0:2.8.1" : "power_supply_total_low",
             "1-0:2.8.2" : "power_supply_total_normal",
             "1-0:1.7.0" : "power_usage_current",
-            "1-0:2.7.0" : "power_supply_current"
+            "1-0:2.7.0" : "power_supply_current",
+            "0-1:24.2.1": "gas_usage_total"
         }
 
         return key_dictionary.get(key_node, None)
 
     def parse_line_value(self, key, value_node):
         """Interprets the value of the line"""
-        value_node = value_node.replace("*kWh", "").replace("*kW", "")
+        value_node = value_node.replace("*kWh", "").replace("*kW", "").replace("*m3", "")
 
-        if key is not None and ("usage_" in key or "return_" in key):
+        if key is not None and ("power_" in key or "gas_" in key):
             return Decimal(value_node)
 
         return value_node
