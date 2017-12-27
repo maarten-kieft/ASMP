@@ -36,6 +36,7 @@ var OverviewChart = function (container, initializedCallback,mode) {
 
             if (this.mode == "gas") {
                 $.extend(this.settings, dashboardBarChartGasDefaults);
+                this.settings.series.splice(1,1)
             }
 
             this.currentPeriod = this.periods[0];
@@ -95,7 +96,11 @@ var OverviewChart = function (container, initializedCallback,mode) {
 
             chart.yAxis[0].isDirty = true;
             chart.series[0].setData(usageData, false);
-            chart.series[1].setData(supplyData, false);
+
+            if (this.mode == "power") {
+                chart.series[1].setData(supplyData, false);
+            }
+            
             chart.redraw();
             this.container.find(".js-overview-chart-loader-overlay").addClass("hidden");
         },

@@ -98,6 +98,7 @@
     <Content Include="web\static\web\css\general.css" />
     <Content Include="web\static\web\js\app.js" />
     <Content Include="web\static\web\js\charts\areachart-defaults.js" />
+    <Content Include="web\static\web\js\charts\barchart-gas-defaults.js" />
     <Content Include="web\static\web\js\charts\barchart-defaults.js" />
     <Content Include="web\static\web\js\charts\donutchart-defaults.js" />
     <Content Include="web\static\web\js\dashboard-currentchart.js" />
