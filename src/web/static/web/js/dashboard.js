@@ -7,8 +7,10 @@
         LoadedComponents : [],
     },
     
-    Init : function(){
-        OverviewChart.init(Dashboard.ComponentIntiialized);
+    Init: function () {
+        powerOverviewChart = new OverviewChart("#js-power-overview-chart", Dashboard.ComponentIntiialized,"power");
+        gasOverviewChart = new OverviewChart("#js-gas-overview-chart", Dashboard.ComponentIntiialized,"gas");
+
         CurrentChart.init(Dashboard.ComponentIntiialized);
         RecentChart.init(Dashboard.ComponentIntiialized);
         Dashboard.Update();

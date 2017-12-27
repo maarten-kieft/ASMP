@@ -31,24 +31,50 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-xs-4">
-        <h3>Overview</h3>
+<div id="js-power-overview-chart">
+    <div class="row">
+        <div class="col-xs-4">
+            <h3>Power overview</h3>
+        </div>
+        <div class="col-xs-8">
+            <div class="overview-chart-navigation">
+                <i class="fa fa-angle-left js-overview-chart-prev" aria-hidden="true"></i>
+                <i class="fa fa-search-minus js-overview-chart-zoomout"></i>
+                <i class="fa fa-angle-right js-overview-chart-next" aria-hidden="true"></i>
+            </div>        
+        </div>
     </div>
-    <div class="col-xs-8">
-        <div class="overview-chart-navigation">
-            <i class="fa fa-angle-left" aria-hidden="true" id="js-overview-chart-prev"></i>
-            <i class="fa fa-search-minus" id="js-overview-chart-zoomout"></i>
-            <i class="fa fa-angle-right" aria-hidden="true" id="js-overview-chart-next"></i>
-        </div>        
+    <div class="row">
+        <div class="col-lg-12">
+              <div class="overview-chart-loader-overlay hidden js-overview-chart-loader-overlay">
+                  <div class="loader"></div>
+              </div>
+              <div class="js-overview-chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-lg-12">
-          <div id="js-overview-chart-loader-overlay" class="overview-chart-loader-overlay hidden">
-              <div class="loader"></div>
-          </div>
-          <div id="js-overview-chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+<div id="js-gas-overview-chart">
+    <div class="row">
+        <div class="col-xs-4">
+            <h3>Gas overview</h3>
+        </div>
+        <div class="col-xs-8">
+            <div class="overview-chart-navigation">
+                <i class="fa fa-angle-left js-overview-chart-prev" aria-hidden="true"></i>
+                <i class="fa fa-search-minus js-overview-chart-zoomout"></i>
+                <i class="fa fa-angle-right js-overview-chart-next" aria-hidden="true"></i>
+            </div>        
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+              <div class="overview-chart-loader-overlay hidden js-overview-chart-loader-overlay">
+                  <div class="loader"></div>
+              </div>
+              <div class="js-overview-chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
     </div>
 </div>
 <div class="row">
@@ -112,6 +138,7 @@
 <script src={% static 'web/js/charts/donutchart-defaults.js'%}></script>
 <script src={% static 'web/js/charts/areachart-defaults.js'%}></script>
 <script src={% static 'web/js/charts/barchart-defaults.js'%}></script>
+<script src={% static 'web/js/charts/barchart-gas-defaults.js'%}></script>
 {% endblock %}
     
 

@@ -39,8 +39,9 @@ class StatisticService:
                 .annotate(timestamp=Trunc('timestamp_start', period,tzinfo=get_current_timezone()))
                 .values('timestamp')
                 .annotate(
-                    total_usage=Max('power_usage_end')-Min('power_usage_start'),
-                    total_return=Max('power_supply_end')-Min('power_supply_start')
+                    power_total_usage=Max('power_usage_end')-Min('power_usage_start'),
+                    power_total_supply=Max('power_supply_end')-Min('power_supply_start'),
+                    gas_total_usage=Max('gas_usage_end')-Min('gas_usage_start')
                 ))
 
     @staticmethod
@@ -62,9 +63,9 @@ class StatisticService:
         
         cur_stats = list(filter(lambda s: s["timestamp"] == current, stats))
         prev_stats = list(filter(lambda s: s["timestamp"] == previous, stats))
-        min_stats = list(sorted(stats, key=lambda s: s["total_usage"]))
-        max_stats = list(sorted(stats, key=lambda s: s["total_usage"], reverse=True))
-        avg_stats = reduce(lambda x,s: x + s, (s["total_usage"] for s in stats)) if len(stats) > 0 else 0
+        min_stats = list(sorted(stats, key=lambda s: s["power_total_usage"]))
+        max_stats = list(sorted(stats, key=lambda s: s["power_total_usage"], reverse=True))
+        avg_stats = reduce(lambda x,s: x + s, (s["power_total_usage"] for s in stats)) if len(stats) > 0 else 0
         
         return {
             'current' : cur_stats[0] if len(cur_stats) > 0 else {"usage" : 0},

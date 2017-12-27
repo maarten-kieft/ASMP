@@ -40,7 +40,7 @@ var dashboardAreaChartDefaults =  {
     },
     yAxis: {
         title: {
-            text: 'KwH'
+            text: 'Kw'
         },
          plotLines: [{
             color: '#a5a5a5', // Color value

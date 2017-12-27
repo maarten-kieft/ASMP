@@ -26,9 +26,9 @@ var CurrentChart = {
 
     update : function(lastMeasurements){
         var lastMeasurement = lastMeasurements[0];
-        var currentUsage = parseFloat(lastMeasurement.currentUsage);
-        var currentReturn = parseFloat(lastMeasurement.currentReturn);
-        var amount = currentUsage - currentReturn ;
+        var currentUsage = parseFloat(lastMeasurement.powerCurrentUsage);
+        var currentSupply = parseFloat(lastMeasurement.powerCurrentSupply);
+        var amount = currentUsage - currentSupply  ;
         var color = amount < 0 ? "#4da74d" : "#2677B5";
 
         if(amount > CurrentChart.max){

@@ -5,7 +5,7 @@ var RecentChart = {
     init : function(initializedCallback) {
         RecentChart.chart = Highcharts.chart('js-recent-chart',dashboardAreaChartDefaults);
         RecentChart.load();
-        initializedCallback("overviewChart");
+        initializedCallback("recentChart");
     },
 
     load : function(period, startDate){
@@ -19,7 +19,7 @@ var RecentChart = {
         
                 for(var i=0;i<lastMeasurements.length;i++){
                     var record = lastMeasurements[i];
-                    var amount = parseFloat(record.currentUsage)-parseFloat(record.currentReturn);
+                    var amount = parseFloat(record.powerCurrentUsage)-parseFloat(record.powerCurrentSupply);
                     usageData.push([Date.parse(record.timestamp),amount]);
                 }
 
@@ -35,7 +35,7 @@ var RecentChart = {
 
         for(var i =0; i< lastMeasurements.length;i++){
             var lastMeasurement = lastMeasurements[i];
-            var amount = parseFloat(lastMeasurement.currentUsage) - parseFloat(lastMeasurement.currentReturn);
+            var amount = parseFloat(lastMeasurement.powerCurrentUsage) - parseFloat(lastMeasurement.powerCurrentSupply);
             var timestamp = new Date(lastMeasurement.timestamp);
 
             if(timestamp <= RecentChart.lastPoint){
