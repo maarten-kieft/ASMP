@@ -67,12 +67,14 @@ class StatisticService:
         max_stats = list(sorted(stats, key=lambda s: s["power_total_usage"], reverse=True))
         avg_stats = reduce(lambda x,s: x + s, (s["power_total_usage"] for s in stats)) if len(stats) > 0 else 0
         
+        empty_result = {"power_total_usage" : 0, "power_total_supply" : 0, "gas_total_usage" : 0}
+
         return {
-            'current' : cur_stats[0] if len(cur_stats) > 0 else {"usage" : 0},
-            'previous': prev_stats[0] if len(prev_stats) > 0 else {"usage" : 0},
-            'min': min_stats[0] if len(min_stats) > 0 else {"usage" : 0},
-            'max': max_stats[0] if len(max_stats) > 0 else {"usage" : 0},
-            'avg' : avg_stats / len(stats) if len(stats) > 0 else {"usage" : 0}
+            'current' : cur_stats[0] if len(cur_stats) > 0 else empty_result,
+            'previous': prev_stats[0] if len(prev_stats) > 0 else empty_result,
+            'min': min_stats[0] if len(min_stats) > 0 else empty_result,
+            'max': max_stats[0] if len(max_stats) > 0 else empty_result,
+            'avg' : avg_stats / len(stats) if len(stats) > 0 else empty_result
         }
     
 

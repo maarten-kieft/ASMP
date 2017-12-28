@@ -87,7 +87,7 @@
         <table class="table statistics-table">
             <thead>
                 <tr>
-                    <th><span class="usage-color">Usage</span></th>
+                    <th><span class="usage-color">Power usage</span></th>
                     <th>Day</th>
                     <th>Month</th>
                     <th>Year</th>
@@ -96,15 +96,15 @@
             <tbody>
             <tr>
                 <td>Current</td>
-                <td>{{ model.day_stats.current.usage|floatformat:2 }} kWh</td>
-                <td>{{ model.month_stats.current.usage|floatformat:2 }} kWh</td>
-                <td>{{ model.year_stats.current.usage|floatformat:2 }} kWh</td>
+                <td>{{ model.day_stats.current.power_total_usage|floatformat:2 }} kWh</td>
+                <td>{{ model.month_stats.current.power_total_usage|floatformat:2 }} kWh</td>
+                <td>{{ model.year_stats.current.power_total_usage|floatformat:2 }} kWh</td>
             </tr>
             <tr id="js-stats-previous-row">
                 <td>Previous</td>
-                <td>{{ model.day_stats.previous.usage|floatformat:2 }} kWh</td>
-                <td>{{ model.month_stats.previous.usage|floatformat:2 }} kWh</td>
-                <td>{{ model.year_stats.previous.usage|floatformat:2 }} kWh</td>
+                <td>{{ model.day_stats.previous.power_total_usage|floatformat:2 }} kWh</td>
+                <td>{{ model.month_stats.previous.power_total_usage|floatformat:2 }} kWh</td>
+                <td>{{ model.year_stats.previous.power_total_usage|floatformat:2 }} kWh</td>
             </tr>
             <tr id="js-stats-avg-row">
                 <td>Average</td>
@@ -114,15 +114,15 @@
             </tr>
             <tr id="js-stats-max-row">
                 <td>Highest</td>
-                <td>{{ model.day_stats.max.usage|floatformat:2 }} kWh ({{ model.day_stats.max.timestamp|date:"d-m-Y" }})</td>
-                <td>{{ model.month_stats.max.usage|floatformat:2}} kWh ({{ model.month_stats.max.timestamp|date:"M Y" }})</td>
-                <td>{{ model.year_stats.max.usage|floatformat:2}} kWh ({{ model.year_stats.max.timestamp|date:"Y" }})</td>
+                <td>{{ model.day_stats.max.power_total_usage|floatformat:2 }} kWh ({{ model.day_stats.max.timestamp|date:"d-m-Y" }})</td>
+                <td>{{ model.month_stats.max.power_total_usage|floatformat:2}} kWh ({{ model.month_stats.max.timestamp|date:"M Y" }})</td>
+                <td>{{ model.year_stats.max.power_total_usage|floatformat:2}} kWh ({{ model.year_stats.max.timestamp|date:"Y" }})</td>
             </tr>
             <tr id="js-stats-min-row">
                 <td>Lowest</td>
-                <td>{{ model.day_stats.min.usage|floatformat:2}} kWh ({{ model.day_stats.min.timestamp|date:"d-m-Y" }})</td>
-                <td>{{ model.month_stats.min.usage|floatformat:2}} kWh ({{ model.month_stats.min.timestamp|date:"M Y" }})</td>
-                <td>{{ model.year_stats.min.usage|floatformat:2}} kWh ({{ model.year_stats.min.timestamp|date:"Y" }})</td>
+                <td>{{ model.day_stats.min.power_total_usage|floatformat:2}} kWh ({{ model.day_stats.min.timestamp|date:"d-m-Y" }})</td>
+                <td>{{ model.month_stats.min.power_total_usage|floatformat:2}} kWh ({{ model.month_stats.min.timestamp|date:"M Y" }})</td>
+                <td>{{ model.year_stats.min.power_total_usage|floatformat:2}} kWh ({{ model.year_stats.min.timestamp|date:"Y" }})</td>
             </tr>
             </tbody>
         </table>
