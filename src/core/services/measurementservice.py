@@ -29,7 +29,9 @@ class MeasurementService:
                 power_usage_start=Min('power_usage_total_low') + Min('power_usage_total_normal'),
                 power_usage_end=Max('power_usage_total_low') + Max('power_usage_total_normal'),
                 power_supply_start=Min('power_supply_total_low') + Min('power_supply_total_normal'),
-                power_supply_end=Max('power_supply_total_low') + Max('power_supply_total_normal')
+                power_supply_end=Max('power_supply_total_low') + Max('power_supply_total_normal'),
+                gas_usage_start=Min('gas_usage_total'),
+                gas_usage_end=Max('gas_usage_total'),
             )
         )
 
