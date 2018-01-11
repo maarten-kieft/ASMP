@@ -32,6 +32,10 @@ var OverviewChart = function (container, initializedCallback,mode) {
         },
 
         init: function () {
+            if (this.container.length === 0) {
+                return;
+            }
+
             $.extend(this.settings, dashboardBarChartDefaults);
 
             if (this.mode == "gas") {

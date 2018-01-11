@@ -45,3 +45,21 @@ class MeasurementService:
             archive_threshold = last_archived["timestamp"]
 
         Measurement.objects.filter(timestamp__lt=archive_threshold).delete()
+
+    @staticmethod
+    def get_measured_compoments():
+        """Calculates an end date based on a start date and period"""
+        resultSet = Measurement.objects.all().annotate(
+                        max_power_supply=Max('power_supply_total_low') + Max('power_supply_total_normal'),
+                        max_gas_usage=Max('gas_usage_total')
+                    )
+        
+        if(len(resultSet) > 0):
+            return {
+                "has_gas" : resultSet[0].max_gas_usage > 0,
+                "has_supply": resultSet[0].max_power_supply > 0
+            }
+
+        return { "has_gas" : False, "has_supply": False}
+        
+    

@@ -76,5 +76,5 @@ class StatisticService:
             'max': max_stats[0] if len(max_stats) > 0 else empty_result,
             'avg' : avg_stats / len(stats) if len(stats) > 0 else empty_result
         }
-    
+
 

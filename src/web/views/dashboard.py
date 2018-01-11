@@ -2,11 +2,13 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from core.models import Measurement
 from core.services.statisticservice import StatisticService
+from core.services.measurementservice import MeasurementService
 
 def index(request):
     """Returns the dashboard"""
 
     model = {
+        'components' : MeasurementService.get_measured_compoments(),
         'day_stats' : StatisticService.get_statistics_summary("day"),
         'month_stats' : StatisticService.get_statistics_summary("month"),
         'year_stats' : StatisticService.get_statistics_summary("year")

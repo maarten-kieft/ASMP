@@ -53,7 +53,7 @@
         </div>
     </div>
 </div>
-
+{% if model.components.has_gas == True %}
 <div id="js-gas-overview-chart">
     <div class="row">
         <div class="col-xs-4">
@@ -70,13 +70,14 @@
 
     <div class="row">
         <div class="col-lg-12">
-              <div class="overview-chart-loader-overlay hidden js-overview-chart-loader-overlay">
-                  <div class="loader"></div>
-              </div>
-              <div class="js-overview-chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+            <div class="overview-chart-loader-overlay hidden js-overview-chart-loader-overlay">
+                <div class="loader"></div>
+            </div>
+            <div class="js-overview-chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
         </div>
     </div>
 </div>
+{% endif %}
 <div class="row">
     <div class="col-xs-12">
         <h3>Statistics</h3>
