@@ -163,15 +163,15 @@
             </tr>
             <tr id="js-stats-max-row">
                 <td>Highest</td>
-                <td>{{ model.day_stats.gas_usage_max.power_total_usage|floatformat:2 }} m3 ({{ model.day_stats.gas_usage_max.timestamp|date:"d-m-Y" }})</td>
-                <td>{{ model.month_stats.gas_usage_max.power_total_usage|floatformat:2}} m3 ({{ model.month_stats.gas_usage_max.timestamp|date:"M Y" }})</td>
-                <td>{{ model.year_stats.gas_usage_max.power_total_usage|floatformat:2}} m3 ({{ model.year_stats.gas_usage_max.timestamp|date:"Y" }})</td>
+                <td>{{ model.day_stats.gas_usage_max.gas_total_usage|floatformat:2 }} m3 ({{ model.day_stats.gas_usage_max.timestamp|date:"d-m-Y" }})</td>
+                <td>{{ model.month_stats.gas_usage_max.gas_total_usage|floatformat:2}} m3 ({{ model.month_stats.gas_usage_max.timestamp|date:"M Y" }})</td>
+                <td>{{ model.year_stats.gas_usage_max.gas_total_usage|floatformat:2}} m3 ({{ model.year_stats.gas_usage_max.timestamp|date:"Y" }})</td>
             </tr>
             <tr id="js-stats-min-row">
                 <td>Lowest</td>
-                <td>{{ model.day_stats.gas_usage_min.power_total_usage|floatformat:2}} m3 ({{ model.day_stats.gas_usage_min.timestamp|date:"d-m-Y" }})</td>
-                <td>{{ model.month_stats.gas_usage_min.power_total_usage|floatformat:2}} m3 ({{ model.month_stats.gas_usage_min.timestamp|date:"M Y" }})</td>
-                <td>{{ model.year_stats.gas_usage_min.power_total_usage|floatformat:2}} m3 ({{ model.year_stats.gas_usage_min.timestamp|date:"Y" }})</td>
+                <td>{{ model.day_stats.gas_usage_min.gas_total_usage|floatformat:2}} m3 ({{ model.day_stats.gas_usage_min.timestamp|date:"d-m-Y" }})</td>
+                <td>{{ model.month_stats.gas_usage_min.gas_total_usage|floatformat:2}} m3 ({{ model.month_stats.gas_usage_min.timestamp|date:"M Y" }})</td>
+                <td>{{ model.year_stats.gas_usage_min.gas_total_usage|floatformat:2}} m3 ({{ model.year_stats.gas_usage_min.timestamp|date:"Y" }})</td>
             </tr>
             </tbody>
         </table>

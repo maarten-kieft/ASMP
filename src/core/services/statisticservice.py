@@ -60,7 +60,7 @@ class StatisticService:
         current = PeriodCalculator.calculate_start_date(period)
         previous = PeriodCalculator.calculate_end_date(current,period,True)
         stats = StatisticService.get_aggregated_statistics(period)
-        
+       
         cur_stats = list(filter(lambda s: s["timestamp"] == current, stats))
         prev_stats = list(filter(lambda s: s["timestamp"] == previous, stats))
         power_usage_min_stats = list(sorted(stats, key=lambda s: s["power_total_usage"]))
