@@ -63,18 +63,24 @@ class StatisticService:
         
         cur_stats = list(filter(lambda s: s["timestamp"] == current, stats))
         prev_stats = list(filter(lambda s: s["timestamp"] == previous, stats))
-        min_stats = list(sorted(stats, key=lambda s: s["power_total_usage"]))
-        max_stats = list(sorted(stats, key=lambda s: s["power_total_usage"], reverse=True))
-        avg_stats = reduce(lambda x,s: x + s, (s["power_total_usage"] for s in stats)) if len(stats) > 0 else 0
-        
+        power_usage_min_stats = list(sorted(stats, key=lambda s: s["power_total_usage"]))
+        power_usage_max_stats = list(sorted(stats, key=lambda s: s["power_total_usage"], reverse=True))
+        power_usage_avg_stats = reduce(lambda x,s: x + s, (s["power_total_usage"] for s in stats)) if len(stats) > 0 else 0
+        gas_usage_min_stats = list(sorted(stats, key=lambda s: s["gas_total_usage"]))
+        gas_usage_max_stats = list(sorted(stats, key=lambda s: s["gas_total_usage"], reverse=True))
+        gas_usage_avg_stats = reduce(lambda x,s: x + s, (s["gas_total_usage"] for s in stats)) if len(stats) > 0 else 0
+
         empty_result = {"power_total_usage" : 0, "power_total_supply" : 0, "gas_total_usage" : 0}
 
         return {
             'current' : cur_stats[0] if len(cur_stats) > 0 else empty_result,
             'previous': prev_stats[0] if len(prev_stats) > 0 else empty_result,
-            'min': min_stats[0] if len(min_stats) > 0 else empty_result,
-            'max': max_stats[0] if len(max_stats) > 0 else empty_result,
-            'avg' : avg_stats / len(stats) if len(stats) > 0 else empty_result
+            'power_usage_min': power_usage_min_stats[0] if len(power_usage_min_stats) > 0 else 0,
+            'power_usage_max': power_usage_max_stats[0] if len(power_usage_max_stats) > 0 else 0,
+            'power_usage_avg' : power_usage_avg_stats / len(stats) if len(stats) > 0 else 0,
+            'gas_usage_min': gas_usage_min_stats[0] if len(gas_usage_min_stats) > 0 else 0,
+            'gas_usage_max': gas_usage_max_stats[0] if len(gas_usage_max_stats) > 0 else 0,
+            'gas_usage_avg' : gas_usage_avg_stats / len(stats) if len(stats) > 0 else 0
         }
 
 
