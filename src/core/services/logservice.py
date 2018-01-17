@@ -9,7 +9,8 @@ class LogService:
     @staticmethod
     def log_debug(module, text):
         """Logs a debug message into the database"""
-        LogService.log(module, "debug", text)
+        #LogService.log(module, "debug", text)
+        return
 
     @staticmethod
     def log_info(module, text):

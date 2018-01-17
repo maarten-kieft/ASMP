@@ -50,8 +50,12 @@ body {
     padding-right: 30px;
 }
 
-.usage-color {
+.power-usage-color {
     color:#337ab7;
+}
+
+.gas-usage-color {
+    color: #d9534f;
 }
 
 .loader {

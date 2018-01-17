@@ -31,26 +31,53 @@
         </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-xs-4">
-        <h3>Overview</h3>
+<div id="js-power-overview-chart">
+    <div class="row">
+        <div class="col-xs-4">
+            <h3>Power overview</h3>
+        </div>
+        <div class="col-xs-8">
+            <div class="overview-chart-navigation">
+                <i class="fa fa-angle-left js-overview-chart-prev" aria-hidden="true"></i>
+                <i class="fa fa-search-minus js-overview-chart-zoomout"></i>
+                <i class="fa fa-angle-right js-overview-chart-next" aria-hidden="true"></i>
+            </div>        
+        </div>
     </div>
-    <div class="col-xs-8">
-        <div class="overview-chart-navigation">
-            <i class="fa fa-angle-left" aria-hidden="true" id="js-overview-chart-prev"></i>
-            <i class="fa fa-search-minus" id="js-overview-chart-zoomout"></i>
-            <i class="fa fa-angle-right" aria-hidden="true" id="js-overview-chart-next"></i>
-        </div>        
+    <div class="row">
+        <div class="col-lg-12">
+              <div class="overview-chart-loader-overlay hidden js-overview-chart-loader-overlay">
+                  <div class="loader"></div>
+              </div>
+              <div class="js-overview-chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
     </div>
 </div>
-<div class="row">
-    <div class="col-lg-12">
-          <div id="js-overview-chart-loader-overlay" class="overview-chart-loader-overlay hidden">
-              <div class="loader"></div>
-          </div>
-          <div id="js-overview-chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+{% if model.components.has_gas == True %}
+<div id="js-gas-overview-chart">
+    <div class="row">
+        <div class="col-xs-4">
+            <h3>Gas overview</h3>
+        </div>
+        <div class="col-xs-8">
+            <div class="overview-chart-navigation">
+                <i class="fa fa-angle-left js-overview-chart-prev" aria-hidden="true"></i>
+                <i class="fa fa-search-minus js-overview-chart-zoomout"></i>
+                <i class="fa fa-angle-right js-overview-chart-next" aria-hidden="true"></i>
+            </div>        
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="overview-chart-loader-overlay hidden js-overview-chart-loader-overlay">
+                <div class="loader"></div>
+            </div>
+            <div class="js-overview-chart" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+        </div>
     </div>
 </div>
+{% endif %}
 <div class="row">
     <div class="col-xs-12">
         <h3>Statistics</h3>
@@ -60,8 +87,56 @@
     <div class="col-xs-12">
         <table class="table statistics-table">
             <thead>
+            <tr>
+                <th><span class="power-usage-color">Power usage</span></th>
+                <th>Day</th>
+                <th>Month</th>
+                <th>Year</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>Current</td>
+                <td>{{ model.day_stats.current.power_total_usage|floatformat:2 }} kWh</td>
+                <td>{{ model.month_stats.current.power_total_usage|floatformat:2 }} kWh</td>
+                <td>{{ model.year_stats.current.power_total_usage|floatformat:2 }} kWh</td>
+            </tr>
+            <tr id="js-stats-previous-row">
+                <td>Previous</td>
+                <td>{{ model.day_stats.previous.power_total_usage|floatformat:2 }} kWh</td>
+                <td>{{ model.month_stats.previous.power_total_usage|floatformat:2 }} kWh</td>
+                <td>{{ model.year_stats.previous.power_total_usage|floatformat:2 }} kWh</td>
+            </tr>
+            <tr id="js-stats-avg-row">
+                <td>Average</td>
+                <td>{{ model.day_stats.power_usage_avg|floatformat:2 }} kWh</td>
+                <td>{{ model.month_stats.power_usage_avg|floatformat:2 }} kWh</td>
+                <td>{{ model.year_stats.power_usage_avg|floatformat:2}} kWh</td>
+            </tr>
+            <tr id="js-stats-max-row">
+                <td>Highest</td>
+                <td>{{ model.day_stats.power_usage_max.power_total_usage|floatformat:2 }} kWh ({{ model.day_stats.power_usage_max.timestamp|date:"d-m-Y" }})</td>
+                <td>{{ model.month_stats.power_usage_max.power_total_usage|floatformat:2}} kWh ({{ model.month_stats.power_usage_max.timestamp|date:"M Y" }})</td>
+                <td>{{ model.year_stats.power_usage_max.power_total_usage|floatformat:2}} kWh ({{ model.year_stats.power_usage_max.timestamp|date:"Y" }})</td>
+            </tr>
+            <tr id="js-stats-min-row">
+                <td>Lowest</td>
+                <td>{{ model.day_stats.power_usage_min.power_total_usage|floatformat:2}} kWh ({{ model.day_stats.power_usage_min.timestamp|date:"d-m-Y" }})</td>
+                <td>{{ model.month_stats.power_usage_min.power_total_usage|floatformat:2}} kWh ({{ model.month_stats.power_usage_min.timestamp|date:"M Y" }})</td>
+                <td>{{ model.year_stats.power_usage_min.power_total_usage|floatformat:2}} kWh ({{ model.year_stats.power_usage_min.timestamp|date:"Y" }})</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% if model.components.has_gas == True %}
+<div class="row">
+    <div class="col-xs-12">
+        <table class="table statistics-table">
+            <thead>
                 <tr>
-                    <th><span class="usage-color">Usage</span></th>
+                    <th><span class="gas-usage-color">Gas usage</span></th>
                     <th>Day</th>
                     <th>Month</th>
                     <th>Year</th>
@@ -70,38 +145,40 @@
             <tbody>
             <tr>
                 <td>Current</td>
-                <td>{{ model.day_stats.current.usage|floatformat:2 }} kWh</td>
-                <td>{{ model.month_stats.current.usage|floatformat:2 }} kWh</td>
-                <td>{{ model.year_stats.current.usage|floatformat:2 }} kWh</td>
+                <td>{{ model.day_stats.current.gas_total_usage|floatformat:2 }} m3</td>
+                <td>{{ model.month_stats.current.gas_total_usage|floatformat:2 }} m3</td>
+                <td>{{ model.year_stats.current.gas_total_usage|floatformat:2 }} m3</td>
             </tr>
             <tr id="js-stats-previous-row">
                 <td>Previous</td>
-                <td>{{ model.day_stats.previous.usage|floatformat:2 }} kWh</td>
-                <td>{{ model.month_stats.previous.usage|floatformat:2 }} kWh</td>
-                <td>{{ model.year_stats.previous.usage|floatformat:2 }} kWh</td>
+                <td>{{ model.day_stats.previous.gas_total_usage|floatformat:2 }} m3</td>
+                <td>{{ model.month_stats.previous.gas_total_usage|floatformat:2 }} m3</td>
+                <td>{{ model.year_stats.previous.gas_total_usage|floatformat:2 }} m3</td>
             </tr>
             <tr id="js-stats-avg-row">
                 <td>Average</td>
-                <td>{{ model.day_stats.avg|floatformat:2 }} kWh</td>
-                <td>{{ model.month_stats.avg|floatformat:2 }} kWh</td>
-                <td>{{ model.year_stats.avg|floatformat:2}} kWh</td>
+                <td>{{ model.day_stats.gas_usage_avg|floatformat:2 }} m3</td>
+                <td>{{ model.month_stats.gas_usage_avg|floatformat:2 }} m3</td>
+                <td>{{ model.year_stats.gas_usage_avg|floatformat:2}} m3</td>
             </tr>
             <tr id="js-stats-max-row">
                 <td>Highest</td>
-                <td>{{ model.day_stats.max.usage|floatformat:2 }} kWh ({{ model.day_stats.max.timestamp|date:"d-m-Y" }})</td>
-                <td>{{ model.month_stats.max.usage|floatformat:2}} kWh ({{ model.month_stats.max.timestamp|date:"M Y" }})</td>
-                <td>{{ model.year_stats.max.usage|floatformat:2}} kWh ({{ model.year_stats.max.timestamp|date:"Y" }})</td>
+                <td>{{ model.day_stats.gas_usage_max.gas_total_usage|floatformat:2 }} m3 ({{ model.day_stats.gas_usage_max.timestamp|date:"d-m-Y" }})</td>
+                <td>{{ model.month_stats.gas_usage_max.gas_total_usage|floatformat:2}} m3 ({{ model.month_stats.gas_usage_max.timestamp|date:"M Y" }})</td>
+                <td>{{ model.year_stats.gas_usage_max.gas_total_usage|floatformat:2}} m3 ({{ model.year_stats.gas_usage_max.timestamp|date:"Y" }})</td>
             </tr>
             <tr id="js-stats-min-row">
                 <td>Lowest</td>
-                <td>{{ model.day_stats.min.usage|floatformat:2}} kWh ({{ model.day_stats.min.timestamp|date:"d-m-Y" }})</td>
-                <td>{{ model.month_stats.min.usage|floatformat:2}} kWh ({{ model.month_stats.min.timestamp|date:"M Y" }})</td>
-                <td>{{ model.year_stats.min.usage|floatformat:2}} kWh ({{ model.year_stats.min.timestamp|date:"Y" }})</td>
+                <td>{{ model.day_stats.gas_usage_min.gas_total_usage|floatformat:2}} m3 ({{ model.day_stats.gas_usage_min.timestamp|date:"d-m-Y" }})</td>
+                <td>{{ model.month_stats.gas_usage_min.gas_total_usage|floatformat:2}} m3 ({{ model.month_stats.gas_usage_min.timestamp|date:"M Y" }})</td>
+                <td>{{ model.year_stats.gas_usage_min.gas_total_usage|floatformat:2}} m3 ({{ model.year_stats.gas_usage_min.timestamp|date:"Y" }})</td>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
+{% endif %}
+
 {% endblock %}
 
 {% block scripts %}
@@ -112,6 +189,7 @@
 <script src={% static 'web/js/charts/donutchart-defaults.js'%}></script>
 <script src={% static 'web/js/charts/areachart-defaults.js'%}></script>
 <script src={% static 'web/js/charts/barchart-defaults.js'%}></script>
+<script src={% static 'web/js/charts/barchart-gas-defaults.js'%}></script>
 {% endblock %}
     
 

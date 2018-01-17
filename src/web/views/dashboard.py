@@ -2,11 +2,13 @@ from django.http import JsonResponse
 from django.shortcuts import render
 from core.models import Measurement
 from core.services.statisticservice import StatisticService
+from core.services.measurementservice import MeasurementService
 
 def index(request):
     """Returns the dashboard"""
 
     model = {
+        'components' : MeasurementService.get_measured_compoments(),
         'day_stats' : StatisticService.get_statistics_summary("day"),
         'month_stats' : StatisticService.get_statistics_summary("month"),
         'year_stats' : StatisticService.get_statistics_summary("year")
@@ -26,8 +28,8 @@ def get_last_measurements(request, amount="1"):
     for measurement in reversed(last_measurements):
         model.append({
             'timestamp':measurement.timestamp,
-            'currentUsage':measurement.power_usage_current,
-            'currentReturn':measurement.power_supply_current
+            'powerCurrentUsage':measurement.power_usage_current,
+            'powerCurrentSupply':measurement.power_supply_current
         })
 
     return JsonResponse(model, safe=False)

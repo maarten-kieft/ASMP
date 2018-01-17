@@ -35,7 +35,7 @@ var dashboardBarChartDefaults =  {
         plotLines: [{
             color: '#a5a5a5',
             value: 0,
-            width: 2,
+            width: 1,
             zIndex: 5
           }
         ]
