@@ -7,11 +7,23 @@
 {% block body %}
 
 {% regroup messages by module as message_groups %}
-
+<h2>Meter message format</h2>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="console">
+            {%for line in message_format%}
+                <span class="message">
+                    {{ line }}
+                </span>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+<h2>Logs</h2>
 <div class="row">
     {%for message_group in message_groups%}
         <div class="col-md-12 col-xs-12">
-            <h3>{{ message_group.grouper|title }}</h4>
+            <h4>{{ message_group.grouper|title }}</h4>
 
             <div class="console">
                 {% for message in message_group.list %}
