@@ -1,6 +1,6 @@
 from core.services.measurementservice import MeasurementService
 from core.services.logservice import LogService
-from core.service.applicationservice import ApplicationService
+from core.services.applicationservice import ApplicationService
 from processor.io.connector import Connector
 from processor.parsing.parser import Parser
 

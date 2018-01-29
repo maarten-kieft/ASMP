@@ -13,3 +13,14 @@ class ApplicationServiceTestCase(TestCase):
 
             self.assertEqual(id1,id2)
 
+    def test_save_meter_message_format(self):
+        
+        with transaction.atomic():
+            input = ["line1","line2"]
+            ApplicationService.save_meter_message_format(input)
+            output = ApplicationService.get_meter_message_format()
+            
+            self.assertEqual(2, len(output))
+            self.assertEqual("line1", output[0])
+            self.assertEqual("line2", output[1])
+

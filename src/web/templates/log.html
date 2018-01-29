@@ -2,24 +2,12 @@
 {% load static %}
 {% load dictionaryfilter %}
 
-{% block title %}Status{% endblock %}
+{% block title %}Log{% endblock %}
 
 {% block body %}
 
 {% regroup messages by module as message_groups %}
-<h2>Meter message format</h2>
-<div class="row">
-    <div class="col-xs-12">
-        <div class="console">
-            {%for line in message_format%}
-                <span class="message">
-                    {{ line }}
-                </span>
-            {% endfor %}
-        </div>
-    </div>
-</div>
-<h2>Logs</h2>
+<h2>Log</h2>
 <div class="row">
     {%for message_group in message_groups%}
         <div class="col-md-12 col-xs-12">

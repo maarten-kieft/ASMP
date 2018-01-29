@@ -18,7 +18,7 @@ class ApplicationService:
     def save_meter_message_format(message):
         """Saved the received """
         concattedMessage =  "|".join(message)
-        Setting.objects.get_or_create(name="raw_meter_message",value=message)
+        Setting.objects.update_or_create(name="raw_meter_message",defaults = {"value": concattedMessage})
 
     @staticmethod
     def get_meter_message_format():
@@ -27,5 +27,5 @@ class ApplicationService:
 
         if(message_format is None):
             return []
-
+       
         return message_format.value.split("|")
