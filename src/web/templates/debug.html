@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load dictionaryfilter %}
+
+{% block title %}Debug{% endblock %}
+
+{% block body %}
+
+<h2>Debug</h2>
+<h4>Meter message format</h4>
+<div class="row">
+    <div class="col-xs-12">
+        <div class="console">
+            {%for line in message_format%}
+                <span class="message">
+                    {{ line }}
+                </span>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+    
+
+
+
+

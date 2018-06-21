@@ -13,3 +13,19 @@ class ApplicationService:
             return result[0].value
 
         return Setting.objects.create(name="application_id", value=uuid.uuid4().hex).value
+
+    @staticmethod
+    def save_meter_message_format(message):
+        """Saved the received """
+        concattedMessage =  "|".join(message)
+        Setting.objects.update_or_create(name="raw_meter_message",defaults = {"value": concattedMessage})
+
+    @staticmethod
+    def get_meter_message_format():
+        """Saved the received """
+        message_format = Setting.objects.get(name="raw_meter_message")
+
+        if(message_format is None):
+            return []
+       
+        return message_format.value.split("|")

@@ -49,15 +49,12 @@ class MeasurementService:
     @staticmethod
     def get_measured_compoments():
         """Calculates an end date based on a start date and period"""
-        resultSet = Measurement.objects.all().annotate(
-                        max_power_supply=Max('power_supply_total_low') + Max('power_supply_total_normal'),
-                        max_gas_usage=Max('gas_usage_total')
-                    )
-        
-        if(len(resultSet) > 0):
+        latest_measurement = Measurement.objects.latest(field_name="timestamp")
+
+        if(latest_measurement is not None):
             return {
-                "has_gas" : resultSet[0].max_gas_usage > 0,
-                "has_supply": resultSet[0].max_power_supply > 0
+                "has_gas" : latest_measurement.gas_usage_total > 0,
+                "has_supply": latest_measurement.power_supply_total_low + latest_measurement.power_supply_total_normal > 0
             }
 
         return { "has_gas" : False, "has_supply": False}

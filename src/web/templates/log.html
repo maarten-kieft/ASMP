@@ -2,16 +2,16 @@
 {% load static %}
 {% load dictionaryfilter %}
 
-{% block title %}Status{% endblock %}
+{% block title %}Log{% endblock %}
 
 {% block body %}
 
 {% regroup messages by module as message_groups %}
-
+<h2>Log</h2>
 <div class="row">
     {%for message_group in message_groups%}
         <div class="col-md-12 col-xs-12">
-            <h3>{{ message_group.grouper|title }}</h4>
+            <h4>{{ message_group.grouper|title }}</h4>
 
             <div class="console">
                 {% for message in message_group.list %}

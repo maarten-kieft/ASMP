@@ -1,5 +1,4 @@
-from web.views import dashboard
-from web.views import log
+from web.views import dashboard, log, debug
 from django.conf.urls import url
 
 urlpatterns = [
@@ -26,7 +25,12 @@ urlpatterns = [
     url(
         r'^log'
         , log.index
-        , name='status'
+        , name='log'
+    ),
+     url(
+        r'^debug'
+        , debug.index
+        , name='debug'
     ),
     url(
         r'^$'

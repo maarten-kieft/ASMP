@@ -1,8 +1,8 @@
 from core.services.measurementservice import MeasurementService
 from core.services.logservice import LogService
+from core.services.applicationservice import ApplicationService
 from processor.io.connector import Connector
 from processor.parsing.parser import Parser
-
 
 class Processor:
     """"Class responsible for listening for serial messages, interpreting and storing them"""
@@ -10,6 +10,7 @@ class Processor:
     parser = Parser()
     connector = Connector()
     connection_initialized = False
+    message_format_saved = False
 
     def start(self):
         """Starting the processor to listen for message, interpret and store them"""
@@ -45,6 +46,10 @@ class Processor:
         #skipping the first message, it seems to be competely broken
         if self.connection_initialized:
             LogService.log_debug("processor","received new message:")
+
+            if(self.message_format_saved == False):
+                ApplicationService.save_meter_message_format(message)
+                self.message_format_saved = True
 
             for line in message:
                 LogService.log_debug("Processor",line)

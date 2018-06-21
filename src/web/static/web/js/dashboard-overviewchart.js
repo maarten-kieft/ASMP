@@ -113,6 +113,10 @@ var OverviewChart = function (container, initializedCallback,mode) {
             var newPeriod = this.getNewPeriod("next");
             var startDate = Highcharts.dateFormat('%Y-%m-%d', e.x);
 
+			if (this.currentPeriod === newPeriod) {
+			  return;
+			}
+
             this.currentPeriod = newPeriod;
             this.startDate = moment(startDate, "YYYY-MM-DD")
             this.load(newPeriod, startDate)
